@@ -14,7 +14,24 @@ class ViewController: UIViewController {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
   }
-
-
+  override func viewWillAppear(_ animated: Bool) {
+    <#code#>
+  }
+  override func viewDidAppear(_ animated: Bool) {
+    <#code#>
+  }
+  override func viewDidLayoutSubviews() {
+    <#code#>
+  }
+  override func viewWillLayoutSubviews() {
+    <#code#>
+  }
+  override func viewWillDisappear(_ animated: Bool) {
+    <#code#>
+  }
+  override func viewDidDisappear(_ animated: Bool) {
+    <#code#>
+  }
 }
+
 
