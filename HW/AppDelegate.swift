@@ -13,6 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    //Включение и выключение вывода в консоль
     StruckOfLog.isLogging = true
     Log.check("Application moved from Not Running to Inactive: \(#function)")
     return true
