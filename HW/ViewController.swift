@@ -9,34 +9,36 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     // Do any additional setup after loading the view, typically from a nib.
+    Log.check("Is logging = \(StruckOfLog.isLogging)")
   }
   override func viewWillAppear(_ animated: Bool) {
-    print("Application moved from DidLoad to Appearing: \(#function)")
+    Log.check("Application moved from DidLoad to Appearing: \(#function)")
   }
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(true)
-   print("Application moved from DidLayoutSubviews to Appeared: \(#function)")
+   Log.check("Application moved from DidLayoutSubviews to Appeared: \(#function)")
   }
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    print("Application moved from Appearing to WillLayoutSubviews: \(#function)")
+    Log.check("Application moved from Appearing to WillLayoutSubviews: \(#function)")
   }
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    print("Application moved from WillLayoutSubviews to DidLayoutSubviews: \(#function)")
+    Log.check("Application moved from WillLayoutSubviews to DidLayoutSubviews: \(#function)")
   }
 
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(true)
-    print("5")
+    Log.check("5")
   }
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(true)
-    print("6")
+    Log.check("6")
   }
 }
 
