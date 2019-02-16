@@ -9,17 +9,16 @@
 import UIKit
 
 
-struct StruckOfLog {
-  static var isLogging = false
-}
-
-final class Logging: NSObject {
-  var isLogging: Bool?
- 
-  static let shared = Logging()
-  func check(_ message: String){
-    if StruckOfLog.isLogging == true {
-      return print(message)
-    }
+class Logger {
+  
+  static let SharedInstance = Logger(isLogEnabled: false)
+  private let isLogEnabled: Bool
+  init(isLogEnabled:Bool) {
+    self.isLogEnabled = isLogEnabled
+  }
+  
+  func log(message: String){
+    guard isLogEnabled else { return }
+    print(message)
   }
 }

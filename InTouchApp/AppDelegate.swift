@@ -14,29 +14,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     //Включение и выключение вывода в консоль
-    StruckOfLog.isLogging = true
-    Logging().check("Application moved from Not Running to Inactive: \(#function)")
+    Logger.SharedInstance.log(message:"Application moved from Not Running to Inactive: \(#function)")
     return true
   }
 
   func applicationWillResignActive(_ application: UIApplication) {
-    Logging().check("Application moved from Actvie to Inactive: \(#function)")
+    Logger.SharedInstance.log(message:"Application moved from Actvie to Inactive: \(#function)")
   }
 
   func applicationDidEnterBackground(_ application: UIApplication) {
-    Logging().check("Application moved from Inactive to Background: \(#function)")
+    Logger.SharedInstance.log(message:"Application moved from Inactive to Background: \(#function)")
   }
 
   func applicationWillEnterForeground(_ application: UIApplication) {
-    Logging().check("Application moved from Background to Inactive: \(#function)")
+    Logger.SharedInstance.log(message:"Application moved from Background to Inactive: \(#function)")
   }
 
   func applicationDidBecomeActive(_ application: UIApplication) {
-    Logging().check("Application moved from Inactive to Active: \(#function)")
+   Logger.SharedInstance.log(message:"Application moved from Inactive to Active: \(#function)")
   }
 
   func applicationWillTerminate(_ application: UIApplication) {
-     Logging().check("Application moved from Bacground to Terminated: \(#function)")
+     Logger.SharedInstance.log(message:"Application moved from Bacground to Terminated: \(#function)")
   }
 
 }
