@@ -7,23 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		74015CB822108F08002BB9A4 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74015CB722108F08002BB9A4 /* Logging.swift */; };
-		74DF70C9220D4F1D00755684 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DF70C8220D4F1D00755684 /* AppDelegate.swift */; };
-		74DF70CB220D4F1D00755684 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DF70CA220D4F1D00755684 /* ViewController.swift */; };
-		74DF70CE220D4F1D00755684 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74DF70CC220D4F1D00755684 /* Main.storyboard */; };
-		74DF70D0220D4F1F00755684 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74DF70CF220D4F1F00755684 /* Assets.xcassets */; };
-		74DF70D3220D4F1F00755684 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74DF70D1220D4F1F00755684 /* LaunchScreen.storyboard */; };
+		74A79CDF22168C9F00F23890 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A79CB1221684A700F23890 /* ViewController.swift */; };
+		74A79CE022168C9F00F23890 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A79CB2221684A700F23890 /* Logging.swift */; };
+		74A79CE122168C9F00F23890 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A79CB8221684A700F23890 /* AppDelegate.swift */; };
+		74A79CE522168CC700F23890 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74A79CB4221684A700F23890 /* LaunchScreen.storyboard */; };
+		74A79CE622168CC700F23890 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74A79CB6221684A700F23890 /* Main.storyboard */; };
+		74A79CE722168D3D00F23890 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74A79CB3221684A700F23890 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		74015CB722108F08002BB9A4 /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
-		74DF70C5220D4F1D00755684 /* HW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HW.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		74DF70C8220D4F1D00755684 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		74DF70CA220D4F1D00755684 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		74DF70CD220D4F1D00755684 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		74DF70CF220D4F1F00755684 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		74DF70D2220D4F1F00755684 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		74DF70D4220D4F1F00755684 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		74A79CB1221684A700F23890 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		74A79CB2221684A700F23890 /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
+		74A79CB3221684A700F23890 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		74A79CB5221684A700F23890 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		74A79CB7221684A700F23890 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		74A79CB8221684A700F23890 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		74A79CB9221684A700F23890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		74DF70C5220D4F1D00755684 /* InTouchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InTouchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,10 +37,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		74A79CB0221684A700F23890 /* InTouchApp */ = {
+			isa = PBXGroup;
+			children = (
+				74A79CB1221684A700F23890 /* ViewController.swift */,
+				74A79CB2221684A700F23890 /* Logging.swift */,
+				74A79CB3221684A700F23890 /* Assets.xcassets */,
+				74A79CB4221684A700F23890 /* LaunchScreen.storyboard */,
+				74A79CB6221684A700F23890 /* Main.storyboard */,
+				74A79CB8221684A700F23890 /* AppDelegate.swift */,
+				74A79CB9221684A700F23890 /* Info.plist */,
+			);
+			path = InTouchApp;
+			sourceTree = "<group>";
+		};
 		74DF70BC220D4F1D00755684 = {
 			isa = PBXGroup;
 			children = (
-				74DF70C7220D4F1D00755684 /* HW */,
+				74A79CB0221684A700F23890 /* InTouchApp */,
 				74DF70C6220D4F1D00755684 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,31 +62,17 @@
 		74DF70C6220D4F1D00755684 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				74DF70C5220D4F1D00755684 /* HW.app */,
+				74DF70C5220D4F1D00755684 /* InTouchApp.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		74DF70C7220D4F1D00755684 /* HW */ = {
-			isa = PBXGroup;
-			children = (
-				74DF70C8220D4F1D00755684 /* AppDelegate.swift */,
-				74015CB722108F08002BB9A4 /* Logging.swift */,
-				74DF70CA220D4F1D00755684 /* ViewController.swift */,
-				74DF70CC220D4F1D00755684 /* Main.storyboard */,
-				74DF70CF220D4F1F00755684 /* Assets.xcassets */,
-				74DF70D1220D4F1F00755684 /* LaunchScreen.storyboard */,
-				74DF70D4220D4F1F00755684 /* Info.plist */,
-			);
-			path = HW;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		74DF70C4220D4F1D00755684 /* HW */ = {
+		74DF70C4220D4F1D00755684 /* InTouchApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 74DF70D7220D4F1F00755684 /* Build configuration list for PBXNativeTarget "HW" */;
+			buildConfigurationList = 74DF70D7220D4F1F00755684 /* Build configuration list for PBXNativeTarget "InTouchApp" */;
 			buildPhases = (
 				74DF70C1220D4F1D00755684 /* Sources */,
 				74DF70C2220D4F1D00755684 /* Frameworks */,
@@ -82,9 +82,9 @@
 			);
 			dependencies = (
 			);
-			name = HW;
+			name = InTouchApp;
 			productName = HW;
-			productReference = 74DF70C5220D4F1D00755684 /* HW.app */;
+			productReference = 74DF70C5220D4F1D00755684 /* InTouchApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -102,7 +102,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 74DF70C0220D4F1D00755684 /* Build configuration list for PBXProject "HW" */;
+			buildConfigurationList = 74DF70C0220D4F1D00755684 /* Build configuration list for PBXProject "InTouchApp" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -115,7 +115,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				74DF70C4220D4F1D00755684 /* HW */,
+				74DF70C4220D4F1D00755684 /* InTouchApp */,
 			);
 		};
 /* End PBXProject section */
@@ -125,9 +125,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74DF70D3220D4F1F00755684 /* LaunchScreen.storyboard in Resources */,
-				74DF70D0220D4F1F00755684 /* Assets.xcassets in Resources */,
-				74DF70CE220D4F1D00755684 /* Main.storyboard in Resources */,
+				74A79CE522168CC700F23890 /* LaunchScreen.storyboard in Resources */,
+				74A79CE722168D3D00F23890 /* Assets.xcassets in Resources */,
+				74A79CE622168CC700F23890 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,29 +138,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74DF70CB220D4F1D00755684 /* ViewController.swift in Sources */,
-				74015CB822108F08002BB9A4 /* Logging.swift in Sources */,
-				74DF70C9220D4F1D00755684 /* AppDelegate.swift in Sources */,
+				74A79CDF22168C9F00F23890 /* ViewController.swift in Sources */,
+				74A79CE022168C9F00F23890 /* Logging.swift in Sources */,
+				74A79CE122168C9F00F23890 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		74DF70CC220D4F1D00755684 /* Main.storyboard */ = {
+		74A79CB4221684A700F23890 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				74DF70CD220D4F1D00755684 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		74DF70D1220D4F1F00755684 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				74DF70D2220D4F1F00755684 /* Base */,
+				74A79CB5221684A700F23890 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		74A79CB6221684A700F23890 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				74A79CB7221684A700F23890 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -288,7 +288,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4GB4E68ZU6;
-				INFOPLIST_FILE = HW/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/InTouchApp/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -307,7 +307,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4GB4E68ZU6;
-				INFOPLIST_FILE = HW/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/InTouchApp/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -323,7 +323,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		74DF70C0220D4F1D00755684 /* Build configuration list for PBXProject "HW" */ = {
+		74DF70C0220D4F1D00755684 /* Build configuration list for PBXProject "InTouchApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				74DF70D5220D4F1F00755684 /* Debug */,
@@ -332,7 +332,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		74DF70D7220D4F1F00755684 /* Build configuration list for PBXNativeTarget "HW" */ = {
+		74DF70D7220D4F1F00755684 /* Build configuration list for PBXNativeTarget "InTouchApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				74DF70D8220D4F1F00755684 /* Debug */,

@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:HW.xcodeproj">
+      location = "self:/Users/mikhail_borisov/Documents/Education/Tinkoff_courses/HW/InTouchApp.xcodeproj">
    </FileRef>
 </Workspace>
