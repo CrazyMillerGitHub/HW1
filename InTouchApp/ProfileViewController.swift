@@ -82,8 +82,14 @@ class ProfileViewController: UIViewController,UIImagePickerControllerDelegate,UI
       myPickerController.sourceType = .photoLibrary
       self.present(myPickerController, animated: true, completion: nil)
     }
+    let action3 = UIAlertAction(title: "Отмена", style: .cancel){
+      (action:UIAlertAction) in
+      myPickerController.sourceType = .photoLibrary
+      self.dismiss(animated: true, completion: nil)
+    }
     alertController.addAction(action1)
     alertController.addAction(action2)
+    alertController.addAction(action3)
     self.present(alertController, animated: true, completion: nil)
   }
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
