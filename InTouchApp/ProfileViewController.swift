@@ -77,7 +77,6 @@ class ProfileViewController: UIViewController,UIImagePickerControllerDelegate,UI
         self.present(myPickerController, animated: true, completion: nil)}
 
        }
-    
     let action2 = UIAlertAction(title: "Выбрать из библиотеки", style: .default) { (action:UIAlertAction) in
       myPickerController.sourceType = .photoLibrary
       self.present(myPickerController, animated: true, completion: nil)
@@ -86,7 +85,7 @@ class ProfileViewController: UIViewController,UIImagePickerControllerDelegate,UI
       (action:UIAlertAction) in
       myPickerController.sourceType = .photoLibrary
       self.dismiss(animated: true, completion: nil)
-    }
+}
     alertController.addAction(action1)
     alertController.addAction(action2)
     alertController.addAction(action3)
