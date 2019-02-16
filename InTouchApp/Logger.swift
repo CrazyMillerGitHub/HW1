@@ -1,5 +1,5 @@
 //
-//  Logging.swift
+//  Logger.swift
 //  InTouchApp
 //
 //  Created by Михаил Борисов on 10/02/2019.
