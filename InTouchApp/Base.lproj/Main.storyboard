@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="InTouchApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder-user" translatesAutoresizingMaskIntoConstraints="NO" id="kDt-FS-koG">
+                                <rect key="frame" x="16" y="28" width="288" height="288"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="kDt-FS-koG" secondAttribute="height" multiplier="1:1" id="YoP-N0-1X5"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uan-Ha-Kwa">
+                                <rect key="frame" x="244" y="256" width="60" height="60"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="X6V-dM-BYL"/>
+                                    <constraint firstAttribute="width" constant="60" id="rdh-Vk-xxZ"/>
+                                </constraints>
+                                <inset key="contentEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
+                                <state key="normal" image="slr-camera-2-xxl"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Борисов Михаил" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BjP-AI-aMo">
+                                <rect key="frame" x="16" y="324" width="288" height="32.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RYz-7g-AJh">
+                                <rect key="frame" x="16" y="508" width="288" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="3l1-a7-gU6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Редактировать">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="atF-ln-xva">
+                                <rect key="frame" x="16" y="364.5" width="288" height="135.5"/>
+                                <string key="text">👨‍💻Люблю программировать под iOS  👨‍🎓Изучать новые технологии 
+👨‍🏫Помогаю развиваться другим
+🤦‍♀️🤦‍♂️ На паре Амосова с Сашенькой
+</string>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="kDt-FS-koG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="2cd-MI-A3G"/>
+                            <constraint firstItem="RYz-7g-AJh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="2sY-k5-8oW"/>
+                            <constraint firstItem="RYz-7g-AJh" firstAttribute="top" secondItem="atF-ln-xva" secondAttribute="bottom" constant="8" id="3gE-jx-iQb"/>
+                            <constraint firstItem="BjP-AI-aMo" firstAttribute="top" secondItem="kDt-FS-koG" secondAttribute="bottom" constant="8" id="KCA-jS-P0g"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="BjP-AI-aMo" secondAttribute="trailing" constant="16" id="Ke7-DZ-6oS"/>
+                            <constraint firstItem="Uan-Ha-Kwa" firstAttribute="bottom" secondItem="kDt-FS-koG" secondAttribute="bottom" id="LEc-yw-Rud"/>
+                            <constraint firstItem="atF-ln-xva" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="QTc-jk-6gW"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="atF-ln-xva" secondAttribute="trailing" constant="16" id="aC3-EO-Bn1"/>
+                            <constraint firstItem="atF-ln-xva" firstAttribute="top" secondItem="BjP-AI-aMo" secondAttribute="bottom" constant="8" id="ccg-yJ-mMH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RYz-7g-AJh" secondAttribute="trailing" constant="16" id="jdh-tL-8it"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kDt-FS-koG" secondAttribute="trailing" constant="16" id="v28-f8-jbt"/>
+                            <constraint firstItem="kDt-FS-koG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="w2D-VR-9ke"/>
+                            <constraint firstItem="BjP-AI-aMo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="wfD-1D-KAn"/>
+                            <constraint firstItem="Uan-Ha-Kwa" firstAttribute="trailing" secondItem="kDt-FS-koG" secondAttribute="trailing" id="wy6-ae-AiG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="RYz-7g-AJh" secondAttribute="bottom" constant="16" id="x8j-c6-8Rx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="addImageButton" destination="Uan-Ha-Kwa" id="422-9I-Fyr"/>
+                        <outlet property="editButton" destination="RYz-7g-AJh" id="OXP-hL-FoK"/>
+                        <outlet property="imageView" destination="kDt-FS-koG" id="EiD-4z-d4C"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52.5" y="26.408450704225352"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="placeholder-user" width="600" height="600"/>
+        <image name="slr-camera-2-xxl" width="256" height="256"/>
+    </resources>
+</document>
