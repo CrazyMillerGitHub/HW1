@@ -28,7 +28,6 @@ class ProfileViewController: UIViewController,UIImagePickerControllerDelegate,UI
     customizeImageView()
     addImageButton.layer.cornerRadius = 30
     addImageButton.setImage(UIImage(named: "slr-camera-2-xxl"), for: .normal)
-    Logger.SharedInstance.log(message:"Is logging = \(Logger.SharedInstance)")
     print(editButton.frame)
     addImageButton.addTarget(self, action: #selector(addImageButtonAction), for: .touchUpInside)
   }
@@ -72,8 +71,10 @@ class ProfileViewController: UIViewController,UIImagePickerControllerDelegate,UI
     let myPickerController = UIImagePickerController()
     myPickerController.delegate = self
     let alertController = UIAlertController(title: "Добавить изображение", message: nil, preferredStyle: .actionSheet)
-    let action1 = UIAlertAction(title: "Камера", style: .default) { (action:UIAlertAction) in myPickerController.sourceType = .camera
-        self.present(myPickerController, animated: true, completion: nil)
+    let action1 = UIAlertAction(title: "Камера", style: .default) { (action:UIAlertAction) in
+      if UIImagePickerController.isSourceTypeAvailable(.camera){
+        myPickerController.sourceType = .camera
+        self.present(myPickerController, animated: true, completion: nil)}
 
        }
     
@@ -87,9 +88,11 @@ class ProfileViewController: UIViewController,UIImagePickerControllerDelegate,UI
   }
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
     guard let pickedImage = info[.originalImage] as? UIImage else { return }
-    self.imageView.image = pickedImage
-    self.dismiss(animated: true, completion: nil)
+    imageView.image = pickedImage
+    picker.dismiss(animated: true, completion: nil)
   }
-
+  func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    picker.dismiss(animated: true, completion: nil)
+  }
   
 }
