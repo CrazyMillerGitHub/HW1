@@ -27,11 +27,13 @@ class ProfileViewController: UIViewController,UIImagePickerControllerDelegate,UI
     customizeEditButton()
     customizeImageView()
     addImageButton.layer.cornerRadius = 30
+    addImageButton.setImage(UIImage(named: "slr-camera-2-xxl"), for: .normal)
     Logger.SharedInstance.log(message:"Is logging = \(Logger.SharedInstance)")
     print(editButton.frame)
     addImageButton.addTarget(self, action: #selector(addImageButtonAction), for: .touchUpInside)
   }
   private func customizeImageView(){
+    imageView.image = UIImage(named: "placeholder-user")
     imageView.layer.cornerRadius = 30
     imageView.layer.masksToBounds = true
   }
