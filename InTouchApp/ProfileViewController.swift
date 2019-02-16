@@ -15,7 +15,13 @@ class ProfileViewController: UIViewController,UIImagePickerControllerDelegate,UI
   @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var editButton: UIButton!
   
-  
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    //    editButton.frame = nil - нету. В ините нельзя получить значение frame. Слишком рано
+    if  editButton?.frame != nil {
+    print(editButton.frame)
+    }else{return}
+  }
   override func viewDidLoad() {
     super.viewDidLoad()
     customizeEditButton()
@@ -39,7 +45,7 @@ class ProfileViewController: UIViewController,UIImagePickerControllerDelegate,UI
   }
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(true)
-    // Сложно описать почему разные значения, но я заметил что выводились значения в viewDiDLoad для iPhone SE. То есть тот frame, который в Main.StoryBoard(по x - const, по y - нет). Получается, что в это время Constraints ещё не применимы.
+    // Сложно описать почему разные значения, но я заметил что выводились значения в viewDiDLoad для iPhone SE. То есть тот frame, который в Main.StoryBoard(по x - const, по y - нет). Получается, что в viewDidLoad Constraints ещё не применимы.
     print(editButton.frame)
    Logger.SharedInstance.log(message:"Application moved from DidLayoutSubviews to Appeared: \(#function)")
   }
