@@ -68,6 +68,7 @@ class ProfileViewController: UIViewController,UIImagePickerControllerDelegate,UI
    Logger.SharedInstance.log(message:"6")
   }
   @objc func addImageButtonAction(){
+    print("Выберите изображения профиля")
     let myPickerController = UIImagePickerController()
     myPickerController.delegate = self
     let alertController = UIAlertController(title: "Добавить изображение", message: nil, preferredStyle: .actionSheet)
