@@ -14,6 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     //Включение и выключение вывода в консоль
+    
+    UINavigationBar.appearance().shadowImage = UIImage()
     Logger.SharedInstance.log(message:"Application moved from Not Running to Inactive: \(#function)")
     return true
   }

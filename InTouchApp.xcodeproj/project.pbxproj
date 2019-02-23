@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		741515AA221FC9410039E987 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741515A9221FC9400039E987 /* ConversationViewController.swift */; };
+		741515AC221FF3B40039E987 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741515AB221FF3B40039E987 /* User.swift */; };
 		7443B6FB22188DDD007FDEF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74A79CB3221684A700F23890 /* Assets.xcassets */; };
 		74677B73221F28C500B4B70F /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74677B72221F28C500B4B70F /* ConversationsListViewController.swift */; };
 		74A79CDF22168C9F00F23890 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A79CB1221684A700F23890 /* ProfileViewController.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		741515A9221FC9400039E987 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
+		741515AB221FF3B40039E987 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		74677B72221F28C500B4B70F /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 		74A79CB1221684A700F23890 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		74A79CB2221684A700F23890 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -48,8 +52,10 @@
 				74A79CB4221684A700F23890 /* LaunchScreen.storyboard */,
 				74A79CB6221684A700F23890 /* Main.storyboard */,
 				74677B72221F28C500B4B70F /* ConversationsListViewController.swift */,
+				741515AB221FF3B40039E987 /* User.swift */,
 				74A79CB8221684A700F23890 /* AppDelegate.swift */,
 				74A79CB9221684A700F23890 /* Info.plist */,
+				741515A9221FC9400039E987 /* ConversationViewController.swift */,
 			);
 			path = InTouchApp;
 			sourceTree = "<group>";
@@ -143,6 +149,8 @@
 			files = (
 				74A79CDF22168C9F00F23890 /* ProfileViewController.swift in Sources */,
 				74677B73221F28C500B4B70F /* ConversationsListViewController.swift in Sources */,
+				741515AC221FF3B40039E987 /* User.swift in Sources */,
+				741515AA221FC9410039E987 /* ConversationViewController.swift in Sources */,
 				74A79CE022168C9F00F23890 /* Logger.swift in Sources */,
 				74A79CE122168C9F00F23890 /* AppDelegate.swift in Sources */,
 			);
