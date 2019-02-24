@@ -24,6 +24,7 @@ class ConversationsListViewController: UIViewController {
 }
 extension ConversationsListViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    //Когда выбрана cell, subview меняет цвет на selectionColor. Можно пофиксить с помощью extension, но пока не большая проблема
     let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableCell
     let arr = Users.sharedInstance.configureUsers()[indexPath.section][indexPath.row]
     let time = convertToDate(from: arr[2] as! String)
@@ -80,7 +81,7 @@ protocol ConversationCellonfiguration: class{
   var hasUnreadMessage: Bool {get set}
 }
 
-
+//MARK: - TableCell
 class TableCell: UITableViewCell,ConversationCellonfiguration {
   var name: String?
   

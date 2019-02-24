@@ -25,13 +25,13 @@ class Users{
     onlineArray.append(["Джэйн", "Как дела?","2019-2-24T17:59:00",true ,true])
     onlineArray.append(["Сэм", "Что с тобой не так?","2019-2-23T10:59:00",true ,false])
     onlineArray.append(["Ван", "Очень смешно...","2016-02-29 12:24:26",true ,false])
-    onlineArray.append(["Дэн", "Встретимся","2016-02-29 12:24:26",true ,false])
-    onlineArray.append(["Женя", "Я готова","2016-02-29 12:24:26",true ,false])
-    onlineArray.append(["Катя", "Я скучаю","2016-02-29 12:24:26",true ,false])
-    onlineArray.append(["Федя", "Уже приезжаю","2016-02-29 12:24:26",true ,false])
-    onlineArray.append(["Маша", "Уходи","2016-02-29 12:24:26",true ,false])
-    onlineArray.append(["Таня", "Прости","2016-02-29 12:24:26",true ,false])
-    onlineArray.append(["Вика","","2016-02-29 12:24:26",true ,false])
+    onlineArray.append(["Дэн", "Встретимся","2019-2-14T17:59:00",true ,false])
+    onlineArray.append(["Женя", "Я готова","2019-2-11T17:59:00",true ,false])
+    onlineArray.append(["Катя", "Я скучаю","2019-2-24T17:59:00",true ,false])
+    onlineArray.append(["Федя", "Уже подъезжаю","2016-02-29 12:24:26",true ,false])
+    onlineArray.append(["Маша", "Уходи","2019-2-24T17:59:00",true ,false])
+    onlineArray.append(["Таня", "Прости","2019-2-20T17:59:00",true ,true])
+    onlineArray.append(["Вика","","2019-2-24T15:59:00",true ,false])
     return onlineArray
   }
   func historyUsers()-> [[Any]]{
