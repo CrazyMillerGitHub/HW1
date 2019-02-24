@@ -112,15 +112,12 @@ class TableCell: UITableViewCell,ConversationCellonfiguration {
     self.hasUnreadMessage = hasUnreadmessage
     self.date = date
     lastVisitDate.text = dateToString(from: self.date!)
-  
-    self.onlineStatusView.backgroundColor = .clear
-    self.backgroundColor = .white
     descriptionLabel.text = self.message
-    self.descriptionLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
     onlineStatusView.layer.cornerRadius = 9
     titleLabel.text = name
 
     if self.message == "" {
+      self.message = nil
       descriptionLabel.text = "No messages yet"
       self.descriptionLabel.font = UIFont.systemFont(ofSize: 15, weight: .thin)
     }
@@ -131,7 +128,13 @@ class TableCell: UITableViewCell,ConversationCellonfiguration {
     if self.hasUnreadMessage == true{
       self.descriptionLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
     }
-    
+  }
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    self.onlineStatusView.backgroundColor = .clear
+    self.descriptionLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+    self.backgroundColor = .white
+
   }
   private func dateToString(from date: Date)-> String {
     let calendar = NSCalendar.autoupdatingCurrent
