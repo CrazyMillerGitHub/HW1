@@ -22,6 +22,7 @@ class ConversationViewController: UIViewController {
     extendedLayoutIncludesOpaqueBars = true
     tableView.delegate = self
     tableView.dataSource = self
+    tableView.backgroundColor = UIColor(red:0.06, green:0.15, blue:0.23, alpha:1.00)
     }
 }
 extension ConversationViewController: UITableViewDelegate, UITableViewDataSource {
@@ -48,6 +49,7 @@ class CustomConversationCell1: UITableViewCell,MessageCellConfiguration{
   @IBOutlet weak var bgImage: UIImageView!
   @IBOutlet weak var inTextLabel: UILabel!
   func config(text: String){
+    self.backgroundColor = .clear
     self.txt = text
     inTextLabel.text = self.txt
     bgImage.tintColor = UIColor(red:0.78, green:0.78, blue:0.80, alpha:1.00)
@@ -61,6 +63,7 @@ class CustomConversationCell2: UITableViewCell,MessageCellConfiguration{
   @IBOutlet weak var bgImage: UIImageView!
   @IBOutlet weak var outTextLabel: UILabel!
   func config(text: String){
+    self.backgroundColor = .clear
     self.txt = text
     outTextLabel.text = self.txt
     bgImage.image = UIImage(named: "bubble_blue")!.resizableImage(withCapInsets: UIEdgeInsets(top: 22, left: 26, bottom: 22, right: 26)).withRenderingMode(.alwaysTemplate)

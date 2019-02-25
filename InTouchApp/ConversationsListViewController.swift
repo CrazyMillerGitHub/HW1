@@ -16,7 +16,9 @@ class ConversationsListViewController: UIViewController {
       self.title = "Tinkoff Chat"
       self.tableView.dataSource = self
       self.tableView.delegate = self
-      self.tableView.tableFooterView = UIView()
+      self.tableView.backgroundColor = UIColor(red:0.06, green:0.15, blue:0.23, alpha:1.00)
+      navigationController?.navigationBar.barTintColor = UIColor(red:0.06, green:0.15, blue:0.23, alpha:1.00)
+      
   }
   override func viewDidAppear(_ animated: Bool) {
     navigationController?.navigationBar.prefersLargeTitles = true
@@ -26,6 +28,7 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     //Когда выбрана cell, subview меняет цвет на selectionColor. Можно пофиксить с помощью extension, но пока не большая проблема
     let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableCell
+    cell.backgroundColor = UIColor(red:0.06, green:0.15, blue:0.23, alpha:1.00)
     let arr = Users.sharedInstance.configureUsers()[indexPath.section][indexPath.row]
     let time = convertToDate(from: arr[2] as! String)
     if let online = arr[3], let unread = arr[4]  {
@@ -108,12 +111,12 @@ class TableCell: UITableViewCell,ConversationCellonfiguration {
     self.message = message
     self.online = online
     self.profileImage.backgroundColor = UIColor(red: rnd(), green:rnd(), blue:rnd(), alpha:1.00)
-    self.profileImage.layer.cornerRadius = 31
+    self.profileImage.layer.cornerRadius = 22.5
     self.hasUnreadMessage = hasUnreadmessage
     self.date = date
     lastVisitDate.text = dateToString(from: self.date!)
     descriptionLabel.text = self.message
-    onlineStatusView.layer.cornerRadius = 9
+    onlineStatusView.layer.cornerRadius = 7
     titleLabel.text = name
 
     if self.message == "" {
@@ -123,17 +126,19 @@ class TableCell: UITableViewCell,ConversationCellonfiguration {
     }
     if self.online == true{
       self.onlineStatusView.backgroundColor = UIColor(red:0.43, green:1.00, blue:0.75, alpha:1.00)
-      backgroundColor = UIColor(red:1.00, green:1.00, blue:0.82, alpha:1.00)
+      
+      //Закоммитил, то что было по требованию(не нравится как выглядит), но понимаю как сделать)
+      //backgroundColor = UIColor(red:1.00, green:1.00, blue:0.82, alpha:1.00)
     }
     if self.hasUnreadMessage == true{
-      self.descriptionLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+      self.descriptionLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
     }
   }
   override func prepareForReuse() {
     super.prepareForReuse()
     self.onlineStatusView.backgroundColor = .clear
     self.descriptionLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-    self.backgroundColor = .white
+    self.backgroundColor = UIColor(red:0.06, green:0.15, blue:0.23, alpha:1.00)
 
   }
   private func dateToString(from date: Date)-> String {

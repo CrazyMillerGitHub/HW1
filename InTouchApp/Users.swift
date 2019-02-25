@@ -42,14 +42,18 @@ class Users{
     historyArray.append(["Виктор", "Встреча в силе?","2019-2-25T23:29:00",false ,false])
     historyArray.append(["Валя", "*$~/&*","2019-2-25T17:29:00",false ,true])
     historyArray.append(["Соня", "Thx","2019-2-25T17:29:00",false ,true])
-    for _ in 0..<4{
-    historyArray.append(generate(onlineStatus: false))
-    }
+    historyArray.append(["Виктор", "Встреча в силе?", "2019-2-25T23:29:00", false, false])
+    historyArray.append(["Валя", "*$~/&*", "2019-2-25T17:29:00", false, true])
+    historyArray.append(["Соня", "Thx", "2019-2-25T17:29:00", false, true])
+    historyArray.append(["Анна", "Thx", "2019-2-27T6:38:00", false, false])
+//    for _ in 0..<4{
+//    historyArray.append(generate(onlineStatus: false))
+//    }
     return historyArray
   }
-  private func generate(onlineStatus: Bool) -> [Any]{
-    let name = ["Анастасия", "Мария" ,"Дарья", "Анна","Елизавета","Полина", "Виктория", "Екатерина", "Софья", "Александра"]
-    let message = ["Кукусики","Где Сашенька?", "Встреча в силе?", "*$~/&*", "Thx"]
-    return [name.randomElement()!,message.randomElement()!, "2019-2-\(Int.random(in: 25...27))T\(Int.random(in: 0...23)):\(Int.random(in: 0...59)):00",onlineStatus,Bool.random()]
-  }
+//  private func generate(onlineStatus: Bool) -> [Any]{
+//    let name = ["Анастасия", "Мария" ,"Дарья", "Анна","Елизавета","Полина", "Виктория", "Екатерина", "Софья", "Александра"]
+//    let message = ["Кукусики","Где Сашенька?", "Встреча в силе?", "*$~/&*", "Thx"]
+//    return [name.randomElement()!,message.randomElement()!, "2019-2-\(Int.random(in: 25...27))T\(Int.random(in: 0...23)):\(Int.random(in: 0...59)):00",onlineStatus,Bool.random()]
+//  }
 }
