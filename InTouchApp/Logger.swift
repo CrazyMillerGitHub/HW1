@@ -8,16 +8,15 @@
 
 import UIKit
 
-
 class Logger {
-  
+
   static let SharedInstance = Logger(isLogEnabled: false)
   private let isLogEnabled: Bool
-  init(isLogEnabled:Bool) {
+  init(isLogEnabled: Bool) {
     self.isLogEnabled = isLogEnabled
   }
-  
-  func log(message: String){
+
+  func log(message: String) {
     guard isLogEnabled else { return }
     print(message)
   }
