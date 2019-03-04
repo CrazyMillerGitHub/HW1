@@ -7,6 +7,7 @@
 //
 
 #import "ThemesViewController.h"
+#import "InTouchApp-Swift.h"
 @class ThemesViewControllerDelegate;
 
 @interface ThemesViewController ()
