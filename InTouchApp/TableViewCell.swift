@@ -10,15 +10,10 @@ import UIKit
 
 class TableViewCell: UITableViewCell, ConversationCellonfiguration {
   var name: String?
-
   var message: String?
-
   var date: Date?
-
   var online: Bool = false
-
   var hasUnreadMessage: Bool = false
-
   @IBOutlet private var onlineStatusView: UIView!
   @IBOutlet weak var profileImage: UIImageView!
   @IBOutlet private var titleLabel: UILabel!

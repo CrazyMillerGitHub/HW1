@@ -203,6 +203,12 @@
                         <viewLayoutGuide key="safeArea" id="3Xj-bQ-hOX"/>
                     </view>
                     <navigationItem key="navigationItem" id="HG2-wd-l2n">
+                        <barButtonItem key="leftBarButtonItem" image="editButton" id="XBH-N0-1BF">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <segue destination="fix-wF-XUv" kind="showDetail" id="5lk-ww-VOh"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="acc" id="lnq-er-kuc">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -316,6 +322,89 @@
             </objects>
             <point key="canvasLocation" x="2814" y="58"/>
         </scene>
+        <!--Themes View Controller-->
+        <scene sceneID="xjW-tV-zEW">
+            <objects>
+                <viewController id="fix-wF-XUv" customClass="ThemesViewController" customModule="InTouchApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RSP-MM-yv4">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IuS-XJ-XI4">
+                                <rect key="frame" x="124" y="129" width="72" height="46"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="IuS-XJ-XI4" secondAttribute="height" multiplier="47:30" id="F3S-1U-O9J"/>
+                                    <constraint firstAttribute="height" constant="46" id="iQe-wo-P4H"/>
+                                </constraints>
+                                <state key="normal" title="Тема 1">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="firstThemeButton:" destination="fix-wF-XUv" eventType="touchUpInside" id="jaa-PR-2h9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yq9-t5-uOp">
+                                <rect key="frame" x="122.5" y="195" width="75" height="46"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Yq9-t5-uOp" secondAttribute="height" multiplier="49:30" id="cFO-1C-hiB"/>
+                                    <constraint firstAttribute="height" constant="46" id="iud-8l-Iv0"/>
+                                </constraints>
+                                <state key="normal" title="Тема 2">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="secondThemeButton:" destination="fix-wF-XUv" eventType="touchUpInside" id="uVO-2h-NkS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Fv-kH-vMm">
+                                <rect key="frame" x="121.5" y="261" width="77" height="46"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="8Fv-kH-vMm" secondAttribute="height" multiplier="5:3" id="9cF-77-hY3"/>
+                                    <constraint firstAttribute="height" constant="46" id="Iqf-tQ-L0Q"/>
+                                </constraints>
+                                <state key="normal" title="Тема 3">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="thirdThemeButton:" destination="fix-wF-XUv" eventType="touchUpInside" id="emS-vE-PHR"/>
+                                </connections>
+                            </button>
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OcL-0o-iTW">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="Theme" id="cBG-WE-pSG">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="HNf-RF-Nph">
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="returnButton:" destination="fix-wF-XUv" id="8Is-u5-q0R"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Yq9-t5-uOp" firstAttribute="centerX" secondItem="RSP-MM-yv4" secondAttribute="centerX" id="4fQ-f2-Rdh"/>
+                            <constraint firstItem="OcL-0o-iTW" firstAttribute="top" secondItem="PCj-bN-3RN" secondAttribute="top" id="5jJ-5w-ZMm"/>
+                            <constraint firstItem="OcL-0o-iTW" firstAttribute="leading" secondItem="RSP-MM-yv4" secondAttribute="leading" id="605-Uy-4xW"/>
+                            <constraint firstItem="IuS-XJ-XI4" firstAttribute="centerX" secondItem="RSP-MM-yv4" secondAttribute="centerX" id="Ou7-eY-dTV"/>
+                            <constraint firstItem="8Fv-kH-vMm" firstAttribute="centerY" secondItem="RSP-MM-yv4" secondAttribute="centerY" id="ReY-Qk-Kjo"/>
+                            <constraint firstItem="Yq9-t5-uOp" firstAttribute="top" secondItem="IuS-XJ-XI4" secondAttribute="bottom" constant="20" id="Sts-By-jLF"/>
+                            <constraint firstItem="PCj-bN-3RN" firstAttribute="trailing" secondItem="OcL-0o-iTW" secondAttribute="trailing" id="cBg-BE-ZkA"/>
+                            <constraint firstItem="8Fv-kH-vMm" firstAttribute="centerX" secondItem="RSP-MM-yv4" secondAttribute="centerX" id="dgY-IZ-z3J"/>
+                            <constraint firstItem="8Fv-kH-vMm" firstAttribute="top" secondItem="Yq9-t5-uOp" secondAttribute="bottom" constant="20" id="oST-19-HeY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="PCj-bN-3RN"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9w0-4C-kYE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3223" y="851"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="HeH-VT-Pgk">
             <objects>
@@ -345,5 +434,6 @@
     </scenes>
     <resources>
         <image name="acc" width="24" height="24"/>
+        <image name="editButton" width="20" height="20"/>
     </resources>
 </document>

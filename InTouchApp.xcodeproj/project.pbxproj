@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		740C7FAF222CFE5D00471199 /* ThemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 740C7FAD222CFE5D00471199 /* ThemesViewController.m */; };
 		741515AA221FC9410039E987 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741515A9221FC9400039E987 /* ConversationViewController.swift */; };
 		741515AC221FF3B40039E987 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741515AB221FF3B40039E987 /* Users.swift */; };
+		744334CC222CFD8F005C9258 /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D746AD222C661D00383066 /* ThemesViewController.swift */; };
 		7443B6FB22188DDD007FDEF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74A79CB3221684A700F23890 /* Assets.xcassets */; };
 		74677B73221F28C500B4B70F /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74677B72221F28C500B4B70F /* ConversationsListViewController.swift */; };
 		74A79CDF22168C9F00F23890 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A79CB1221684A700F23890 /* ProfileViewController.swift */; };
@@ -17,9 +19,12 @@
 		74A79CE522168CC700F23890 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74A79CB4221684A700F23890 /* LaunchScreen.storyboard */; };
 		74A79CE622168CC700F23890 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74A79CB6221684A700F23890 /* Main.storyboard */; };
 		74CDAE692226B5F1001FEF3B /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CDAE682226B5F1001FEF3B /* TableViewCell.swift */; };
+		74D746A5222C3A5200383066 /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D746A4222C3A5200383066 /* Themes.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		740C7FAD222CFE5D00471199 /* ThemesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemesViewController.m; sourceTree = "<group>"; };
+		740C7FAE222CFE5D00471199 /* ThemesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemesViewController.h; sourceTree = "<group>"; };
 		741515A9221FC9400039E987 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		741515AB221FF3B40039E987 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		74677B72221F28C500B4B70F /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
@@ -31,6 +36,11 @@
 		74A79CB8221684A700F23890 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74A79CB9221684A700F23890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74CDAE682226B5F1001FEF3B /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		74D74673222AA78100383066 /* InTouchApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "InTouchApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		74D74677222AB3C000383066 /* ThemesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemesViewControllerDelegate.h; sourceTree = "<group>"; };
+		74D746A3222C3A5200383066 /* Themes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
+		74D746A4222C3A5200383066 /* Themes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Themes.m; sourceTree = "<group>"; };
+		74D746AD222C661D00383066 /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
 		74DF70C5220D4F1D00755684 /* InTouchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InTouchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -45,9 +55,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		740C7FB0222CFF7C00471199 /* obj-c */ = {
+			isa = PBXGroup;
+			children = (
+				740C7FAE222CFE5D00471199 /* ThemesViewController.h */,
+				740C7FAD222CFE5D00471199 /* ThemesViewController.m */,
+				74D74677222AB3C000383066 /* ThemesViewControllerDelegate.h */,
+				74D746A3222C3A5200383066 /* Themes.h */,
+				74D746A4222C3A5200383066 /* Themes.m */,
+			);
+			path = "obj-c";
+			sourceTree = "<group>";
+		};
 		74A79CB0221684A700F23890 /* InTouchApp */ = {
 			isa = PBXGroup;
 			children = (
+				740C7FB0222CFF7C00471199 /* obj-c */,
 				74A79CB1221684A700F23890 /* ProfileViewController.swift */,
 				74A79CB2221684A700F23890 /* Logger.swift */,
 				74A79CB3221684A700F23890 /* Assets.xcassets */,
@@ -57,6 +80,8 @@
 				74CDAE682226B5F1001FEF3B /* TableViewCell.swift */,
 				741515AB221FF3B40039E987 /* Users.swift */,
 				74A79CB8221684A700F23890 /* AppDelegate.swift */,
+				74D746AD222C661D00383066 /* ThemesViewController.swift */,
+				74D74673222AA78100383066 /* InTouchApp-Bridging-Header.h */,
 				74A79CB9221684A700F23890 /* Info.plist */,
 				741515A9221FC9400039E987 /* ConversationViewController.swift */,
 			);
@@ -112,6 +137,7 @@
 				TargetAttributes = {
 					74DF70C4220D4F1D00755684 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -173,10 +199,13 @@
 			files = (
 				74A79CDF22168C9F00F23890 /* ProfileViewController.swift in Sources */,
 				74677B73221F28C500B4B70F /* ConversationsListViewController.swift in Sources */,
+				740C7FAF222CFE5D00471199 /* ThemesViewController.m in Sources */,
 				741515AC221FF3B40039E987 /* Users.swift in Sources */,
 				741515AA221FC9410039E987 /* ConversationViewController.swift in Sources */,
+				744334CC222CFD8F005C9258 /* ThemesViewController.swift in Sources */,
 				74A79CE022168C9F00F23890 /* Logger.swift in Sources */,
 				74CDAE692226B5F1001FEF3B /* TableViewCell.swift in Sources */,
+				74D746A5222C3A5200383066 /* Themes.m in Sources */,
 				74A79CE122168C9F00F23890 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -212,7 +241,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -273,7 +302,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -323,7 +352,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 4GB4E68ZU6;
 				INFOPLIST_FILE = "$(SRCROOT)/InTouchApp/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -333,6 +364,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dsgnmike.homework1.HW;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "InTouchApp/InTouchApp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -342,7 +375,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 4GB4E68ZU6;
 				INFOPLIST_FILE = "$(SRCROOT)/InTouchApp/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -352,6 +387,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dsgnmike.homework1.HW;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "InTouchApp/InTouchApp-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

@@ -71,7 +71,14 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
       destinationViewController.navigationItem.title = Users.sharedInstance.configureUsers()[section][row][0] as? String
     }
   }
-
+  @objc func logThemeChanging(selectedTheme: UIColor) {
+    switch selectedTheme {
+    case .red:
+      print("red")
+    default:
+      print("хз")
+    }
+  }
 }
 protocol ConversationCellonfiguration: class {
   var name: String? {get set}
