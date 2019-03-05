@@ -13,9 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-@interface ThemesViewController : UIViewController <ThemesViewControllerDelegate>
+@interface ThemesViewController : UIViewController
 @property (nonatomic, strong) id<ThemesViewControllerDelegate> delegate;
-@property (nonatomic,retain) Themes * model;
+@property (nonatomic, assign) Themes * model;
 @end
 
 NS_ASSUME_NONNULL_END

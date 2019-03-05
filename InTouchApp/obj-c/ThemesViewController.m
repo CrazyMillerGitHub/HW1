@@ -8,7 +8,6 @@
 
 #import "ThemesViewController.h"
 #import "InTouchApp-Swift.h"
-@class ThemesViewControllerDelegate;
 
 @interface ThemesViewController ()
 @end
@@ -17,23 +16,28 @@
 @implementation ThemesViewController
 
 - (IBAction)firstThemeButton:(id)sender {
-  Themes *cgh = [[Themes alloc] init];
-  [self themesViewController:self didSelectTheme:[cgh theme1]];
-  
-  
+  Themes *theme = [[Themes alloc] init];
+  ConversationsListViewController *ViewController = [[ConversationsListViewController alloc]init];
+  self.delegate = ViewController;
+  [_delegate themesViewController:self didSelectTheme: [theme theme1]];
+  self.view.backgroundColor = [theme theme1];
 }
 - (IBAction)secondThemeButton:(id)sender {
-  Themes *cgh = [[Themes alloc] init];
-  [self themesViewController:self didSelectTheme:[cgh theme2]];
-  self.view.backgroundColor = [cgh theme2];
+  Themes *theme = [[Themes alloc] init];
+  ConversationsListViewController *ViewController = [[ConversationsListViewController alloc]init];
+  self.delegate = ViewController;
+  [_delegate themesViewController:self didSelectTheme: [theme theme2]];
+  self.view.backgroundColor = [theme theme2];
 }
 - (IBAction)thirdThemeButton:(id)sender {
-  Themes *cgh = [[Themes alloc] init];
-  [self themesViewController:self didSelectTheme:[cgh theme3]];
-  self.view.backgroundColor = [cgh theme3];
+  Themes *theme = [[Themes alloc] init];
+  ConversationsListViewController *ViewController = [[ConversationsListViewController alloc]init];
+  self.delegate = ViewController;
+  [_delegate themesViewController:self didSelectTheme: [theme theme3]];
+  self.view.backgroundColor = [theme theme3];
 }
 - (void)themesViewController:(ThemesViewController *)controller didSelectTheme:(UIColor *)selectedTheme {
- 
+  
 }
 - (IBAction)returnButton:(id)sender {
   [self dismissViewControllerAnimated:YES completion:nil];
@@ -45,7 +49,12 @@
   //  Themes * theme = [[Themes alloc] init];
     // Do any additional setup after loading the view.
 }
-
+- (void)dealloc
+{
+  
+  [Themes release];
+  [super dealloc];
+}
 /*
 #pragma mark - Navigation
 

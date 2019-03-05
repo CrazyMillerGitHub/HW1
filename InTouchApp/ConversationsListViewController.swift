@@ -8,20 +8,22 @@
 
 import UIKit
 
-class ConversationsListViewController: UIViewController {
+class ConversationsListViewController: UIViewController, ThemesViewControllerDelegate {
   @IBOutlet private var tableView: UITableView!
     override func viewDidLoad() {
       super.viewDidLoad()
       extendedLayoutIncludesOpaqueBars = true
-      self.title = "Tinkoff Chat"
       self.tableView.dataSource = self
       self.tableView.delegate = self
   }
   override func viewDidAppear(_ animated: Bool) {
-    navigationController?.navigationBar.prefersLargeTitles = true
+    self.navigationController?.navigationBar.prefersLargeTitles = true
   }
 }
 extension ConversationsListViewController: UITableViewDelegate, UITableViewDataSource {
+  func themesViewController(_ controller: ThemesViewController, didSelectTheme selectedTheme: UIColor) {
+   logThemeChanging(selectedTheme: selectedTheme)
+  }
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     //Когда выбрана cell, subview меняет цвет на selectionColor. Можно пофиксить с помощью extension, но пока не большая проблема
     // swiftlint:disable force_cast
@@ -71,12 +73,20 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
       destinationViewController.navigationItem.title = Users.sharedInstance.configureUsers()[section][row][0] as? String
     }
   }
-  @objc func logThemeChanging(selectedTheme: UIColor) {
+  func logThemeChanging(selectedTheme: UIColor) {
     switch selectedTheme {
-    case .red:
-      print("red")
+    case .white:
+      if let selectedTheme = Theme(rawValue: 0) {
+        selectedTheme.apply()
+      }
+    case .black:
+      if let selectedTheme = Theme(rawValue: 1) {
+        selectedTheme.apply()
+      }
     default:
-      print("хз")
+      if let selectedTheme = Theme(rawValue: 2) {
+        selectedTheme.apply()
+      }
     }
   }
 }

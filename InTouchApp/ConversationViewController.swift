@@ -61,8 +61,6 @@ class CustomConversationCell2: UITableViewCell, MessageCellConfiguration {
   @IBOutlet weak var bgImage: UIImageView!
   @IBOutlet weak var outTextLabel: UILabel!
   func config(text: String) {
-    let cvg = ConversationsListViewController()
-    cvg.logThemeChanging(selectedTheme: UIColor.red)
     self.backgroundColor = .clear
     self.txt = text
     outTextLabel.text = self.txt

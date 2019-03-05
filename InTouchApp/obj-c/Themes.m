@@ -10,12 +10,12 @@
 
 @implementation Themes
 - (UIColor *)theme1 {
-  return UIColor.redColor;
+  return UIColor.whiteColor;
 }
 - (UIColor *)theme2 {
-  return UIColor.yellowColor;
+  return UIColor.blackColor;
 }
 - (UIColor *)theme3 {
-  return UIColor.purpleColor;
+  return [UIColor colorWithRed:0.90 green:0.83 blue:0.72 alpha:1.00];
 }
 @end

@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		740C7FB5222D034700471199 /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740C7FB4222D034700471199 /* ThemesViewController.swift */; };
+		740C7FB6222D078800471199 /* ThemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 740C7FAD222CFE5D00471199 /* ThemesViewController.m */; };
+		74130152222F1AA00093181F /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74130151222F1AA00093181F /* Theme.swift */; };
 		741515AA221FC9410039E987 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741515A9221FC9400039E987 /* ConversationViewController.swift */; };
 		741515AC221FF3B40039E987 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741515AB221FF3B40039E987 /* Users.swift */; };
 		7443B6FB22188DDD007FDEF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74A79CB3221684A700F23890 /* Assets.xcassets */; };
@@ -25,8 +26,8 @@
 		740C7FAD222CFE5D00471199 /* ThemesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemesViewController.m; sourceTree = "<group>"; };
 		740C7FAE222CFE5D00471199 /* ThemesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemesViewController.h; sourceTree = "<group>"; };
 		740C7FB2222D00D500471199 /* InTouchApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "InTouchApp-Bridging-Header.h"; sourceTree = "<group>"; };
-		740C7FB3222D02A100471199 /* InTouchApp-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "InTouchApp-Bridging-Header.h"; path = "../../../../../Desktop/InTouchApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		740C7FB4222D034700471199 /* ThemesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
+		74130151222F1AA00093181F /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		741515A9221FC9400039E987 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		741515AB221FF3B40039E987 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		74677B72221F28C500B4B70F /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
@@ -80,9 +81,9 @@
 				740C7FB2222D00D500471199 /* InTouchApp-Bridging-Header.h */,
 				74677B72221F28C500B4B70F /* ConversationsListViewController.swift */,
 				74CDAE682226B5F1001FEF3B /* TableViewCell.swift */,
-				740C7FB3222D02A100471199 /* InTouchApp-Bridging-Header.h */,
 				741515AB221FF3B40039E987 /* Users.swift */,
 				74A79CB8221684A700F23890 /* AppDelegate.swift */,
+				74130151222F1AA00093181F /* Theme.swift */,
 				74A79CB9221684A700F23890 /* Info.plist */,
 				741515A9221FC9400039E987 /* ConversationViewController.swift */,
 			);
@@ -200,11 +201,12 @@
 			files = (
 				74A79CDF22168C9F00F23890 /* ProfileViewController.swift in Sources */,
 				74677B73221F28C500B4B70F /* ConversationsListViewController.swift in Sources */,
+				740C7FB6222D078800471199 /* ThemesViewController.m in Sources */,
 				741515AC221FF3B40039E987 /* Users.swift in Sources */,
-				740C7FB5222D034700471199 /* ThemesViewController.swift in Sources */,
 				741515AA221FC9410039E987 /* ConversationViewController.swift in Sources */,
 				74A79CE022168C9F00F23890 /* Logger.swift in Sources */,
 				74CDAE692226B5F1001FEF3B /* TableViewCell.swift in Sources */,
+				74130152222F1AA00093181F /* Theme.swift in Sources */,
 				74D746A5222C3A5200383066 /* Themes.m in Sources */,
 				74A79CE122168C9F00F23890 /* AppDelegate.swift in Sources */,
 			);
