@@ -83,7 +83,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="eZr-kA-rkk">
-                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="OOh-QY-bIv"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="OOh-QY-bIv">
+                            <connections>
+                                <action selector="back:" destination="BYZ-38-t0r" id="wyW-NS-lkh"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addImageButton" destination="Uan-Ha-Kwa" id="422-9I-Fyr"/>

@@ -57,5 +57,11 @@ func apply() {
   UINavigationBar.appearance().tintColor = mainColor
   UINavigationBar.appearance().barTintColor = barTint
   UINavigationBar.appearance().barStyle = statusBarStyle
+  for window: UIWindow in UIApplication.shared.windows {
+    for view: UIView in window.subviews {
+      view.removeFromSuperview()
+      window.addSubview(view)
+    }
+  }
 }
 }
