@@ -15,6 +15,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
   @IBOutlet weak var editButton: UIButton!
   @IBAction func dismissButton(_ sender: Any) {
     self.dismiss(animated: true, completion: nil)
+    
+    
   }
 
   required init?(coder aDecoder: NSCoder) {
