@@ -8,14 +8,24 @@
 
 #import "Themes.h"
 
-@implementation Themes
-- (UIColor *)theme1 {
+@implementation Themes {
+}
+-(UIColor *)theme1 {
   return UIColor.whiteColor;
 }
-- (UIColor *)theme2 {
+-(UIColor *)theme2 {
   return UIColor.blackColor;
 }
-- (UIColor *)theme3 {
+-(UIColor *)theme3 {
   return [UIColor colorWithRed:0.90 green:0.83 blue:0.72 alpha:1.00];
 }
+//- (UIColor *)theme1 {
+//  return UIColor.whiteColor;
+//}
+//- (UIColor *)theme2 {
+//  return UIColor.blackColor;
+//}
+//- (UIColor *)theme3 {
+//  return [UIColor colorWithRed:0.90 green:0.83 blue:0.72 alpha:1.00];
+//}
 @end

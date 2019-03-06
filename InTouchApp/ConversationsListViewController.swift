@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConversationsListViewController: UIViewController, ThemesViewControllerDelegate {
+class ConversationsListViewController: UIViewController {
   @IBOutlet private var tableView: UITableView!
     override func viewDidLoad() {
       super.viewDidLoad()
@@ -20,10 +20,14 @@ class ConversationsListViewController: UIViewController, ThemesViewControllerDel
     self.navigationController?.navigationBar.prefersLargeTitles = true
   }
 }
-extension ConversationsListViewController: UITableViewDelegate, UITableViewDataSource {
+
+//MARK:- Закоментить extension, если ThemesViewController - swift file
+extension ConversationsListViewController: ThemesViewControllerDelegate {
   func themesViewController(_ controller: ThemesViewController, didSelectTheme selectedTheme: UIColor) {
-   logThemeChanging(selectedTheme: selectedTheme)
+    logThemeChanging(selectedTheme: selectedTheme)
   }
+}
+extension ConversationsListViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     //Когда выбрана cell, subview меняет цвет на selectionColor. Можно пофиксить с помощью extension, но пока не большая проблема
     // swiftlint:disable force_cast

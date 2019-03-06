@@ -31,7 +31,7 @@ var mainColor: UIColor {
     return UIColor.black
   }
   }
-var barStyle: UIColor {
+var barTint: UIColor {
   switch self {
   case .light:
     return UIColor.white
@@ -41,11 +41,21 @@ var barStyle: UIColor {
     return UIColor(red:0.90, green:0.83, blue:0.72, alpha:1.00)
   }
 }
+  var statusBarStyle: UIBarStyle {
+    switch self {
+    case .dark:
+      return .black
+    default:
+      return .default
+    }
+  }
 func apply() {
   UserDefaults.standard.set(rawValue, forKey: Keys.selectedTheme)
   UserDefaults.standard.synchronize()
   UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: mainColor]
+  UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: mainColor]
   UINavigationBar.appearance().tintColor = mainColor
-  UINavigationBar.appearance().barTintColor = barStyle
+  UINavigationBar.appearance().barTintColor = barTint
+  UINavigationBar.appearance().barStyle = statusBarStyle
 }
 }

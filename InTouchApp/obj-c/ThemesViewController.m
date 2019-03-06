@@ -8,33 +8,40 @@
 
 #import "ThemesViewController.h"
 #import "InTouchApp-Swift.h"
-
-@interface ThemesViewController ()
+@interface ThemesViewController () {
+  ConversationsListViewController *ViewController;
+}
 @end
 
 
 @implementation ThemesViewController
 
 - (IBAction)firstThemeButton:(id)sender {
-  Themes *theme = [[Themes alloc] init];
+  Themes *model = [[Themes alloc] init];
   ConversationsListViewController *ViewController = [[ConversationsListViewController alloc]init];
   self.delegate = ViewController;
-  [_delegate themesViewController:self didSelectTheme: [theme theme1]];
-  self.view.backgroundColor = [theme theme1];
+  [_delegate themesViewController:self didSelectTheme: model.theme1];
+  self.view.backgroundColor = model.theme1;
+  [model release];
+  [ViewController release];
 }
 - (IBAction)secondThemeButton:(id)sender {
-  Themes *theme = [[Themes alloc] init];
+  Themes *model = [[Themes alloc] init];
   ConversationsListViewController *ViewController = [[ConversationsListViewController alloc]init];
   self.delegate = ViewController;
-  [_delegate themesViewController:self didSelectTheme: [theme theme2]];
-  self.view.backgroundColor = [theme theme2];
+  [_delegate themesViewController:self didSelectTheme: [model theme2]];
+  self.view.backgroundColor = [model theme2];
+  [model release];
+  [ViewController release];
 }
 - (IBAction)thirdThemeButton:(id)sender {
-  Themes *theme = [[Themes alloc] init];
+  Themes *model = [[Themes alloc] init];
   ConversationsListViewController *ViewController = [[ConversationsListViewController alloc]init];
   self.delegate = ViewController;
-  [_delegate themesViewController:self didSelectTheme: [theme theme3]];
-  self.view.backgroundColor = [theme theme3];
+  [_delegate themesViewController:self didSelectTheme: [model theme3]];
+  self.view.backgroundColor = [model theme3];
+  [model release];
+  [ViewController release];
 }
 - (void)themesViewController:(ThemesViewController *)controller didSelectTheme:(UIColor *)selectedTheme {
   
@@ -51,8 +58,8 @@
 }
 - (void)dealloc
 {
-  
-  [Themes release];
+  [_delegate release];
+  [_model release];
   [super dealloc];
 }
 /*
