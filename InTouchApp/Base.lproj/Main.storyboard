@@ -83,11 +83,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="eZr-kA-rkk">
-                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="OOh-QY-bIv">
-                            <connections>
-                                <action selector="dismissButton:" destination="BYZ-38-t0r" id="yZz-wv-esD"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="OOh-QY-bIv"/>
                     </navigationItem>
                     <connections>
                         <outlet property="addImageButton" destination="Uan-Ha-Kwa" id="422-9I-Fyr"/>
@@ -97,7 +93,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3811.875" y="-675"/>
+            <point key="canvasLocation" x="4751" y="-363"/>
         </scene>
         <!--Tinkoff Chat-->
         <scene sceneID="GyP-S0-FRY">
@@ -195,12 +191,12 @@
                     <navigationItem key="navigationItem" title="Tinkoff Chat" id="HG2-wd-l2n">
                         <barButtonItem key="leftBarButtonItem" image="editButton" id="XBH-N0-1BF">
                             <connections>
-                                <segue destination="DMt-fp-bIA" kind="showDetail" id="5lk-ww-VOh"/>
+                                <segue destination="DMt-fp-bIA" kind="showDetail" identifier="kek" id="5lk-ww-VOh"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="acc" id="lnq-er-kuc">
                             <connections>
-                                <segue destination="XgG-Oq-fU9" kind="showDetail" id="YMI-Id-dqx"/>
+                                <segue destination="XgG-Oq-fU9" kind="showDetail" identifier="sss" id="YMI-Id-dqx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -446,7 +442,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="2QV-zT-qHh"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="NZr-f1-wIj"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zv0-tQ-u7t" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -10,38 +10,37 @@
 #import "InTouchApp-Swift.h"
 @interface ThemesViewController () {
   ConversationsListViewController *ViewController;
+  Themes * _model;
 }
 @end
 
 
 @implementation ThemesViewController
-
+- (Themes *)model{
+  return _model;
+}
+- (void)setModel:(Themes *)model{
+  [_model release];
+  _model = [model retain];
+}
 - (IBAction)firstThemeButton:(id)sender {
-  Themes *model = [[Themes alloc] init];
+
   ConversationsListViewController *ViewController = [[ConversationsListViewController alloc]init];
   self.delegate = ViewController;
-  [_delegate themesViewController:self didSelectTheme: model.theme1];
-  self.view.backgroundColor = model.theme1;
-  [model release];
-  [ViewController release];
+  [_delegate themesViewController:self didSelectTheme: _model.theme1];
+  self.view.backgroundColor = _model.theme1;
 }
 - (IBAction)secondThemeButton:(id)sender {
-  Themes *model = [[Themes alloc] init];
   ConversationsListViewController *ViewController = [[ConversationsListViewController alloc]init];
   self.delegate = ViewController;
-  [_delegate themesViewController:self didSelectTheme: [model theme2]];
-  self.view.backgroundColor = [model theme2];
-  [model release];
-  [ViewController release];
+  [_delegate themesViewController:self didSelectTheme: _model.theme2];
+  self.view.backgroundColor = _model.theme2;
 }
 - (IBAction)thirdThemeButton:(id)sender {
-  Themes *model = [[Themes alloc] init];
   ConversationsListViewController *ViewController = [[ConversationsListViewController alloc]init];
   self.delegate = ViewController;
-  [_delegate themesViewController:self didSelectTheme: [model theme3]];
-  self.view.backgroundColor = [model theme3];
-  [model release];
-  [ViewController release];
+  [_delegate themesViewController:self didSelectTheme: _model.theme3];
+  self.view.backgroundColor = _model.theme3;
 }
 - (void)themesViewController:(ThemesViewController *)controller didSelectTheme:(UIColor *)selectedTheme {
   

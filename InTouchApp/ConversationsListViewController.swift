@@ -75,6 +75,11 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
       guard let value = Users.sharedInstance.configureUsers()[section][row][1] as? String else { return }
       destinationViewController.arr.append(value)
       destinationViewController.navigationItem.title = Users.sharedInstance.configureUsers()[section][row][0] as? String
+    }else if segue.identifier == "kek"{
+      let vc = segue.destination as! UINavigationController
+      let d = vc.topViewController as! ThemesViewController
+      d.model = Themes()
+      d.delegate = self
     }
   }
   func logThemeChanging(selectedTheme: UIColor) {
