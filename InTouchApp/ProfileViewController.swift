@@ -8,7 +8,15 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UITextFieldDelegate,UITextViewDelegate {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UITextFieldDelegate,UITextViewDelegate,ProfileViewControllerDelegate {
+  func changeProileData(image: Bool, title: Bool, descriptionText: Bool) {
+    DispatchQueue.main.async {
+    self.hideUnhideFunction()
+    self.myActivityIndicator.stopAnimating()
+    self.loadData()
+    }
+  }
+  
   @IBOutlet var gcdButton: UIButton!
   @IBOutlet var titleLabel: UILabel!
   var count = 0
@@ -18,6 +26,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
   @IBOutlet var operationButton: UIButton!
   @IBOutlet var descriptionView: UILabel!
   @IBOutlet weak var editButton: UIButton!
+  let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
   @IBAction func dismissButton(_ sender: Any) {
     self.dismiss(animated: true, completion: nil)
   }
@@ -29,24 +38,36 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
       print(editButton.frame)
     } else {return}
   }
-  
-  
-  //Mark: -
   var editLabel =  UITextField()
   var editDescriptionTextView = UITextView()
   override func viewDidLoad() {
     super.viewDidLoad()
+    myActivityIndicator.center = view.center
+    myActivityIndicator.hidesWhenStopped = true
+    view.addSubview(myActivityIndicator)
     customizeEditButton()
     customizeImageView()
     addImageButton.layer.cornerRadius = 30
     addImageButton.setImage(UIImage(named: "slr-camera-2-xxl"), for: .normal)
-    print(editButton.frame)
+    setTraget()
+    hideUnhideFunction()
+    editLabel.delegate = self
+    editDescriptionTextView.delegate = self
+    loadData()
+  }
+  func loadData(){
+    if let label = UserDefaults.standard.string(forKey: "profileLabel") {
+      self.titleLabel.text = label
+    }
+    if let description = UserDefaults.standard.string(forKey: "descriptionLabel") {
+      self.descriptionView.text = description
+    }
+  }
+  private func setTraget(){
     addImageButton.addTarget(self, action: #selector(addImageButtonAction), for: .touchUpInside)
     editButton.addTarget(self, action: #selector(editButtonAction), for: .touchUpInside)
     gcdButton.addTarget(self, action: #selector(gcdButtonAction), for: .touchUpInside)
     operationButton.addTarget(self, action: #selector(operationButtonAction), for: .touchUpInside)
-    hideUnhideFunction()
-    editDescriptionTextView.delegate = self
   }
   private func customizeImageView() {
     imageView.image = UIImage(named: "placeholder-user")
@@ -78,7 +99,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
   private func customizeDescription() {
     editDescriptionTextView.frame = descriptionView.frame
     editDescriptionTextView.text = descriptionView.text
-    editDescriptionTextView.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+    editDescriptionTextView.font = UIFont.systemFont(ofSize: 16, weight: .regular)
     editDescriptionTextView.textColor = .gray
   }
   override func viewDidAppear(_ animated: Bool) {
@@ -143,6 +164,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
     picker.dismiss(animated: true, completion: nil)
   }
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    print("hello")
+    textField.resignFirstResponder()
+    //or
+    //self.view.endEditing(true)
+    return true
+  }
   func hideUnhideFunction(){
     if count == 0 {
       self.editLabel.isHidden = true
@@ -163,15 +191,23 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
   }
   @objc func editButtonAction() {
-    hideUnhideFunction()
+    DispatchQueue.main.async {
+      self.hideUnhideFunction()
+    }
   }
   @objc private func gcdButtonAction(){
     print(editDescriptionTextView.text)
+    self.myActivityIndicator.startAnimating()
+    let image = imageView.image!.pngData() as NSData?
+    let vc = GCDDataManager(titleLabel: self.titleLabel.text!, description: self.descriptionView.text!, editedDescription: self.editDescriptionTextView.text!, imageView: image!, editTitle: self.editLabel.text!)
+    vc.delegate = self
+    vc.save()
     //    UserDefaults.standard.set("2", forKey: "Key")
   }
   @objc private func operationButtonAction(){
     //     print(UserDefaults.standard.string(forKey: "Key"))
   }
+
 }
 
 

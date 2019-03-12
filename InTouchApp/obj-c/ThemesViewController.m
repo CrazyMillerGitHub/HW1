@@ -29,18 +29,21 @@
   self.delegate = ViewController;
   [_delegate themesViewController:self didSelectTheme: _model.theme1];
   self.view.backgroundColor = _model.theme1;
+  [ViewController release];
 }
 - (IBAction)secondThemeButton:(id)sender {
   ConversationsListViewController *ViewController = [[ConversationsListViewController alloc]init];
   self.delegate = ViewController;
   [_delegate themesViewController:self didSelectTheme: _model.theme2];
   self.view.backgroundColor = _model.theme2;
+  [ViewController release];
 }
 - (IBAction)thirdThemeButton:(id)sender {
   ConversationsListViewController *ViewController = [[ConversationsListViewController alloc]init];
   self.delegate = ViewController;
   [_delegate themesViewController:self didSelectTheme: _model.theme3];
   self.view.backgroundColor = _model.theme3;
+  [ViewController release];
 }
 - (void)themesViewController:(ThemesViewController *)controller didSelectTheme:(UIColor *)selectedTheme {
   

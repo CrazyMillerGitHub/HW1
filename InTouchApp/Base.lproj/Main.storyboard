@@ -351,17 +351,17 @@
             <objects>
                 <viewController id="eUH-7p-Tyu" customClass="ProfileViewController" customModule="InTouchApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MB0-bW-EPF">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="edw-RQ-VWK">
-                                <rect key="frame" x="16" y="68" width="288" height="288"/>
+                                <rect key="frame" x="16" y="4" width="288" height="288"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="edw-RQ-VWK" secondAttribute="height" multiplier="1:1" id="bIl-Jd-ehC"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F7E-eX-4qD">
-                                <rect key="frame" x="244" y="296" width="60" height="60"/>
+                                <rect key="frame" x="244" y="232" width="60" height="60"/>
                                 <color key="backgroundColor" red="0.2470588235" green="0.47058823529999999" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="N4l-OF-021"/>
@@ -371,13 +371,13 @@
                                 <inset key="contentEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Борисов Михаил" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-29-vcg">
-                                <rect key="frame" x="16" y="364" width="288" height="32.5"/>
+                                <rect key="frame" x="16" y="300" width="288" height="32.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ik-Oy-nQa">
-                                <rect key="frame" x="16" y="508" width="288" height="44"/>
+                                <rect key="frame" x="16" y="444" width="288" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="EmA-dP-a1g"/>
@@ -388,7 +388,7 @@
                                 </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cWd-JQ-Fgs">
-                                <rect key="frame" x="16" y="404.5" width="288" height="95.5"/>
+                                <rect key="frame" x="16" y="340.5" width="288" height="95.5"/>
                                 <string key="text">👨‍💻Люблю программировать под iOS  👨‍🎓Изучать новые технологии 
 👨‍🏫Помогаю развиваться другим
 🤦‍♀️🤦‍♂️ На паре Амосова с Сашенькой
@@ -398,7 +398,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WC7-aq-u9l">
-                                <rect key="frame" x="16" y="508" width="123" height="44"/>
+                                <rect key="frame" x="16" y="444" width="123" height="44"/>
                                 <state key="normal" title="GCD">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -412,7 +412,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2me-OQ-imK">
-                                <rect key="frame" x="181" y="508" width="123" height="44"/>
+                                <rect key="frame" x="181" y="444" width="123" height="44"/>
                                 <state key="normal" title="Operation">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -457,7 +457,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="jsG-fI-JoE">
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="6EO-HB-1rZ">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="dismissButton:" destination="eUH-7p-Tyu" id="HIu-wG-WpH"/>
                             </connections>
@@ -482,7 +481,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HqM-cO-o0G" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vLj-D5-ZLE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="vLj-D5-ZLE">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

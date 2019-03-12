@@ -52,11 +52,12 @@ var barTint: UIColor {
 func apply() {
   UserDefaults.standard.set(rawValue, forKey: Keys.selectedTheme)
   UserDefaults.standard.synchronize()
-  UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: mainColor]
-  UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: mainColor]
-  UINavigationBar.appearance().tintColor = mainColor
-  UINavigationBar.appearance().barTintColor = barTint
-  UINavigationBar.appearance().barStyle = statusBarStyle
+    UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: self.mainColor]
+    UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: self.mainColor]
+    UINavigationBar.appearance().tintColor = self.mainColor
+    UINavigationBar.appearance().barTintColor = self.barTint
+    UINavigationBar.appearance().barStyle = self.statusBarStyle
+  
   for window: UIWindow in UIApplication.shared.windows {
     for view: UIView in window.subviews {
       view.removeFromSuperview()
