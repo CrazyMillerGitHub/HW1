@@ -196,7 +196,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
   }
   @objc private func gcdButtonAction(){
-    print(editDescriptionTextView.text)
     statusButtons(bool: false)
     self.myActivityIndicator.startAnimating()
     let image = imageView.image!.jpegData(compressionQuality: 0.5) as NSData?
