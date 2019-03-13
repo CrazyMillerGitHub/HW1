@@ -346,7 +346,7 @@
             </objects>
             <point key="canvasLocation" x="2666.25" y="825"/>
         </scene>
-        <!--Profile View Controller-->
+        <!--Profile-->
         <scene sceneID="MFe-s2-yAG">
             <objects>
                 <viewController id="eUH-7p-Tyu" customClass="ProfileViewController" customModule="InTouchApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -455,7 +455,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bdu-Sw-rZM"/>
                     </view>
-                    <navigationItem key="navigationItem" id="jsG-fI-JoE">
+                    <navigationItem key="navigationItem" title="Profile" id="jsG-fI-JoE">
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="6EO-HB-1rZ">
                             <connections>
                                 <action selector="dismissButton:" destination="eUH-7p-Tyu" id="HIu-wG-WpH"/>
