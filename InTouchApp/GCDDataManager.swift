@@ -9,23 +9,12 @@
 import UIKit
 
 class GCDDataManager: NSObject {
-  var titleLabel: String
-  var dscr: String
-  var editedDescription: String
-  var imageView: NSData
   var delegate: ProfileViewControllerDelegate?
-  var editTitle: String
-  var image: Bool = false
-  var title: Bool = false
-  var descriptionText: Bool = false
+  var arr = [String: Any]()
   
   
-  init(titleLabel: String, description: String,editedDescription: String, imageView: NSData,editTitle: String) {
-    self.titleLabel = titleLabel
-    self.editTitle = editTitle
-    self.editedDescription = editedDescription
-    self.dscr = description
-    self.imageView = imageView
+  init(arr: [String: Any]){
+    self.arr = arr
   }
   func save(){
     let group = DispatchGroup()
@@ -33,32 +22,29 @@ class GCDDataManager: NSObject {
     //.enabled = false
     group.enter()
     concurentQueue.async {
-      if self.titleLabel != self.editTitle {
-        UserDefaults.standard.set(self.editTitle, forKey: "profileLabel")
-        self.title = true
+      if let title = self.arr["title"] as? String {
+        UserDefaults.standard.set(title, forKey: "profileLabel")
       }
       group.leave()
     }
     
     group.enter()
     concurentQueue.async {
-      if 1 == 1 {
-        UserDefaults.standard.set(self.imageView, forKey: "imageView")
-        self.image = true
+      if let image = self.arr["image"] as? NSData {
+        UserDefaults.standard.set(image, forKey: "imageView")
       }
       group.leave()
     }
     
     group.enter()
     concurentQueue.async {
-    if self.editedDescription != self.dscr {
-        UserDefaults.standard.set(self.editedDescription, forKey: "descriptionLabel")
-      self.descriptionText = true
+      if let description = self.arr["description"] as? String {
+        UserDefaults.standard.set(description, forKey: "descriptionLabel")
       }
       group.leave()
     }
     group.notify(queue: concurentQueue, execute: {
-      self.delegate?.changeProileData(image: self.image, title: self.title, descriptionText: self.descriptionText)
+       self.delegate?.changeProileData(success: true)
     })
   }
 }

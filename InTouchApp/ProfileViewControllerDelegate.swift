@@ -8,5 +8,5 @@
 
 import Foundation
 protocol ProfileViewControllerDelegate: class {
-  func changeProileData(image: Bool, title: Bool, descriptionText: Bool)
+  func changeProileData(success: Bool)
 }

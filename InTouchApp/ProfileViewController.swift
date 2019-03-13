@@ -10,7 +10,9 @@ import UIKit
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-  
+  var imageBool: Bool = false
+  var titleBool: Bool = false
+  var descriptionTextBool: Bool = false
   @IBOutlet var gcdButton: UIButton!
   @IBOutlet var titleLabel: UILabel!
   @IBOutlet weak var addImageButton: UIButton!
@@ -195,20 +197,35 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
       self.hideUnhideFunction()
     }
   }
+  private func check() -> [String: Any] {
+    var arr = [String:Any]()
+    if editLabel.text != titleLabel.text {
+      arr["title"] = editLabel.text
+      self.titleBool = true
+    }else{
+      self.titleBool = false
+    }
+    if editDescriptionTextView.text != descriptionView.text {
+      arr["description"] = editDescriptionTextView.text
+      self.descriptionTextBool = true
+    }else{
+      self.descriptionTextBool = false
+    }
+    arr["image"] = imageView.image!.jpegData(compressionQuality: 0.5) as NSData?
+    self.imageBool = true
+    return arr
+  }
   @objc private func gcdButtonAction(){
     statusButtons(bool: false)
     self.myActivityIndicator.startAnimating()
-    let image = imageView.image!.jpegData(compressionQuality: 0.5) as NSData?
-    
-    let vc = GCDDataManager(titleLabel: self.titleLabel.text!, description: self.descriptionView.text!, editedDescription: self.editDescriptionTextView.text!, imageView: image!, editTitle: self.editLabel.text!)
+    let vc = GCDDataManager(arr: check())
     vc.delegate = self
     vc.save()
   }
   @objc private func operationButtonAction(){
     self.myActivityIndicator.startAnimating()
     statusButtons(bool: false)
-    let image = imageView.image!.jpegData(compressionQuality: 0.5) as NSData?
-    let vc = OperationDataManager(titleLabel: self.titleLabel.text!, description: self.descriptionView.text!, editedDescription: self.editDescriptionTextView.text!, imageView: image!, editTitle: self.editLabel.text!)
+    let vc = OperationDataManager(arr: check())
     vc.delegate = self
     vc.apply()
   }
@@ -264,32 +281,42 @@ extension ProfileViewController: UITextViewDelegate,UITextFieldDelegate{
   }
 }
 extension ProfileViewController: ProfileViewControllerDelegate {
-  func changeProileData(image: Bool, title: Bool, descriptionText: Bool) {
+  func changeProileData(success: Bool) {
     DispatchQueue.main.async {
       self.hideUnhideFunction()
       self.myActivityIndicator.stopAnimating()
       self.statusButtons(bool: false)
-      if title {
+      if self.titleBool {
         if let label = UserDefaults.standard.string(forKey: "profileLabel") {
           self.titleLabel.text = label
         }
       }
-      if descriptionText {
+      if self.descriptionTextBool {
         if let description = UserDefaults.standard.string(forKey: "descriptionLabel") { self.descriptionView.text = description }
       }
-      if image {
+      if self.imageBool {
         if let image = UserDefaults.standard.data(forKey: "imageView") { self.imageView.image = UIImage(data: image)}
       }
       if self.increase {
         self.view.endEditing(true)
       }
-       self.alert(nil)
+      if success {
+        self.alert(nil, handler: "nope")
+      }else{
+      self.alert(title: "Ошибка", "Не удалось сохранить данные", handler: "err")
+      }
     }
   }
-  private func alert(title: String = "Данные сохраненны", _ message: String?){
+  
+  private func alert(title: String = "Данные сохраненны", _ message: String?, handler: String){
     let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
     alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
     }))
+    if handler == "err" {
+      alertController.addAction(UIAlertAction(title: NSLocalizedString("Повторить", comment: "Default action"), style: .default, handler: { _ in
+        self.gcdButtonAction()
+      }))
+    }
     self.present(alertController, animated: true, completion: nil)
   }
 }
