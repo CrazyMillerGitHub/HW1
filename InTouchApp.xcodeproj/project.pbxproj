@@ -12,6 +12,7 @@
 		741515AC221FF3B40039E987 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741515AB221FF3B40039E987 /* Users.swift */; };
 		74360279222FEC6400D7FED3 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74677B72221F28C500B4B70F /* ConversationsListViewController.swift */; };
 		7436027C223021E500D7FED3 /* ThemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 740C7FAD222CFE5D00471199 /* ThemesViewController.m */; };
+		74424E8B224042A500F1BC7B /* MultipeerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74424E8A224042A500F1BC7B /* MultipeerCommunicator.swift */; };
 		7443B6FB22188DDD007FDEF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74A79CB3221684A700F23890 /* Assets.xcassets */; };
 		745DEE4C2236BBFA008C4A5E /* GCDDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745DEE4B2236BBFA008C4A5E /* GCDDataManager.swift */; };
 		74958A4F223761F30022B883 /* ProfileViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74958A4E223761F20022B883 /* ProfileViewControllerDelegate.swift */; };
@@ -33,6 +34,7 @@
 		741515A9221FC9400039E987 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		741515AB221FF3B40039E987 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		74360272222FE2FE00D7FED3 /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
+		74424E8A224042A500F1BC7B /* MultipeerCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerCommunicator.swift; sourceTree = "<group>"; };
 		745DEE4B2236BBFA008C4A5E /* GCDDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDDataManager.swift; sourceTree = "<group>"; };
 		74677B72221F28C500B4B70F /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 		74958A4E223761F20022B883 /* ProfileViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				74A79CB3221684A700F23890 /* Assets.xcassets */,
 				74A79CB4221684A700F23890 /* LaunchScreen.storyboard */,
 				74A79CB6221684A700F23890 /* Main.storyboard */,
+				74424E8A224042A500F1BC7B /* MultipeerCommunicator.swift */,
 				74958A4E223761F20022B883 /* ProfileViewControllerDelegate.swift */,
 				74958A50223839CC0022B883 /* OperationDataManager.swift */,
 				745DEE4B2236BBFA008C4A5E /* GCDDataManager.swift */,
@@ -219,6 +222,7 @@
 				74CDAE692226B5F1001FEF3B /* TableViewCell.swift in Sources */,
 				7436027C223021E500D7FED3 /* ThemesViewController.m in Sources */,
 				74130152222F1AA00093181F /* Theme.swift in Sources */,
+				74424E8B224042A500F1BC7B /* MultipeerCommunicator.swift in Sources */,
 				745DEE4C2236BBFA008C4A5E /* GCDDataManager.swift in Sources */,
 				74D746A5222C3A5200383066 /* Themes.m in Sources */,
 				74A79CE122168C9F00F23890 /* AppDelegate.swift in Sources */,

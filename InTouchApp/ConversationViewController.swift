@@ -11,19 +11,59 @@ import UIKit
 protocol MessageCellConfiguration: class {
   var txt: String? {get set}
 }
-class ConversationViewController: UIViewController {
+class ConversationViewController: UIViewController,UITextFieldDelegate,CommunicatorDelegate {
+  func didFoundUser(userID: String, userName: String?) {
+    tableView.reloadData()
+  }
+  
+  func didLostUser(userID: String) {
+    tableView.reloadData()
+  }
+  
+  func failedToStartBrowsingForUsers(error: Error) {
+    
+  }
+  
+  func failedToStartAdvertising(error: Error) {
+  }
+  
+  func didRecieveMessage(text: String, fromUser: String, toUser: String) {
+    
+  }
+  
   var arr = ["Привет, серъезный вопрос...", "Привет, какой?", "Идём?", "Куда?", "Ты знаешь...", "Аааа, ок"]
   @IBOutlet weak var tableView: UITableView!
-
+  var mpc = MultipeerCommunicator()
+  @IBOutlet var textField: UITextField!
+  @IBOutlet var searchView: UIView!
+  @IBOutlet var bottomConstraint: NSLayoutConstraint!
   override func viewDidLoad() {
     super.viewDidLoad()
     navigationController?.navigationBar.prefersLargeTitles = false
     extendedLayoutIncludesOpaqueBars = true
     tableView.delegate = self
+    mpc.delegate = self
+    textField.delegate = self
     tableView.dataSource = self
     tableView.backgroundColor = .white
+    NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardNotification(notification:)),name: UIResponder.keyboardWillShowNotification,object: nil)
+    NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardNotification(notification:)),name: UIResponder.keyboardWillHideNotification,object: nil)
+  }
+  @objc func keyboardNotification(notification: NSNotification) {
+    if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+      let isKeyboardShowing = notification.name == UIResponder.keyboardWillShowNotification
+      self.bottomConstraint.constant = isKeyboardShowing ?  -keyboardFrame.cgRectValue.height : 0
+      UIView.animate(withDuration: 0, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+        self.view.layoutIfNeeded()
+      }) { (completed) in
+      }
     }
+  }
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    textField.endEditing(true)
+  }
 }
+
 extension ConversationViewController: UITableViewDelegate, UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,7 +82,6 @@ extension ConversationViewController: UITableViewDelegate, UITableViewDataSource
     return cell
   }
 }
-
 class CustomConversationCell1: UITableViewCell, MessageCellConfiguration {
   var txt: String?
   @IBOutlet weak var bgImage: UIImageView!
