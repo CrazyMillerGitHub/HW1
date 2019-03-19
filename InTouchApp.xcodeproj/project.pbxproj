@@ -13,6 +13,8 @@
 		74360279222FEC6400D7FED3 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74677B72221F28C500B4B70F /* ConversationsListViewController.swift */; };
 		7436027C223021E500D7FED3 /* ThemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 740C7FAD222CFE5D00471199 /* ThemesViewController.m */; };
 		74424E8B224042A500F1BC7B /* MultipeerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74424E8A224042A500F1BC7B /* MultipeerCommunicator.swift */; };
+		74424E8D22407A3C00F1BC7B /* Communicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74424E8C22407A3C00F1BC7B /* Communicator.swift */; };
+		74424E8F22407ECC00F1BC7B /* CommunicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74424E8E22407ECC00F1BC7B /* CommunicatorManager.swift */; };
 		7443B6FB22188DDD007FDEF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74A79CB3221684A700F23890 /* Assets.xcassets */; };
 		745DEE4C2236BBFA008C4A5E /* GCDDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745DEE4B2236BBFA008C4A5E /* GCDDataManager.swift */; };
 		74958A4F223761F30022B883 /* ProfileViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74958A4E223761F20022B883 /* ProfileViewControllerDelegate.swift */; };
@@ -35,6 +37,8 @@
 		741515AB221FF3B40039E987 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		74360272222FE2FE00D7FED3 /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
 		74424E8A224042A500F1BC7B /* MultipeerCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerCommunicator.swift; sourceTree = "<group>"; };
+		74424E8C22407A3C00F1BC7B /* Communicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Communicator.swift; sourceTree = "<group>"; };
+		74424E8E22407ECC00F1BC7B /* CommunicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicatorManager.swift; sourceTree = "<group>"; };
 		745DEE4B2236BBFA008C4A5E /* GCDDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDDataManager.swift; sourceTree = "<group>"; };
 		74677B72221F28C500B4B70F /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 		74958A4E223761F20022B883 /* ProfileViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerDelegate.swift; sourceTree = "<group>"; };
@@ -86,7 +90,9 @@
 				74A79CB3221684A700F23890 /* Assets.xcassets */,
 				74A79CB4221684A700F23890 /* LaunchScreen.storyboard */,
 				74A79CB6221684A700F23890 /* Main.storyboard */,
+				74424E8C22407A3C00F1BC7B /* Communicator.swift */,
 				74424E8A224042A500F1BC7B /* MultipeerCommunicator.swift */,
+				74424E8E22407ECC00F1BC7B /* CommunicatorManager.swift */,
 				74958A4E223761F20022B883 /* ProfileViewControllerDelegate.swift */,
 				74958A50223839CC0022B883 /* OperationDataManager.swift */,
 				745DEE4B2236BBFA008C4A5E /* GCDDataManager.swift */,
@@ -212,10 +218,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74424E8D22407A3C00F1BC7B /* Communicator.swift in Sources */,
 				741515AC221FF3B40039E987 /* Users.swift in Sources */,
 				74958A51223839CC0022B883 /* OperationDataManager.swift in Sources */,
 				74958A4F223761F30022B883 /* ProfileViewControllerDelegate.swift in Sources */,
 				741515AA221FC9410039E987 /* ConversationViewController.swift in Sources */,
+				74424E8F22407ECC00F1BC7B /* CommunicatorManager.swift in Sources */,
 				74B33C902230773B00F3BB59 /* ProfileViewController.swift in Sources */,
 				74360279222FEC6400D7FED3 /* ConversationsListViewController.swift in Sources */,
 				74A79CE022168C9F00F23890 /* Logger.swift in Sources */,

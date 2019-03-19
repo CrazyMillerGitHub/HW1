@@ -205,16 +205,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pru-Cm-r1N">
                                 <rect key="frame" x="0.0" y="411" width="320" height="46"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8vM-Lz-3Gw">
-                                        <rect key="frame" x="5" y="0.0" width="269" height="46"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="message" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8vM-Lz-3Gw">
+                                        <rect key="frame" x="5" y="0.0" width="264" height="46"/>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KFA-bu-uTn">
-                                        <rect key="frame" x="279" y="8" width="36" height="30"/>
+                                        <rect key="frame" x="277" y="8" width="36" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <state key="normal" title="Send"/>
+                                        <connections>
+                                            <action selector="sendAction:" destination="8CB-Kv-9y4" eventType="touchUpInside" id="HHD-01-4eK"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -223,10 +226,10 @@
                                     <constraint firstItem="8vM-Lz-3Gw" firstAttribute="centerY" secondItem="pru-Cm-r1N" secondAttribute="centerY" id="KFw-iS-CFe"/>
                                     <constraint firstItem="8vM-Lz-3Gw" firstAttribute="top" secondItem="pru-Cm-r1N" secondAttribute="top" id="Rjg-Wy-vWe"/>
                                     <constraint firstItem="KFA-bu-uTn" firstAttribute="centerY" secondItem="pru-Cm-r1N" secondAttribute="centerY" id="Sy2-2A-5mG"/>
-                                    <constraint firstAttribute="trailing" secondItem="KFA-bu-uTn" secondAttribute="trailing" constant="5" id="Ulm-HA-t9S"/>
+                                    <constraint firstAttribute="trailing" secondItem="KFA-bu-uTn" secondAttribute="trailing" constant="7" id="Ulm-HA-t9S"/>
                                     <constraint firstAttribute="bottom" secondItem="8vM-Lz-3Gw" secondAttribute="bottom" id="hzN-6o-nRE"/>
                                     <constraint firstItem="8vM-Lz-3Gw" firstAttribute="leading" secondItem="pru-Cm-r1N" secondAttribute="leading" constant="5" id="jLD-Vz-CWs"/>
-                                    <constraint firstAttribute="trailing" secondItem="8vM-Lz-3Gw" secondAttribute="trailing" constant="46" id="y63-Da-Lya"/>
+                                    <constraint firstAttribute="trailing" secondItem="8vM-Lz-3Gw" secondAttribute="trailing" constant="51" id="y63-Da-Lya"/>
                                 </constraints>
                             </view>
                         </subviews>

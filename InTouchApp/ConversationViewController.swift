@@ -11,48 +11,39 @@ import UIKit
 protocol MessageCellConfiguration: class {
   var txt: String? {get set}
 }
-class ConversationViewController: UIViewController,UITextFieldDelegate,CommunicatorDelegate {
-  func didFoundUser(userID: String, userName: String?) {
-    tableView.reloadData()
-  }
-  
-  func didLostUser(userID: String) {
-    tableView.reloadData()
-  }
-  
-  func failedToStartBrowsingForUsers(error: Error) {
-    
-  }
-  
-  func failedToStartAdvertising(error: Error) {
-  }
-  
-  func didRecieveMessage(text: String, fromUser: String, toUser: String) {
-    
-  }
-  
+class ConversationViewController: UIViewController,UITextFieldDelegate {
+  var peer = [String: String]()
   var arr = ["Привет, серъезный вопрос...", "Привет, какой?", "Идём?", "Куда?", "Ты знаешь...", "Аааа, ок"]
   @IBOutlet weak var tableView: UITableView!
-  var mpc = MultipeerCommunicator()
+
   @IBOutlet var textField: UITextField!
   @IBOutlet var searchView: UIView!
   @IBOutlet var bottomConstraint: NSLayoutConstraint!
+  var delegate: Communicator?
   override func viewDidLoad() {
     super.viewDidLoad()
     navigationController?.navigationBar.prefersLargeTitles = false
     extendedLayoutIncludesOpaqueBars = true
     tableView.delegate = self
-    mpc.delegate = self
     textField.delegate = self
     tableView.dataSource = self
     tableView.backgroundColor = .white
     NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardNotification(notification:)),name: UIResponder.keyboardWillShowNotification,object: nil)
     NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardNotification(notification:)),name: UIResponder.keyboardWillHideNotification,object: nil)
   }
+  
+  @IBAction func sendAction(_ sender: Any) {
+    delegate?.sendMessage(string: textField.text!, to: "peer", completionHandler: nil)
+  }
   @objc func keyboardNotification(notification: NSNotification) {
     if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
       let isKeyboardShowing = notification.name == UIResponder.keyboardWillShowNotification
-      self.bottomConstraint.constant = isKeyboardShowing ?  -keyboardFrame.cgRectValue.height : 0
+      var height = keyboardFrame.cgRectValue.height
+      if #available(iOS 11.0, *) {
+        let bottomInset = view.safeAreaInsets.bottom
+        height -= bottomInset
+      }
+      self.bottomConstraint.constant = isKeyboardShowing ?  -height : 0
       UIView.animate(withDuration: 0, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
         self.view.layoutIfNeeded()
       }) { (completed) in
