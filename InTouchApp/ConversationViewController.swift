@@ -12,7 +12,8 @@ protocol MessageCellConfiguration: class {
   var txt: String? {get set}
 }
 class ConversationViewController: UIViewController,UITextFieldDelegate {
-  var peer = [String: String]()
+  var data = [String]()
+  var info = ""
   var arr = ["Привет, серъезный вопрос...", "Привет, какой?", "Идём?", "Куда?", "Ты знаешь...", "Аааа, ок"]
   @IBOutlet weak var tableView: UITableView!
 
@@ -30,10 +31,27 @@ class ConversationViewController: UIViewController,UITextFieldDelegate {
     tableView.backgroundColor = .white
     NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardNotification(notification:)),name: UIResponder.keyboardWillShowNotification,object: nil)
     NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardNotification(notification:)),name: UIResponder.keyboardWillHideNotification,object: nil)
+    
   }
   
   @IBAction func sendAction(_ sender: Any) {
-    delegate?.sendMessage(string: textField.text!, to: "peer", completionHandler: nil)
+//    delegate?.sendMessage(string: textField.text!, to: "peer", completionHandler: nil)
+    if CommunicatorManager.Instance.communicator.message[data[0]] == nil{
+      CommunicatorManager.Instance.communicator.message[data[0]] = [(0,textField.text!, Date())]
+    }else{
+      CommunicatorManager.Instance.communicator.message[data[0]]?.append((0,textField.text!, Date()))
+    }
+    let array = ["eventType": "TextMessage", "text": "\(textField.text!)", "messageId": "\(generateMessageId())"]
+    if let arr = try? JSONSerialization.data(withJSONObject: array, options: .prettyPrinted){
+      try? CommunicatorManager.Instance.communicator.session.send(arr, toPeers: [CommunicatorManager.Instance.communicator.mcPeerIDFunc(name: data[0])], with: .reliable)
+    }
+    textField.text = ""
+    tableView.reloadData()
+   
+  }
+  func generateMessageId() -> String {
+    return "\(arc4random_uniform(UINT32_MAX))+\(Date.timeIntervalSinceReferenceDate)"
+      .data(using: .utf8)!.base64EncodedString()
   }
   @objc func keyboardNotification(notification: NSNotification) {
     if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
@@ -58,19 +76,27 @@ class ConversationViewController: UIViewController,UITextFieldDelegate {
 extension ConversationViewController: UITableViewDelegate, UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return arr.count
+
+    if let value = CommunicatorManager.Instance.communicator.message[data[0]]?.count  {
+    return value
+    }else{
+      return 0
+    }
   }
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    if indexPath.row % 2 == 0 {
-      guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) as? CustomConversationCell1 else {
-        return tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) }
-      cell.config(text: arr[indexPath.row])
-      return cell
-    }
+    let dat = CommunicatorManager.Instance.communicator.message[data[0]]
+    let message = dat![indexPath.row]
+      if message.0 == 1 {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) as? CustomConversationCell1 else {
+          return tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) }
+        cell.config(text: message.1)
+        return cell
+      }else{
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) as? CustomConversationCell2 else {
       return tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) }
-    cell.config(text: arr[indexPath.row])
+    cell.config(text: message.1)
     return cell
+    }
   }
 }
 class CustomConversationCell1: UITableViewCell, MessageCellConfiguration {

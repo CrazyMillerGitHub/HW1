@@ -16,12 +16,15 @@ class CommunicatorManager: NSObject,CommunicatorDelegate {
   
   var delegate: dataDelegate?
   func didFoundUser(userID: String, userName: String?) {
+    arr.append(userName!)
+    peers.append(userID)
     delegate?.reloadData(status: true)
   }
   func didLostUser(userID: String) {
     for (index, aPeer) in arr.enumerated(){
       if aPeer == userID {
         arr.remove(at: index)
+        peers.remove(at: index)
         break
       }
     }

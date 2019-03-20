@@ -22,6 +22,14 @@ class MultipeerCommunicator: NSObject,Communicator {
       self.message[peerID.displayName]?.append((0,string, Date()))
     }
   }
+  func mcPeerIDFunc(name: String)-> MCPeerID {
+    for x in session.connectedPeers {
+      if x.displayName == name {
+        return x
+      }
+    }
+    return session.connectedPeers.last!
+  }
   
   //  var online: Bool
   
@@ -43,7 +51,7 @@ class MultipeerCommunicator: NSObject,Communicator {
     session = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .none)
     session.delegate =  self
     self.advertiser = MCNearbyServiceAdvertiser(peer: peerID,
-                                                discoveryInfo: ["userName": "Fred"],
+                                                discoveryInfo: ["userName": "\(UserDefaults.standard.string(forKey: "profileLabel")!)"],
                                                 serviceType: "tinkoff-chat")
     self.advertiser.delegate = self
     self.browser = MCNearbyServiceBrowser(peer: peerID,
