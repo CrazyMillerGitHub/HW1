@@ -7,41 +7,48 @@
 //
 
 import UIKit
-
+import CoreData
 class GCDDataManager: NSObject {
-  var delegate: ProfileViewControllerDelegate?
+  weak var delegate: ProfileViewControllerDelegate?
   var arr = [String: Any]()
-  
-  
-  init(arr: [String: Any]){
+
+  init(arr: [String: Any]) {
     self.arr = arr
   }
-  func save(){
+  func save() {
     let group = DispatchGroup()
-    let concurentQueue = DispatchQueue(label: "com.apple.queue",qos: .utility, attributes:.concurrent)
+    let concurentQueue = DispatchQueue(label: "com.apple.queue", qos: .utility, attributes: .concurrent)
     //.enabled = false
     group.enter()
     concurentQueue.async {
-      if let title = self.arr["title"] as? String {
-        UserDefaults.standard.set(title, forKey: "profileLabel")
+      let coreDataStack = CoreDataStack()
+      let entity = NSEntityDescription.entity(forEntityName: "Name", in: coreDataStack.mainContext)
+     let user = NSManagedObject(entity: entity!, insertInto: coreDataStack.mainContext)
+       if let title = self.arr["title"] as? String {
+      user.setValue(title, forKey: "name")
+
       }
-      group.leave()
-    }
-    
-    group.enter()
-    concurentQueue.async {
-      if let image = self.arr["image"] as? NSData {
-        UserDefaults.standard.set(image, forKey: "imageView")
-      }
-      group.leave()
-    }
-    
-    group.enter()
-    concurentQueue.async {
-      if let description = self.arr["description"] as? String {
-        UserDefaults.standard.set(description, forKey: "descriptionLabel")
-      }
-      group.leave()
+
+//      if let title = self.arr["title"] as? String {
+//        UserDefaults.standard.set(title, forKey: "profileLabel")
+//      }
+//      group.leave()
+//    }
+//
+//    group.enter()
+//    concurentQueue.async {
+//      if let image = self.arr["image"] as? NSData {
+//        UserDefaults.standard.set(image, forKey: "imageView")
+//      }
+//      group.leave()
+//    }
+//
+//    group.enter()
+//    concurentQueue.async {
+//      if let description = self.arr["description"] as? String {
+//        UserDefaults.standard.set(description, forKey: "descriptionLabel")
+//      }
+//      group.leave()
     }
     group.notify(queue: concurentQueue, execute: {
        self.delegate?.changeProileData(success: true)

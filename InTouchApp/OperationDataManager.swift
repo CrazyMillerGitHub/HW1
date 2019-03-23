@@ -8,13 +8,13 @@
 
 import Foundation
 class OperationDataManager: NSObject {
-  var delegate: ProfileViewControllerDelegate?
+  weak var delegate: ProfileViewControllerDelegate?
   var arr = [String: Any]()
   init(arr: [String: Any]) {
    self.arr = arr
   }
- 
-  func apply(){
+
+  func apply() {
     let printerQueue =  OperationQueue()
     let notify = Notify()
     if let image = self.arr["image"] as? NSData {
@@ -32,15 +32,15 @@ class OperationDataManager: NSObject {
     printerQueue.addOperation(notify)
     printerQueue.waitUntilAllOperationsAreFinished()
     self.delegate?.changeProileData(success: true)
-    
+
   }
-  
+
   class EditImage: Operation {
     var image: NSData
     init(image: NSData) {
       self.image = image
     }
-    override func main()  {
+    override func main() {
        UserDefaults.standard.set(self.image, forKey: "imageView")
     }
   }
@@ -49,7 +49,7 @@ class OperationDataManager: NSObject {
     init(titleLabel: String) {
       self.titleLabel = titleLabel
     }
-    override func main()  {
+    override func main() {
          UserDefaults.standard.set(self.titleLabel, forKey: "profileLabel")
     }
   }
@@ -58,16 +58,15 @@ class OperationDataManager: NSObject {
     init(dscr: String) {
       self.dscr = dscr
     }
-    override func main()  {
+    override func main() {
          UserDefaults.standard.set(self.dscr, forKey: "descriptionLabel")
     }
   }
-  
-  
+
 }
   class Notify: Operation {
     override func main() {
       print("Done")
-    
+
     }
   }

@@ -8,7 +8,7 @@
 
 import UIKit
 import MultipeerConnectivity
-class ConversationsListViewController: UIViewController,dataDelegate {
+class ConversationsListViewController: UIViewController, dataDelegate {
   func reloadData(status: Bool) {
     if status == true {
       tableView.reloadData()
@@ -30,7 +30,7 @@ class ConversationsListViewController: UIViewController,dataDelegate {
   }
 }
 
-//MARK:- Закоментить extension, если ThemesViewController - swift file
+// MARK: - Закоментить extension, если ThemesViewController - swift file
 extension ConversationsListViewController: ThemesViewControllerDelegate {
   func themesViewController(_ controller: ThemesViewController, didSelectTheme selectedTheme: UIColor) {
     logThemeChanging(selectedTheme: selectedTheme)
@@ -85,11 +85,13 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
       destinationViewController.data.append(CommunicatorManager.Instance.arr[row])
       print(destinationViewController.data)
       destinationViewController.navigationItem.title = CommunicatorManager.Instance.arr[row]
-    }else if segue.identifier == "kek"{
-      let vc = segue.destination as! UINavigationController
-      let d = vc.topViewController as! ThemesViewController
-      d.model = Themes()
-      d.delegate = self
+    } else if segue.identifier == "themeSegueIdentifier"{
+       // swiftlint:disable force_cast
+      let navigationViewController = segue.destination as! UINavigationController
+      let segueViewController = navigationViewController.topViewController as! ThemesViewController
+       // swiftlint:enable force_cast
+      segueViewController.model = Themes()
+      segueViewController.delegate = self
     }
   }
   func logThemeChanging(selectedTheme: UIColor) {

@@ -27,7 +27,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
   @IBAction func dismissButton(_ sender: Any) {
     self.dismiss(animated: true, completion: nil)
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     //    editButton.frame = nil - нету. В ините нельзя получить значение frame. Слишком рано
@@ -52,17 +52,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     hideUnhideFunction()
     customizeTextField()
     view.addSubview(editLabel)
-    
+
     customizeDescription()
     view.addSubview(editDescriptionTextView)
     statusButtons(bool: false)
   }
-  func loadData(){
+  func loadData() {
     if let label = UserDefaults.standard.string(forKey: "profileLabel") { self.titleLabel.text = label }
     if let description = UserDefaults.standard.string(forKey: "descriptionLabel") { self.descriptionView.text = description }
     if let image = UserDefaults.standard.data(forKey: "imageView") { self.imageView.image = UIImage(data: image) }
   }
-  private func setTraget(){
+  private func setTraget() {
     addImageButton.addTarget(self, action: #selector(addImageButtonAction), for: .touchUpInside)
     editButton.addTarget(self, action: #selector(editButtonAction), for: .touchUpInside)
     gcdButton.addTarget(self, action: #selector(gcdButtonAction), for: .touchUpInside)
@@ -82,7 +82,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
   override func viewWillAppear(_ animated: Bool) {
     Logger.SharedInstance.log(message: "Application moved from DidLoad to Appearing: \(#function)")
   }
-  
+
   func customizeTextField() {
     editLabel.text = titleLabel.text
     editLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
@@ -96,24 +96,23 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     editLabel.leftViewMode = UITextField.ViewMode.always
   }
   private func customizeDescription() {
-    let ViewForDoneButtonOnKeyboard = UIToolbar()
-    ViewForDoneButtonOnKeyboard.sizeToFit()
+    let viewForDoneButtonOnKeyboard = UIToolbar()
+    viewForDoneButtonOnKeyboard.sizeToFit()
     let btnDoneOnKeyboard = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneBtnFromKeyboardClicked))
-    ViewForDoneButtonOnKeyboard.items = [btnDoneOnKeyboard]
-    editDescriptionTextView.inputAccessoryView = ViewForDoneButtonOnKeyboard
+    viewForDoneButtonOnKeyboard.items = [btnDoneOnKeyboard]
+    editDescriptionTextView.inputAccessoryView = viewForDoneButtonOnKeyboard
     editDescriptionTextView.text = descriptionView.text
     editDescriptionTextView.font = UIFont.systemFont(ofSize: 16, weight: .regular)
     editDescriptionTextView.textColor = .gray
   }
   override func viewDidAppear(_ animated: Bool) {
-    
+
     super.viewDidAppear(true)
     editLabel.isHidden = true
     editDescriptionTextView.isHidden = true
     editLabel.frame = self.titleLabel.frame
     editDescriptionTextView.frame = self.descriptionView.frame
-   
-    
+
   }
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
@@ -123,7 +122,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     super.viewDidLayoutSubviews()
     Logger.SharedInstance.log(message: "Application moved from WillLayoutSubviews to DidLayoutSubviews: \(#function)")
   }
-  
+
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(true)
     Logger.SharedInstance.log(message: "5")
@@ -132,7 +131,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     super.viewDidDisappear(true)
     Logger.SharedInstance.log(message: "6")
   }
-  @objc private func doneBtnFromKeyboardClicked(){
+  @objc private func doneBtnFromKeyboardClicked() {
       self.view.endEditing(true)
   }
   @objc func addImageButtonAction() {
@@ -144,7 +143,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
       if UIImagePickerController.isSourceTypeAvailable(.camera) {
         myPickerController.sourceType = .camera
         self.present(myPickerController, animated: true, completion: nil)}
-      
+
     }
     let action2 = UIAlertAction(title: "Выбрать из библиотеки", style: .default) { (_:UIAlertAction) in
       myPickerController.sourceType = .photoLibrary
@@ -167,13 +166,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
       self.count = 1
       self.hideUnhideFunction()
     })
-  
+
   }
   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
     picker.dismiss(animated: true, completion: nil)
   }
-  
-  func hideUnhideFunction(){
+
+  func hideUnhideFunction() {
     if count == 0 {
       self.editLabel.isHidden = true
       self.editDescriptionTextView.isHidden = true
@@ -182,7 +181,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
       self.gcdButton.isHidden = true
       self.addImageButton.isHidden = true
       count += 1
-    }else{
+    } else {
       self.editLabel.isHidden = false
       self.editDescriptionTextView.isHidden = false
       self.editButton.isHidden = true
@@ -198,45 +197,45 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
   }
   private func check() -> [String: Any] {
-    var arr = [String:Any]()
+    var arr = [String: Any]()
     if editLabel.text != titleLabel.text {
       arr["title"] = editLabel.text
       self.titleBool = true
-    }else{
+    } else {
       self.titleBool = false
     }
     if editDescriptionTextView.text != descriptionView.text {
       arr["description"] = editDescriptionTextView.text
       self.descriptionTextBool = true
-    }else{
+    } else {
       self.descriptionTextBool = false
     }
     arr["image"] = imageView.image!.jpegData(compressionQuality: 0.5) as NSData?
     self.imageBool = true
     return arr
   }
-  @objc private func gcdButtonAction(){
+  @objc private func gcdButtonAction() {
     statusButtons(bool: false)
     self.myActivityIndicator.startAnimating()
-    let vc = GCDDataManager(arr: check())
-    vc.delegate = self
-    vc.save()
+    let dataManger = GCDDataManager(arr: check())
+    dataManger.delegate = self
+    dataManger.save()
   }
-  @objc private func operationButtonAction(){
+  @objc private func operationButtonAction() {
     self.myActivityIndicator.startAnimating()
     statusButtons(bool: false)
-    let vc = OperationDataManager(arr: check())
-    vc.delegate = self
-    vc.apply()
+    let dataManger = OperationDataManager(arr: check())
+    dataManger.delegate = self
+    dataManger.apply()
   }
-  private func statusButtons(bool: Bool = false){
+  private func statusButtons(bool: Bool = false) {
     gcdButton.isEnabled = bool
     operationButton.isEnabled = bool
   }
   func moveText(moveDistance: Int, up: Bool) {
     let moveDuration = 0.3
     let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
-    
+
     UIView.beginAnimations("animateTextField", context: nil)
     UIView.setAnimationBeginsFromCurrentState(true)
     UIView.setAnimationDuration(moveDuration)
@@ -245,7 +244,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
   }
 }
 
-extension ProfileViewController: UITextViewDelegate,UITextFieldDelegate{
+extension ProfileViewController: UITextViewDelegate, UITextFieldDelegate {
   func textFieldDidBeginEditing(_ textField: UITextField) {
     moveText(moveDistance: -250, up: true)
     increase = true
@@ -266,12 +265,12 @@ extension ProfileViewController: UITextViewDelegate,UITextFieldDelegate{
     textField.resignFirstResponder()
     return true
   }
-  @objc func editLabelChanged(){
+  @objc func editLabelChanged() {
     if titleLabel.text != editLabel.text {
       statusButtons(bool: true)
     }
   }
- 
+
   func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
     let currect = editDescriptionTextView.text + text
     if descriptionView.text != currect {
@@ -302,13 +301,13 @@ extension ProfileViewController: ProfileViewControllerDelegate {
       }
       if success {
         self.alert(nil, handler: "nope")
-      }else{
+      } else {
       self.alert(title: "Ошибка", "Не удалось сохранить данные", handler: "err")
       }
     }
   }
-  
-  private func alert(title: String = "Данные сохраненны", _ message: String?, handler: String){
+
+  private func alert(title: String = "Данные сохраненны", _ message: String?, handler: String) {
     let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
     alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
     }))
@@ -320,4 +319,3 @@ extension ProfileViewController: ProfileViewControllerDelegate {
     self.present(alertController, animated: true, completion: nil)
   }
 }
-

@@ -106,7 +106,7 @@
                     <navigationItem key="navigationItem" title="Tinkoff Chat" id="HG2-wd-l2n">
                         <barButtonItem key="leftBarButtonItem" image="editButton" id="XBH-N0-1BF">
                             <connections>
-                                <segue destination="DMt-fp-bIA" kind="showDetail" identifier="kek" id="5lk-ww-VOh"/>
+                                <segue destination="DMt-fp-bIA" kind="showDetail" identifier="themeSegueIdentifier" id="5lk-ww-VOh"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="acc" id="lnq-er-kuc">

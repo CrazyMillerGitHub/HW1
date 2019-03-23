@@ -38,7 +38,7 @@ var barTint: UIColor {
   case .dark:
     return UIColor.black
   default:
-    return UIColor(red:0.90, green:0.83, blue:0.72, alpha:1.00)
+    return UIColor(red: 0.90, green: 0.83, blue: 0.72, alpha: 1.00)
   }
 }
   var statusBarStyle: UIBarStyle {
@@ -49,17 +49,15 @@ var barTint: UIColor {
       return .default
     }
   }
-func apply() { 
+func apply() {
   UserDefaults.standard.set(rawValue, forKey: Keys.selectedTheme)
- 
+
     UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: self.mainColor]
     UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: self.mainColor]
     UINavigationBar.appearance().tintColor = self.mainColor
     UINavigationBar.appearance().barTintColor = self.barTint
     UINavigationBar.appearance().barStyle = self.statusBarStyle
-  
-  
-  
+
   for window: UIWindow in UIApplication.shared.windows {
     for view: UIView in window.subviews {
       view.removeFromSuperview()

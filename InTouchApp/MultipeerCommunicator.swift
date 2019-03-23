@@ -8,31 +8,29 @@
 
 import UIKit
 import MultipeerConnectivity
-class MultipeerCommunicator: NSObject,Communicator {
+class MultipeerCommunicator: NSObject, Communicator {
   var online: Bool
   func generateMessageId() -> String {
     return "\(arc4random_uniform(UINT32_MAX))+\(Date.timeIntervalSinceReferenceDate)"
       .data(using: .utf8)!.base64EncodedString()
   }
-  func sendMessage(string: String, to userID: String, completionHandler: ((Bool, Error?) -> ())?) {
-    
-    if self.message[peerID.displayName] == nil{
-      self.message[peerID.displayName] = [(0,string, Date())]
-    }else{
-      self.message[peerID.displayName]?.append((0,string, Date()))
+  func sendMessage(string: String, to userID: String, completionHandler: ((Bool, Error?) -> Void)?) {
+
+    if self.message[peerID.displayName] == nil {
+      self.message[peerID.displayName] = [(0, string, Date())]
+    } else {
+      self.message[peerID.displayName]?.append((0, string, Date()))
     }
   }
-  func mcPeerIDFunc(name: String)-> MCPeerID {
-    for x in session.connectedPeers {
-      if x.displayName == name {
-        return x
-      }
+  func mcPeerIDFunc(name: String) -> MCPeerID {
+    for value in session.connectedPeers where value.displayName == name {
+      return value
     }
     return session.connectedPeers.last!
   }
-  
+
   //  var online: Bool
-  
+
   var peerID: MCPeerID!
   var advertiser: MCNearbyServiceAdvertiser!
   var session: MCSession!
@@ -41,9 +39,9 @@ class MultipeerCommunicator: NSObject,Communicator {
   //
   var foundPeers = [MCPeerID: String]()
   //
-  var delegate: CommunicatorDelegate?
-  var message = [String: [(Int,String,Date)]]()
-  var vc = ConversationViewController()
+  weak var delegate: CommunicatorDelegate?
+  var message = [String: [(Int, String, Date)]]()
+  var converstionViewController = ConversationViewController()
   override init() {
     self.online = true
     super.init()
@@ -56,49 +54,51 @@ class MultipeerCommunicator: NSObject,Communicator {
     self.advertiser.delegate = self
     self.browser = MCNearbyServiceBrowser(peer: peerID,
                                           serviceType: "tinkoff-chat")
-    vc.delegate = self
+    converstionViewController.delegate = self
     browser.delegate = self
   }
-  
+
 }
-extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate ,MCSessionDelegate,MCNearbyServiceAdvertiserDelegate,MCBrowserViewControllerDelegate {
+extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate, MCSessionDelegate, MCNearbyServiceAdvertiserDelegate, MCBrowserViewControllerDelegate {
   func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
     switch state {
     case MCSessionState.connected:
       print("Connected: \(peerID.displayName)")
-      
+
     case MCSessionState.connecting:
       print("Connecting: \(peerID.displayName)")
-      
+
     case MCSessionState.notConnected:
       print("Not Connected: \(peerID.displayName)")
     }
   }
-  
+
   func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+    // swiftlint:disable force_cast
     let convertedString = String(data: data, encoding: String.Encoding.utf8)
-    if let dict = convertedString!.toJSON() as? [String:AnyObject]{
-      if self.message[peerID.displayName] == nil{
-        self.message[peerID.displayName] = [(1,dict["text"] as! String, Date())]
-      }else{
-        self.message[peerID.displayName]?.append((1,dict["text"] as! String, Date()))
+    if let dict = convertedString!.toJSON() as? [String: AnyObject] {
+      if self.message[peerID.displayName] == nil {
+        self.message[peerID.displayName] = [(1, dict["text"] as! String, Date())]
+      } else {
+        self.message[peerID.displayName]?.append((1, dict["text"] as! String, Date()))
       }
       delegate?.didRecieveMessage(text: dict["text"] as! String, fromUser: peerID.displayName, toUser: session.myPeerID.displayName)
     }
+    // swiftlint:enable force_cast
   }
-  
+
   func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
-    
+
   }
-  
+
   func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
-    
+
   }
-  
+
   func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
-    
+
   }
-  
+
   func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
     if session.connectedPeers.contains(peerID) {
       invitationHandler(false, nil)
@@ -106,35 +106,35 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate ,MCSessionDelega
       invitationHandler(true, session)
     }
   }
-  
+
   func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
-    
+
   }
-  
+
   func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
-    
+
   }
-  
-  func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
+
+  func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
     foundPeers[peerID] = info!["userName"]
     browser.invitePeer(peerID, to: session, withContext: nil, timeout: 5)
     delegate?.didFoundUser(userID: peerID.displayName, userName: info!["userName"])
   }
-  
+
   func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
     delegate?.didLostUser(userID: peerID.displayName)
   }
 }
 protocol CommunicatorDelegate: class {
-  func didFoundUser(userID:String,userName: String?)
-  func didLostUser(userID:String)
-  
+  func didFoundUser(userID: String, userName: String?)
+  func didLostUser(userID: String)
+
   //Error
   func failedToStartBrowsingForUsers(error: Error)
   func failedToStartAdvertising(error: Error)
-  
-  func didRecieveMessage(text: String,fromUser: String, toUser: String)
-  
+
+  func didRecieveMessage(text: String, fromUser: String, toUser: String)
+
 }
 
 extension String {
@@ -143,4 +143,3 @@ extension String {
     return try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
   }
 }
-

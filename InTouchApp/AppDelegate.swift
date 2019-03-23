@@ -11,12 +11,21 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
+let coreData = CoreDataStack()
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     //Включение и выключение вывода в консоль
-    DispatchQueue.main.async {
+//    // swiftlint:disable force_cast
+//    let user = AppUser.insertAppUser(in: coreData.mainContext)
+//    try! coreData.mainContext.save()
+//
+//    print(user)
+//    let model = coreData.managedObjectModel
+//        let userr = AppUser.fetchRequestAppUser(model: model)
+//        let result = try! coreData.mainContext.fetch(userr!)
+//    print(result.first!.name)
+    // swiftlint:enable force_cast
       Theme.current.apply()
-    }
     UINavigationBar.appearance().shadowImage = UIImage()
 
     Logger.SharedInstance.log(message: "Application moved from Not Running to Inactive: \(#function)")
@@ -25,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func applicationWillResignActive(_ application: UIApplication) {
     Logger.SharedInstance.log(message: "Application moved from Actvie to Inactive: \(#function)")
+
+//
   }
 
   func applicationDidEnterBackground(_ application: UIApplication) {

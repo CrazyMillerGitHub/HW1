@@ -9,49 +9,45 @@
 import Foundation
 import UIKit
 import MultipeerConnectivity
-class CommunicatorManager: NSObject,CommunicatorDelegate {
+class CommunicatorManager: NSObject, CommunicatorDelegate {
   var arr = [String]()
   var peers = [String]()
-  
-  
-  var delegate: dataDelegate?
+
+  weak var delegate: dataDelegate?
   func didFoundUser(userID: String, userName: String?) {
     arr.append(userName!)
     peers.append(userID)
     delegate?.reloadData(status: true)
   }
   func didLostUser(userID: String) {
-    for (index, aPeer) in arr.enumerated(){
-      if aPeer == userID {
+    for (index, aPeer) in arr.enumerated() where aPeer == userID {
         arr.remove(at: index)
         peers.remove(at: index)
-        break
-      }
+//        break
     }
     delegate?.reloadData(status: true)
   }
-  
+
   func failedToStartBrowsingForUsers(error: Error) {
     print(error.localizedDescription)
   }
-  
+
   func failedToStartAdvertising(error: Error) {
     print(error.localizedDescription)
   }
-  
+
   func didRecieveMessage(text: String, fromUser: String, toUser: String) {
-    
+
   }
-  var communicator:MultipeerCommunicator
+  var communicator: MultipeerCommunicator
   static var Instance = CommunicatorManager()
   private override init() {
     self.communicator = MultipeerCommunicator()
     super.init()
     self.communicator.delegate = self
   }
-  
+
 }
-protocol dataDelegate {
+protocol dataDelegate: class {
   func reloadData(status: Bool)
 }
-

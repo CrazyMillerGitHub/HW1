@@ -19,6 +19,8 @@
 		745DEE4C2236BBFA008C4A5E /* GCDDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745DEE4B2236BBFA008C4A5E /* GCDDataManager.swift */; };
 		74958A4F223761F30022B883 /* ProfileViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74958A4E223761F20022B883 /* ProfileViewControllerDelegate.swift */; };
 		74958A51223839CC0022B883 /* OperationDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74958A50223839CC0022B883 /* OperationDataManager.swift */; };
+		7495F9782242AFAD00F7E152 /* coreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7495F9762242AFAD00F7E152 /* coreData.xcdatamodeld */; };
+		7495F97A2242B00000F7E152 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7495F9792242B00000F7E152 /* CoreDataStack.swift */; };
 		74A79CE022168C9F00F23890 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A79CB2221684A700F23890 /* Logger.swift */; };
 		74A79CE122168C9F00F23890 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A79CB8221684A700F23890 /* AppDelegate.swift */; };
 		74A79CE522168CC700F23890 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74A79CB4221684A700F23890 /* LaunchScreen.storyboard */; };
@@ -43,6 +45,8 @@
 		74677B72221F28C500B4B70F /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 		74958A4E223761F20022B883 /* ProfileViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerDelegate.swift; sourceTree = "<group>"; };
 		74958A50223839CC0022B883 /* OperationDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationDataManager.swift; sourceTree = "<group>"; };
+		7495F9772242AFAD00F7E152 /* CoreDataStack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataStack.xcdatamodel; sourceTree = "<group>"; };
+		7495F9792242B00000F7E152 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		74A79CB2221684A700F23890 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		74A79CB3221684A700F23890 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74A79CB5221684A700F23890 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -92,6 +96,8 @@
 				74A79CB6221684A700F23890 /* Main.storyboard */,
 				74424E8C22407A3C00F1BC7B /* Communicator.swift */,
 				74424E8A224042A500F1BC7B /* MultipeerCommunicator.swift */,
+				7495F9762242AFAD00F7E152 /* coreData.xcdatamodeld */,
+				7495F9792242B00000F7E152 /* CoreDataStack.swift */,
 				74424E8E22407ECC00F1BC7B /* CommunicatorManager.swift */,
 				74958A4E223761F20022B883 /* ProfileViewControllerDelegate.swift */,
 				74958A50223839CC0022B883 /* OperationDataManager.swift */,
@@ -208,8 +214,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "
-";
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\nruby ~/swift-auto-diagram/generateEntityDiagram.rb /Users/mikhail_borisov/Documents/Education/Tinkoff_courses/HW\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -218,8 +223,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7495F9782242AFAD00F7E152 /* coreData.xcdatamodeld in Sources */,
 				74424E8D22407A3C00F1BC7B /* Communicator.swift in Sources */,
 				741515AC221FF3B40039E987 /* Users.swift in Sources */,
+				7495F97A2242B00000F7E152 /* CoreDataStack.swift in Sources */,
 				74958A51223839CC0022B883 /* OperationDataManager.swift in Sources */,
 				74958A4F223761F30022B883 /* ProfileViewControllerDelegate.swift in Sources */,
 				741515AA221FC9410039E987 /* ConversationViewController.swift in Sources */,
@@ -442,6 +449,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7495F9762242AFAD00F7E152 /* coreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7495F9772242AFAD00F7E152 /* CoreDataStack.xcdatamodel */,
+			);
+			currentVersion = 7495F9772242AFAD00F7E152 /* CoreDataStack.xcdatamodel */;
+			path = coreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 74DF70BD220D4F1D00755684 /* Project object */;
 }

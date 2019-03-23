@@ -11,7 +11,7 @@ import UIKit
 protocol MessageCellConfiguration: class {
   var txt: String? {get set}
 }
-class ConversationViewController: UIViewController,UITextFieldDelegate {
+class ConversationViewController: UIViewController, UITextFieldDelegate {
   var data = [String]()
   var info = ""
   var arr = ["Привет, серъезный вопрос...", "Привет, какой?", "Идём?", "Куда?", "Ты знаешь...", "Аааа, ок"]
@@ -20,7 +20,7 @@ class ConversationViewController: UIViewController,UITextFieldDelegate {
   @IBOutlet var textField: UITextField!
   @IBOutlet var searchView: UIView!
   @IBOutlet var bottomConstraint: NSLayoutConstraint!
-  var delegate: Communicator?
+  weak var delegate: Communicator?
   override func viewDidLoad() {
     super.viewDidLoad()
     navigationController?.navigationBar.prefersLargeTitles = false
@@ -29,25 +29,25 @@ class ConversationViewController: UIViewController,UITextFieldDelegate {
     textField.delegate = self
     tableView.dataSource = self
     tableView.backgroundColor = .white
-    NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardNotification(notification:)),name: UIResponder.keyboardWillShowNotification,object: nil)
-    NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardNotification(notification:)),name: UIResponder.keyboardWillHideNotification,object: nil)
-    
+    NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+
   }
-  
+
   @IBAction func sendAction(_ sender: Any) {
 //    delegate?.sendMessage(string: textField.text!, to: "peer", completionHandler: nil)
-    if CommunicatorManager.Instance.communicator.message[data[0]] == nil{
-      CommunicatorManager.Instance.communicator.message[data[0]] = [(0,textField.text!, Date())]
-    }else{
-      CommunicatorManager.Instance.communicator.message[data[0]]?.append((0,textField.text!, Date()))
+    if CommunicatorManager.Instance.communicator.message[data[0]] == nil {
+      CommunicatorManager.Instance.communicator.message[data[0]] = [(0, textField.text!, Date())]
+    } else {
+      CommunicatorManager.Instance.communicator.message[data[0]]?.append((0, textField.text!, Date()))
     }
     let array = ["eventType": "TextMessage", "text": "\(textField.text!)", "messageId": "\(generateMessageId())"]
-    if let arr = try? JSONSerialization.data(withJSONObject: array, options: .prettyPrinted){
+    if let arr = try? JSONSerialization.data(withJSONObject: array, options: .prettyPrinted) {
       try? CommunicatorManager.Instance.communicator.session.send(arr, toPeers: [CommunicatorManager.Instance.communicator.mcPeerIDFunc(name: data[0])], with: .reliable)
     }
     textField.text = ""
     tableView.reloadData()
-   
+
   }
   func generateMessageId() -> String {
     return "\(arc4random_uniform(UINT32_MAX))+\(Date.timeIntervalSinceReferenceDate)"
@@ -64,7 +64,7 @@ class ConversationViewController: UIViewController,UITextFieldDelegate {
       self.bottomConstraint.constant = isKeyboardShowing ?  -height : 0
       UIView.animate(withDuration: 0, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
         self.view.layoutIfNeeded()
-      }) { (completed) in
+      }) { (_) in
       }
     }
   }
@@ -77,9 +77,9 @@ extension ConversationViewController: UITableViewDelegate, UITableViewDataSource
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-    if let value = CommunicatorManager.Instance.communicator.message[data[0]]?.count  {
+    if let value = CommunicatorManager.Instance.communicator.message[data[0]]?.count {
     return value
-    }else{
+    } else {
       return 0
     }
   }
@@ -91,7 +91,7 @@ extension ConversationViewController: UITableViewDelegate, UITableViewDataSource
           return tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) }
         cell.config(text: message.1)
         return cell
-      }else{
+      } else {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) as? CustomConversationCell2 else {
       return tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) }
     cell.config(text: message.1)
