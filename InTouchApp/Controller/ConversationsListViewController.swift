@@ -11,8 +11,9 @@ import MultipeerConnectivity
 class ConversationsListViewController: UIViewController, dataDelegate {
   func reloadData(status: Bool) {
     if status == true {
-      tableView.reloadData()
-      print(CommunicatorManager.Instance.arr)
+      DispatchQueue.main.async {
+         self.tableView.reloadData()
+      }
     }
   }
   @IBOutlet private var tableView: UITableView!
@@ -40,18 +41,27 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     //Когда выбрана cell, subview меняет цвет на selectionColor. Можно пофиксить с помощью extension, но пока не большая проблема
     // swiftlint:disable force_cast
+    CommunicatorManager.Instance.users.sort { (name1, name2) -> Bool in
+      var time1 = Date()
+      var time2 = Date()
+      if let time = CommunicatorManager.Instance.communicator.message[name1.peerID]?.last?.2 {
+        time1 = time
+      }
+      if let time = CommunicatorManager.Instance.communicator.message[name2.peerID]?.last?.2 {
+        time2 = time
+      }
+      return time1 > time2
+    }
     let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
-    let arr = Users.sharedInstance.configureUsers()[indexPath.section][indexPath.row]
+//    let arr = Users.sharedInstance.configureUsers()[indexPath.section][indexPath.row]
     var messageTime = Date()
     var message = ""
-    if let lastMessage =   CommunicatorManager.Instance.communicator.message[CommunicatorManager.Instance.peers[indexPath.row]] {
+    if let lastMessage = CommunicatorManager.Instance.communicator.message[CommunicatorManager.Instance.users[indexPath.row].peerID] {
       message = (lastMessage.last?.1)!
       messageTime = (lastMessage.last?.2)!
     }
-    if let online = arr[3], let unread = arr[4] {
-      cell.configureCell(name: CommunicatorManager.Instance.arr[indexPath.row], message: message, date: messageTime, online: online as! Bool, hasUnreadmessage: unread as! Bool)
+      cell.configureCell(name: CommunicatorManager.Instance.users[indexPath.row].username, message: message, date: messageTime, online: true, hasUnreadmessage: true)
       // swiftlint:enable force_cast
-    }
     return cell
   }
   private func convertToDate(from string: String) -> Date {
@@ -67,7 +77,7 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
     tableView.reloadData()
   }
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return CommunicatorManager.Instance.arr.count
+    return CommunicatorManager.Instance.users.count
   }
   func numberOfSections(in tableView: UITableView) -> Int {
     return 1
@@ -79,12 +89,10 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
     if segue.identifier == "segueIndentifier" {
       guard let destinationViewController = segue.destination as? ConversationViewController else { return }
       guard let section = tableView.indexPathForSelectedRow?.section, let row = tableView.indexPathForSelectedRow?.row else { return }
-      guard let value = Users.sharedInstance.configureUsers()[section][row][1] as? String else { return }
-      destinationViewController.arr.append(value)
-      destinationViewController.data = [CommunicatorManager.Instance.peers[row]]
-      destinationViewController.data.append(CommunicatorManager.Instance.arr[row])
+      destinationViewController.data = [CommunicatorManager.Instance.users[row].peerID]
+      destinationViewController.data.append(CommunicatorManager.Instance.users[row].username)
       print(destinationViewController.data)
-      destinationViewController.navigationItem.title = CommunicatorManager.Instance.arr[row]
+      destinationViewController.navigationItem.title = CommunicatorManager.Instance.users[row].username
     } else if segue.identifier == "themeSegueIdentifier"{
        // swiftlint:disable force_cast
       let navigationViewController = segue.destination as! UINavigationController

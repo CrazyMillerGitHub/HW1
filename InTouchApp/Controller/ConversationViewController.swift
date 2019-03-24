@@ -11,10 +11,15 @@ import UIKit
 protocol MessageCellConfiguration: class {
   var txt: String? {get set}
 }
-class ConversationViewController: UIViewController, UITextFieldDelegate {
+class ConversationViewController: UIViewController, UITextFieldDelegate, dataDelegate {
+  func reloadData(status: Bool) {
+    DispatchQueue.main.async {
+      self.tableView.reloadData()
+    }
+  }
   var data = [String]()
   var info = ""
-  var arr = ["Привет, серъезный вопрос...", "Привет, какой?", "Идём?", "Куда?", "Ты знаешь...", "Аааа, ок"]
+  var arr = [""]
   @IBOutlet weak var tableView: UITableView!
 
   @IBOutlet var textField: UITextField!
@@ -25,6 +30,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
     super.viewDidLoad()
     navigationController?.navigationBar.prefersLargeTitles = false
     extendedLayoutIncludesOpaqueBars = true
+    CommunicatorManager.Instance.delegate = self
     tableView.delegate = self
     textField.delegate = self
     tableView.dataSource = self
@@ -63,9 +69,8 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
       }
       self.bottomConstraint.constant = isKeyboardShowing ?  -height : 0
       UIView.animate(withDuration: 0, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
-        self.view.layoutIfNeeded()
-      }) { (_) in
-      }
+      self.view.layoutIfNeeded()
+      })
     }
   }
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

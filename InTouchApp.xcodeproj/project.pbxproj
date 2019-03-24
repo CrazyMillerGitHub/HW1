@@ -28,6 +28,7 @@
 		74B33C902230773B00F3BB59 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B33C8F2230773B00F3BB59 /* ProfileViewController.swift */; };
 		74CDAE692226B5F1001FEF3B /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CDAE682226B5F1001FEF3B /* TableViewCell.swift */; };
 		74D746A5222C3A5200383066 /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D746A4222C3A5200383066 /* Themes.m */; };
+		74E254782247F546009E089F /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E254772247F546009E089F /* StorageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		74D746A3222C3A5200383066 /* Themes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
 		74D746A4222C3A5200383066 /* Themes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Themes.m; sourceTree = "<group>"; };
 		74DF70C5220D4F1D00755684 /* InTouchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InTouchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		74E254772247F546009E089F /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,28 +90,20 @@
 		74A79CB0221684A700F23890 /* InTouchApp */ = {
 			isa = PBXGroup;
 			children = (
+				74E254752247AFA2009E089F /* View */,
+				74F9A0DE2246B935002B116B /* Controller */,
+				74F9A0DD2246B860002B116B /* Supported folders */,
+				74F9A0DC2246B7CD002B116B /* DataManger */,
 				740C7FB0222CFF7C00471199 /* obj-c */,
+				74F9A0DF2246BE21002B116B /* CoreData */,
+				74E254762247AFF0009E089F /* Model */,
 				74A79CB2221684A700F23890 /* Logger.swift */,
-				74B33C8F2230773B00F3BB59 /* ProfileViewController.swift */,
-				74A79CB3221684A700F23890 /* Assets.xcassets */,
-				74A79CB4221684A700F23890 /* LaunchScreen.storyboard */,
-				74A79CB6221684A700F23890 /* Main.storyboard */,
 				74424E8C22407A3C00F1BC7B /* Communicator.swift */,
 				74424E8A224042A500F1BC7B /* MultipeerCommunicator.swift */,
-				7495F9762242AFAD00F7E152 /* coreData.xcdatamodeld */,
-				7495F9792242B00000F7E152 /* CoreDataStack.swift */,
-				74424E8E22407ECC00F1BC7B /* CommunicatorManager.swift */,
 				74958A4E223761F20022B883 /* ProfileViewControllerDelegate.swift */,
-				74958A50223839CC0022B883 /* OperationDataManager.swift */,
-				745DEE4B2236BBFA008C4A5E /* GCDDataManager.swift */,
-				740C7FB2222D00D500471199 /* InTouchApp-Bridging-Header.h */,
-				74677B72221F28C500B4B70F /* ConversationsListViewController.swift */,
 				74CDAE682226B5F1001FEF3B /* TableViewCell.swift */,
-				741515AB221FF3B40039E987 /* Users.swift */,
-				74A79CB8221684A700F23890 /* AppDelegate.swift */,
-				74130151222F1AA00093181F /* Theme.swift */,
+				740C7FB2222D00D500471199 /* InTouchApp-Bridging-Header.h */,
 				74A79CB9221684A700F23890 /* Info.plist */,
-				741515A9221FC9400039E987 /* ConversationViewController.swift */,
 			);
 			path = InTouchApp;
 			sourceTree = "<group>";
@@ -128,6 +122,63 @@
 				74DF70C5220D4F1D00755684 /* InTouchApp.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		74E254752247AFA2009E089F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				74A79CB6221684A700F23890 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		74E254762247AFF0009E089F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				74424E8E22407ECC00F1BC7B /* CommunicatorManager.swift */,
+				741515AB221FF3B40039E987 /* Users.swift */,
+				74130151222F1AA00093181F /* Theme.swift */,
+				74E254772247F546009E089F /* StorageManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		74F9A0DC2246B7CD002B116B /* DataManger */ = {
+			isa = PBXGroup;
+			children = (
+				74958A50223839CC0022B883 /* OperationDataManager.swift */,
+				745DEE4B2236BBFA008C4A5E /* GCDDataManager.swift */,
+			);
+			path = DataManger;
+			sourceTree = "<group>";
+		};
+		74F9A0DD2246B860002B116B /* Supported folders */ = {
+			isa = PBXGroup;
+			children = (
+				74A79CB4221684A700F23890 /* LaunchScreen.storyboard */,
+				74A79CB8221684A700F23890 /* AppDelegate.swift */,
+				74A79CB3221684A700F23890 /* Assets.xcassets */,
+			);
+			path = "Supported folders";
+			sourceTree = "<group>";
+		};
+		74F9A0DE2246B935002B116B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				741515A9221FC9400039E987 /* ConversationViewController.swift */,
+				74677B72221F28C500B4B70F /* ConversationsListViewController.swift */,
+				74B33C8F2230773B00F3BB59 /* ProfileViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		74F9A0DF2246BE21002B116B /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				7495F9792242B00000F7E152 /* CoreDataStack.swift */,
+				7495F9762242AFAD00F7E152 /* coreData.xcdatamodeld */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +283,7 @@
 				741515AA221FC9410039E987 /* ConversationViewController.swift in Sources */,
 				74424E8F22407ECC00F1BC7B /* CommunicatorManager.swift in Sources */,
 				74B33C902230773B00F3BB59 /* ProfileViewController.swift in Sources */,
+				74E254782247F546009E089F /* StorageManager.swift in Sources */,
 				74360279222FEC6400D7FED3 /* ConversationsListViewController.swift in Sources */,
 				74A79CE022168C9F00F23890 /* Logger.swift in Sources */,
 				74CDAE692226B5F1001FEF3B /* TableViewCell.swift in Sources */,

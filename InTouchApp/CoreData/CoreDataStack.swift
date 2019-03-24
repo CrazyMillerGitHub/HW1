@@ -14,6 +14,7 @@ class CoreDataStack: NSObject {
     let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     return documentsUrl.appendingPathComponent("MyStore.sqlite")
   }
+  weak var delegate: StorageManager?
   let dataModelName = "coreData"
   let dataModelExtension = "momd"
   lazy var managedObjectModel: NSManagedObjectModel = {
@@ -39,7 +40,14 @@ class CoreDataStack: NSObject {
 
   lazy var mainContext: NSManagedObjectContext = {
     var mainContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-    mainContext.persistentStoreCoordinator = self.persistentStoreCoordinator
+    mainContext.parent = self.masterContext
+    mainContext.mergePolicy = NSOverwriteMergePolicy
+    return mainContext
+  }()
+  
+  lazy var saveContext: NSManagedObjectContext = {
+    var mainContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+    mainContext.parent = self.mainContext
     mainContext.mergePolicy = NSOverwriteMergePolicy
     return mainContext
   }()
@@ -68,12 +76,10 @@ class CoreDataStack: NSObject {
 extension AppUser {
   static func insertAppUser(in context: NSManagedObjectContext) -> AppUser? {
     guard let appUser = NSEntityDescription.insertNewObject(forEntityName: "AppUser", into: context) as? AppUser else {return nil}
-
-  appUser.name = "kadabre kek "
-  appUser.timestamp = Date()
     return appUser
   }
 }
+
   extension AppUser {
     static func fetchRequestAppUser(model: NSManagedObjectModel) -> NSFetchRequest<AppUser>? {
       let templateName = "AppUser"

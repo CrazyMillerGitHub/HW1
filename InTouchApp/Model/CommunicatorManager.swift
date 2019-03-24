@@ -10,20 +10,17 @@ import Foundation
 import UIKit
 import MultipeerConnectivity
 class CommunicatorManager: NSObject, CommunicatorDelegate {
-  var arr = [String]()
-  var peers = [String]()
-
+  var users: [(username: String, peerID: String)] = []
   weak var delegate: dataDelegate?
   func didFoundUser(userID: String, userName: String?) {
-    arr.append(userName!)
-    peers.append(userID)
+    users.append((userName!, userID))
+    print(users)
     delegate?.reloadData(status: true)
   }
   func didLostUser(userID: String) {
-    for (index, aPeer) in arr.enumerated() where aPeer == userID {
-        arr.remove(at: index)
-        peers.remove(at: index)
-//        break
+    for (index, aPeer) in users.enumerated() where aPeer.peerID == userID {
+      users.remove(at: index)
+      break
     }
     delegate?.reloadData(status: true)
   }
@@ -37,7 +34,7 @@ class CommunicatorManager: NSObject, CommunicatorDelegate {
   }
 
   func didRecieveMessage(text: String, fromUser: String, toUser: String) {
-
+    delegate?.reloadData(status: true)
   }
   var communicator: MultipeerCommunicator
   static var Instance = CommunicatorManager()

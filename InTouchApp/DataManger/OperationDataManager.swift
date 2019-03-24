@@ -42,6 +42,9 @@ class OperationDataManager: NSObject {
     }
     override func main() {
        UserDefaults.standard.set(self.image, forKey: "imageView")
+      
+//      let user = AppUser.insertAppUser(in: StorageManager.Instance.coreDataStack.masterContext)
+//      user?.image = self.image as Data
     }
   }
   class EditTitle: Operation {
@@ -51,6 +54,8 @@ class OperationDataManager: NSObject {
     }
     override func main() {
          UserDefaults.standard.set(self.titleLabel, forKey: "profileLabel")
+//         let user = AppUser.insertAppUser(in: StorageManager.Instance.coreDataStack.masterContext)
+//         user?.name = self.titleLabel
     }
   }
   class EditDescription: Operation {
@@ -60,13 +65,14 @@ class OperationDataManager: NSObject {
     }
     override func main() {
          UserDefaults.standard.set(self.dscr, forKey: "descriptionLabel")
+//      let user = AppUser.insertAppUser(in: StorageManager.Instance.coreDataStack.masterContext)
+//      user?.descriptionLabel = self.dscr
     }
   }
 
 }
   class Notify: Operation {
     override func main() {
-      print("Done")
-
+//    try! StorageManager.Instance.coreDataStack.saveContext.save()
     }
   }
