@@ -88,7 +88,7 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "segueIndentifier" {
       guard let destinationViewController = segue.destination as? ConversationViewController else { return }
-      guard let section = tableView.indexPathForSelectedRow?.section, let row = tableView.indexPathForSelectedRow?.row else { return }
+      guard let _ = tableView.indexPathForSelectedRow?.section, let row = tableView.indexPathForSelectedRow?.row else { return }
       destinationViewController.data = [CommunicatorManager.Instance.users[row].peerID]
       destinationViewController.data.append(CommunicatorManager.Instance.users[row].username)
       print(destinationViewController.data)

@@ -223,6 +223,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="5gL-H4-wDB"/>
+                                    <constraint firstItem="KFA-bu-uTn" firstAttribute="leading" secondItem="8vM-Lz-3Gw" secondAttribute="trailing" constant="8" id="FKq-uo-ul8"/>
                                     <constraint firstItem="8vM-Lz-3Gw" firstAttribute="centerY" secondItem="pru-Cm-r1N" secondAttribute="centerY" id="KFw-iS-CFe"/>
                                     <constraint firstItem="8vM-Lz-3Gw" firstAttribute="top" secondItem="pru-Cm-r1N" secondAttribute="top" id="Rjg-Wy-vWe"/>
                                     <constraint firstItem="KFA-bu-uTn" firstAttribute="centerY" secondItem="pru-Cm-r1N" secondAttribute="centerY" id="Sy2-2A-5mG"/>

@@ -265,7 +265,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\nruby ~/swift-auto-diagram/generateEntityDiagram.rb /Users/mikhail_borisov/Documents/Education/Tinkoff_courses/HW\n";
+			shellScript = "
+";
 		};
 /* End PBXShellScriptBuildPhase section */
 
