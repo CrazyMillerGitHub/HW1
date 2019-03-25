@@ -59,7 +59,9 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, dataDel
     }
   }
   private func messageNotSent() {
-    CommunicatorManager.Instance.communicator.message[data[0]]?.removeLast()
+    if CommunicatorManager.Instance.communicator.message[data[0]]?.count == 1 {
+      CommunicatorManager.Instance.communicator.message[data[0]] = nil
+    }
     let alertController = UIAlertController(title: "Извините,сообщение не было отправленно", message: nil, preferredStyle: .actionSheet)
     let action = UIAlertAction(title: "ОК", style: .default) { (_:UIAlertAction) in
       if UIImagePickerController.isSourceTypeAvailable(.camera) {

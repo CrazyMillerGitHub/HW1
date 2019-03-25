@@ -57,6 +57,7 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
     var messageTime = Date()
     var message = ""
     if let lastMessage = CommunicatorManager.Instance.communicator.message[CommunicatorManager.Instance.users[indexPath.row].peerID] {
+      print(message)
       message = (lastMessage.last?.1)!
       messageTime = (lastMessage.last?.2)!
     }
