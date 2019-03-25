@@ -22,11 +22,11 @@ class MultipeerCommunicator: NSObject, Communicator {
       self.message[peerID.displayName]?.append((0, string, Date()))
     }
   }
-  func mcPeerIDFunc(name: String) -> MCPeerID {
+  func mcPeerIDFunc(name: String) -> MCPeerID? {
     for value in session.connectedPeers where value.displayName == name {
       return value
     }
-    return session.connectedPeers.last!
+    return session.connectedPeers.last
   }
 
   //  var online: Bool

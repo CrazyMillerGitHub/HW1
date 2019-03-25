@@ -11,21 +11,22 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
-//let coreData = CoreDataStack()
+let coreData = CoreDataStack()
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
       Theme.current.apply()
     if UserDefaults.standard.string(forKey: "profileLabel") != nil { } else { UserDefaults.standard.set("StandartUser", forKey: "profileLabel") }
+    print()
 //        let user = AppUser.insertAppUser(in: coreData.mainContext)
 //        user?.name = "Borya"
 //        try! coreData.mainContext.save()
 ////
 ////        print(user)
-//        let model = coreData.managedObjectModel
-//            let userr = AppUser.fetchRequestAppUser(model: model)
-//    guard let userrr = userr else { fatalError() }
-//    let result = try! coreData.mainContext.fetch(userrr)
-//    print(result.count)
+        let model = coreData.managedObjectModel
+            let userr = AppUser.fetchRequestAppUser(model: model)
+    guard let userrr = userr else { fatalError() }
+    let result = try! coreData.mainContext.fetch(userrr)
+    print(result.count)
     /////////////////////////
     UINavigationBar.appearance().shadowImage = UIImage()
 

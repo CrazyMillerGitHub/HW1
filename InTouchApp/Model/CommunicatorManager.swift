@@ -13,16 +13,19 @@ class CommunicatorManager: NSObject, CommunicatorDelegate {
   var users: [(username: String, peerID: String)] = []
   weak var delegate: dataDelegate?
   func didFoundUser(userID: String, userName: String?) {
-    users.append((userName!, userID))
-    print(users)
-    delegate?.reloadData(status: true)
+    if users.contains(where: { (username, peerID) -> Bool in
+      return username == userName
+    }) != true {
+      users.append((userName!, userID))
+      delegate?.reloadData(status: true)
+    }
   }
   func didLostUser(userID: String) {
     for (index, aPeer) in users.enumerated() where aPeer.peerID == userID {
       users.remove(at: index)
+      delegate?.reloadData(status: true)
       break
     }
-    delegate?.reloadData(status: true)
   }
 
   func failedToStartBrowsingForUsers(error: Error) {

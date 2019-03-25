@@ -43,8 +43,9 @@ class OperationDataManager: NSObject {
     override func main() {
        UserDefaults.standard.set(self.image, forKey: "imageView")
       
-//      let user = AppUser.insertAppUser(in: StorageManager.Instance.coreDataStack.masterContext)
+//       let user = AppUser.insertAppUser(in: StorageManager.Instance.coreDataStack.masterContext)
 //      user?.image = self.image as Data
+//       try! StorageManager.Instance.coreDataStack.performSave(with: StorageManager.Instance.coreDataStack.masterContext)
     }
   }
   class EditTitle: Operation {

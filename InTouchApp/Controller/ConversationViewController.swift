@@ -41,19 +41,35 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, dataDel
   }
 
   @IBAction func sendAction(_ sender: Any) {
-//    delegate?.sendMessage(string: textField.text!, to: "peer", completionHandler: nil)
+    //    delegate?.sendMessage(string: textField.text!, to: "peer", completionHandler: nil)
+    let array = ["eventType": "TextMessage", "text": "\(textField.text!)", "messageId": "\(generateMessageId())"]
     if CommunicatorManager.Instance.communicator.message[data[0]] == nil {
       CommunicatorManager.Instance.communicator.message[data[0]] = [(0, textField.text!, Date())]
     } else {
       CommunicatorManager.Instance.communicator.message[data[0]]?.append((0, textField.text!, Date()))
     }
-    let array = ["eventType": "TextMessage", "text": "\(textField.text!)", "messageId": "\(generateMessageId())"]
     if let arr = try? JSONSerialization.data(withJSONObject: array, options: .prettyPrinted) {
-      try? CommunicatorManager.Instance.communicator.session.send(arr, toPeers: [CommunicatorManager.Instance.communicator.mcPeerIDFunc(name: data[0])], with: .reliable)
+        if let peer = CommunicatorManager.Instance.communicator.mcPeerIDFunc(name: data[0]) {
+          try? CommunicatorManager.Instance.communicator.session.send(arr, toPeers: [peer], with: .reliable)
+          textField.text = ""
+          tableView.reloadData()
+        } else {
+          self.messageNotSent()
+        }
     }
-    textField.text = ""
-    tableView.reloadData()
-
+  }
+  private func messageNotSent() {
+    CommunicatorManager.Instance.communicator.message[data[0]]?.removeLast()
+    let alertController = UIAlertController(title: "Извините,сообщение не было отправленно", message: nil, preferredStyle: .actionSheet)
+    let action = UIAlertAction(title: "ОК", style: .default) { (_:UIAlertAction) in
+      if UIImagePickerController.isSourceTypeAvailable(.camera) {
+//        myPickerController.sourceType = .camera
+//        self.present(myPickerController, animated: true, completion: nil)
+      }
+      
+    }
+    alertController.addAction(action)
+    self.present(alertController, animated: true, completion: nil)
   }
   func generateMessageId() -> String {
     return "\(arc4random_uniform(UINT32_MAX))+\(Date.timeIntervalSinceReferenceDate)"
