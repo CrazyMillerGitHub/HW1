@@ -285,13 +285,20 @@ extension ProfileViewController: ProfileViewControllerDelegate {
       self.hideUnhideFunction()
       self.myActivityIndicator.stopAnimating()
       self.statusButtons(bool: false)
+      
+      
+      let model = StorageManager.Instance.coreDataStack.managedObjectModel
+      let userr = AppUser.fetchRequestAppUser(model: model)
+      guard let userrr = userr else { fatalError() }
+      let result = try! StorageManager.Instance.coreDataStack.mainContext.fetch(userrr)
+      
       if self.titleBool {
-        if let label = UserDefaults.standard.string(forKey: "profileLabel") {
+        if let label = result.last?.name {
           self.titleLabel.text = label
         }
       }
       if self.descriptionTextBool {
-        if let description = UserDefaults.standard.string(forKey: "descriptionLabel") { self.descriptionView.text = description }
+        if let description = result.last?.descriptionLabel { self.descriptionView.text = description }
       }
       if self.imageBool {
         if let image = UserDefaults.standard.data(forKey: "imageView") { self.imageView.image = UIImage(data: image)}

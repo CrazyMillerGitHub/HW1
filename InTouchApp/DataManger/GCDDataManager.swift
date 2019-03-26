@@ -20,9 +20,12 @@ class GCDDataManager: NSObject {
     let concurentQueue = DispatchQueue(label: "com.apple.queue", qos: .utility, attributes: .concurrent)
     //.enabled = false
     group.enter()
+    let user = AppUser.findOrInsertAppUser(in: StorageManager.Instance.coreDataStack.mainContext)
     concurentQueue.async {
       if let title = self.arr["title"] as? String {
         UserDefaults.standard.set(title, forKey: "profileLabel")
+        print("hello")
+        user?.name = title
       }
       group.leave()
     }
@@ -31,6 +34,7 @@ class GCDDataManager: NSObject {
     concurentQueue.async {
       if let image = self.arr["image"] as? NSData {
         UserDefaults.standard.set(image, forKey: "imageView")
+        user?.image = image as Data
       }
       group.leave()
     }
@@ -39,10 +43,12 @@ class GCDDataManager: NSObject {
     concurentQueue.async {
       if let description = self.arr["description"] as? String {
         UserDefaults.standard.set(description, forKey: "descriptionLabel")
+        user?.descriptionLabel = description
       }
       group.leave()
     }
     group.notify(queue: concurentQueue, execute: {
+       try! StorageManager.Instance.coreDataStack.performSave(with: StorageManager.Instance.coreDataStack.mainContext)
        self.delegate?.changeProileData(success: true)
     })
   }

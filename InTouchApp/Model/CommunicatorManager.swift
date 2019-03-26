@@ -9,6 +9,11 @@
 import Foundation
 import UIKit
 import MultipeerConnectivity
+struct messageStruct {
+  let inOut: Int
+  let message: String
+  let date: Date
+}
 class CommunicatorManager: NSObject, CommunicatorDelegate {
   var users: [(username: String, peerID: String)] = []
   weak var delegate: dataDelegate?
@@ -17,6 +22,7 @@ class CommunicatorManager: NSObject, CommunicatorDelegate {
       return username == userName
     }) != true {
       users.append((userName!, userID))
+      
       delegate?.reloadData(status: true)
     }
   }

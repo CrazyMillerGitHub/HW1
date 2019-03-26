@@ -44,10 +44,10 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
     CommunicatorManager.Instance.users.sort { (name1, name2) -> Bool in
       var time1 = Date()
       var time2 = Date()
-      if let time = CommunicatorManager.Instance.communicator.message[name1.peerID]?.last?.2 {
+      if let time = CommunicatorManager.Instance.communicator.message[name1.peerID]?.last?.date {
         time1 = time
       }
-      if let time = CommunicatorManager.Instance.communicator.message[name2.peerID]?.last?.2 {
+      if let time = CommunicatorManager.Instance.communicator.message[name2.peerID]?.last?.date {
         time2 = time
       }
       return time1 > time2
@@ -58,8 +58,8 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
     var message = ""
     if let lastMessage = CommunicatorManager.Instance.communicator.message[CommunicatorManager.Instance.users[indexPath.row].peerID] {
       print(message)
-      message = (lastMessage.last?.1)!
-      messageTime = (lastMessage.last?.2)!
+      message = (lastMessage.last?.message)!
+      messageTime = (lastMessage.last?.date)!
     }
       cell.configureCell(name: CommunicatorManager.Instance.users[indexPath.row].username, message: message, date: messageTime, online: true, hasUnreadmessage: true)
       // swiftlint:enable force_cast
@@ -90,9 +90,9 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
     if segue.identifier == "segueIndentifier" {
       guard let destinationViewController = segue.destination as? ConversationViewController else { return }
       guard let _ = tableView.indexPathForSelectedRow?.section, let row = tableView.indexPathForSelectedRow?.row else { return }
-      destinationViewController.data = [CommunicatorManager.Instance.users[row].peerID]
-      destinationViewController.data.append(CommunicatorManager.Instance.users[row].username)
-      print(destinationViewController.data)
+      destinationViewController.userData.peerID = CommunicatorManager.Instance.users[row].peerID
+      destinationViewController.userData.userName = CommunicatorManager.Instance.users[row].username
+      print(destinationViewController.userData)
       destinationViewController.navigationItem.title = CommunicatorManager.Instance.users[row].username
     } else if segue.identifier == "themeSegueIdentifier"{
        // swiftlint:disable force_cast

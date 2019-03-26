@@ -17,9 +17,8 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, dataDel
       self.tableView.reloadData()
     }
   }
-  var data = [String]()
-  var info = ""
-  var arr = [""]
+  
+  var userData = (peerID: String(), userName: String())
   @IBOutlet weak var tableView: UITableView!
 
   @IBOutlet var textField: UITextField!
@@ -43,13 +42,13 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, dataDel
   @IBAction func sendAction(_ sender: Any) {
     //    delegate?.sendMessage(string: textField.text!, to: "peer", completionHandler: nil)
     let array = ["eventType": "TextMessage", "text": "\(textField.text!)", "messageId": "\(generateMessageId())"]
-    if CommunicatorManager.Instance.communicator.message[data[0]] == nil {
-      CommunicatorManager.Instance.communicator.message[data[0]] = [(0, textField.text!, Date())]
+    if CommunicatorManager.Instance.communicator.message[userData.peerID] == nil {
+      CommunicatorManager.Instance.communicator.message[userData.peerID] = [messageStruct(inOut: 0, message: textField.text!, date: Date())]
     } else {
-      CommunicatorManager.Instance.communicator.message[data[0]]?.append((0, textField.text!, Date()))
+      CommunicatorManager.Instance.communicator.message[userData.peerID]?.append(messageStruct(inOut: 0, message: textField.text!, date: Date()))
     }
     if let arr = try? JSONSerialization.data(withJSONObject: array, options: .prettyPrinted) {
-        if let peer = CommunicatorManager.Instance.communicator.mcPeerIDFunc(name: data[0]) {
+        if let peer = CommunicatorManager.Instance.communicator.mcPeerIDFunc(name: userData.peerID) {
           try? CommunicatorManager.Instance.communicator.session.send(arr, toPeers: [peer], with: .reliable)
           textField.text = ""
           tableView.reloadData()
@@ -59,8 +58,8 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, dataDel
     }
   }
   private func messageNotSent() {
-    if CommunicatorManager.Instance.communicator.message[data[0]]?.count == 1 {
-      CommunicatorManager.Instance.communicator.message[data[0]] = nil
+    if CommunicatorManager.Instance.communicator.message[userData.peerID]?.count == 1 {
+      CommunicatorManager.Instance.communicator.message[userData.peerID] = nil
     }
     let alertController = UIAlertController(title: "Извините,сообщение не было отправленно", message: nil, preferredStyle: .actionSheet)
     let action = UIAlertAction(title: "ОК", style: .default) { (_:UIAlertAction) in
@@ -100,24 +99,24 @@ extension ConversationViewController: UITableViewDelegate, UITableViewDataSource
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-    if let value = CommunicatorManager.Instance.communicator.message[data[0]]?.count {
+    if let value = CommunicatorManager.Instance.communicator.message[userData.peerID]?.count {
     return value
     } else {
       return 0
     }
   }
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let dat = CommunicatorManager.Instance.communicator.message[data[0]]
+    let dat = CommunicatorManager.Instance.communicator.message[userData.peerID]
     let message = dat![indexPath.row]
-      if message.0 == 1 {
+      if message.inOut == 1 {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) as? CustomConversationCell1 else {
           return tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) }
-        cell.config(text: message.1)
+        cell.config(text: message.message)
         return cell
       } else {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) as? CustomConversationCell2 else {
       return tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) }
-    cell.config(text: message.1)
+    cell.config(text: message.message)
     return cell
     }
   }

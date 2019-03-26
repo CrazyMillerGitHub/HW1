@@ -17,19 +17,19 @@ class MultipeerCommunicator: NSObject, Communicator {
   func sendMessage(string: String, to userID: String, completionHandler: ((Bool, Error?) -> Void)?) {
 
     if self.message[peerID.displayName] == nil {
-      self.message[peerID.displayName] = [(0, string, Date())]
+      self.message[peerID.displayName] = [messageStruct(inOut: 0, message: string, date: Date())]
     } else {
-      self.message[peerID.displayName]?.append((0, string, Date()))
+      self.message[peerID.displayName]?.append(messageStruct(inOut: 0, message: string, date: Date()))
     }
   }
+  
+  //MARK: - Возвращает Peer
   func mcPeerIDFunc(name: String) -> MCPeerID? {
     for value in session.connectedPeers where value.displayName == name {
       return value
     }
     return session.connectedPeers.last
   }
-
-  //  var online: Bool
 
   var peerID: MCPeerID!
   var advertiser: MCNearbyServiceAdvertiser!
@@ -40,7 +40,7 @@ class MultipeerCommunicator: NSObject, Communicator {
   var foundPeers = [MCPeerID: String]()
   //
   weak var delegate: CommunicatorDelegate?
-  var message = [String: [(Int, String, Date)]]()
+  var message = [String: [messageStruct]]()
   var converstionViewController = ConversationViewController()
   override init() {
     self.online = true
@@ -78,9 +78,9 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate, MCSessionDelega
     let convertedString = String(data: data, encoding: String.Encoding.utf8)
     if let dict = convertedString!.toJSON() as? [String: AnyObject] {
       if self.message[peerID.displayName] == nil {
-        self.message[peerID.displayName] = [(1, dict["text"] as! String, Date())]
+        self.message[peerID.displayName] = [messageStruct(inOut: 1, message: dict["text"] as! String, date: Date())]
       } else {
-        self.message[peerID.displayName]?.append((1, dict["text"] as! String, Date()))
+        self.message[peerID.displayName]?.append(messageStruct(inOut: 1, message: dict["text"] as! String, date: Date()))
       }
       delegate?.didRecieveMessage(text: dict["text"] as! String, fromUser: peerID.displayName, toUser: session.myPeerID.displayName)
     }
