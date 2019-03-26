@@ -20,7 +20,7 @@ class GCDDataManager: NSObject {
     let concurentQueue = DispatchQueue(label: "com.apple.queue", qos: .utility, attributes: .concurrent)
     //.enabled = false
     group.enter()
-    let user = AppUser.findOrInsertAppUser(in: StorageManager.Instance.coreDataStack.mainContext)
+    let user = AppUser.insertAppUser(in: StorageManager.Instance.coreDataStack.mainContext)
     concurentQueue.async {
       if let title = self.arr["title"] as? String {
         UserDefaults.standard.set(title, forKey: "profileLabel")

@@ -17,11 +17,11 @@ let coreData = CoreDataStack()
       Theme.current.apply()
     if UserDefaults.standard.string(forKey: "profileLabel") != nil { } else { UserDefaults.standard.set("StandartUser", forKey: "profileLabel") }
     print()
-//        let user = AppUser.insertAppUser(in: coreData.mainContext)
-//        user?.name = "Borya"
-//        try! coreData.mainContext.save()
+   let user = AppUser.insertAppUser(in: coreData.mainContext)
+        user?.name = "Borya"
+       try! coreData.mainContext.save()
 ////
-////        print(user)
+        print(user)
         let model = coreData.managedObjectModel
             let userr = AppUser.fetchRequestAppUser(model: model)
     guard let userrr = userr else { fatalError() }
