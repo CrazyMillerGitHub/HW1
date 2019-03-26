@@ -31,9 +31,7 @@ class OperationDataManager: NSObject {
     }
     printerQueue.addOperation(notify)
     printerQueue.waitUntilAllOperationsAreFinished()
-    StorageManager.Instance.coreDataStack.mainContext.perform {
     StorageManager.Instance.coreDataStack.performSave(with: StorageManager.Instance.coreDataStack.mainContext)
-    }
     self.delegate?.changeProileData(success: true)
 
   }
@@ -72,7 +70,7 @@ class OperationDataManager: NSObject {
     override func main() {
 //         UserDefaults.standard.set(self.dscr, forKey: "descriptionLabel")
       StorageManager.Instance.coreDataStack.mainContext.perform {
-      let user = AppUser.findOrInsertAppUser(in: StorageManager.Instance.coreDataStack.saveContext)
+      let user = AppUser.findOrInsertAppUser(in: StorageManager.Instance.coreDataStack.mainContext)
       user?.descriptionLabel = self.dscr
       }
     }
