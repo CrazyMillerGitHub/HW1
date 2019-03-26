@@ -54,6 +54,7 @@ class CoreDataStack: NSObject {
 
   typealias SaveCompletion = () -> Void
   func performSave(with context: NSManagedObjectContext, completion: SaveCompletion? = nil) {
+    context.perform {
     guard context.hasChanges else {
       completion?()
       return
@@ -70,6 +71,7 @@ class CoreDataStack: NSObject {
         completion?()
       }
     }
+    }
   }
 }
 
@@ -78,6 +80,32 @@ extension AppUser {
     guard let appUser = NSEntityDescription.insertNewObject(forEntityName: "AppUser", into: context) as? AppUser else {return nil}
     return appUser
   }
+  static func findOrInsertAppUser(in context: NSManagedObjectContext) -> AppUser? {
+    
+    guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
+      print("Model is not available in context!")
+      assert(false)
+      return nil
+    }
+    var appUser : AppUser?
+    guard let fetchRequest = AppUser.fetchRequestAppUser(model: model) else {
+      return nil
+    }
+    do {
+      let results = try context.fetch(fetchRequest)
+      assert(results.count < 2, "Multiple AppUsers found!")
+      if let foundUser = results.first {
+        appUser = foundUser
+      }
+    }catch {
+      print("Failed to fetch AppUser: \(error)")
+    }
+    if appUser == nil {
+      appUser = AppUser.insertAppUser(in: context)
+    }
+    return appUser
+  }
+  
 }
 
   extension AppUser {

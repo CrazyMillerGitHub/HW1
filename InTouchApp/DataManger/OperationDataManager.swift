@@ -30,8 +30,10 @@ class OperationDataManager: NSObject {
       printerQueue.addOperation(dscr)
     }
     printerQueue.addOperation(notify)
-    try! StorageManager.Instance.coreDataStack.mainContext.save()
-    
+    printerQueue.waitUntilAllOperationsAreFinished()
+    StorageManager.Instance.coreDataStack.mainContext.perform {
+    StorageManager.Instance.coreDataStack.performSave(with: StorageManager.Instance.coreDataStack.mainContext)
+    }
     self.delegate?.changeProileData(success: true)
 
   }
@@ -42,11 +44,11 @@ class OperationDataManager: NSObject {
       self.image = image
     }
     override func main() {
-       UserDefaults.standard.set(self.image, forKey: "imageView")
-      
-//       let user = AppUser.insertAppUser(in: StorageManager.Instance.coreDataStack.masterContext)
-//      user?.image = self.image as Data
-//       try! StorageManager.Instance.coreDataStack.performSave(with: StorageManager.Instance.coreDataStack.masterContext)
+      StorageManager.Instance.coreDataStack.mainContext.perform {
+      let user = AppUser.findOrInsertAppUser(in: StorageManager.Instance.coreDataStack.mainContext)
+      user?.image = self.image as Data
+      }
+
     }
   }
   class EditTitle: Operation {
@@ -56,8 +58,10 @@ class OperationDataManager: NSObject {
     }
     override func main() {
          UserDefaults.standard.set(self.titleLabel, forKey: "profileLabel")
-         let user = AppUser.insertAppUser(in: StorageManager.Instance.coreDataStack.mainContext)
+      StorageManager.Instance.coreDataStack.mainContext.perform {
+        let user = AppUser.findOrInsertAppUser(in: StorageManager.Instance.coreDataStack.mainContext)
          user?.name = self.titleLabel
+      }
     }
   }
   class EditDescription: Operation {
@@ -66,9 +70,11 @@ class OperationDataManager: NSObject {
       self.dscr = dscr
     }
     override func main() {
-         UserDefaults.standard.set(self.dscr, forKey: "descriptionLabel")
-      let user = AppUser.insertAppUser(in: StorageManager.Instance.coreDataStack.mainContext)
+//         UserDefaults.standard.set(self.dscr, forKey: "descriptionLabel")
+      StorageManager.Instance.coreDataStack.mainContext.perform {
+      let user = AppUser.findOrInsertAppUser(in: StorageManager.Instance.coreDataStack.saveContext)
       user?.descriptionLabel = self.dscr
+      }
     }
   }
 

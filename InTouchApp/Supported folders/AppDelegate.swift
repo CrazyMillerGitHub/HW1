@@ -17,16 +17,17 @@ let coreData = CoreDataStack()
       Theme.current.apply()
     if UserDefaults.standard.string(forKey: "profileLabel") != nil { } else { UserDefaults.standard.set("StandartUser", forKey: "profileLabel") }
     print()
-   let user = AppUser.insertAppUser(in: coreData.mainContext)
-        user?.name = "Borya"
-       try! coreData.mainContext.save()
-////
-        print(user)
-        let model = coreData.managedObjectModel
-            let userr = AppUser.fetchRequestAppUser(model: model)
-    guard let userrr = userr else { fatalError() }
-    let result = try! coreData.mainContext.fetch(userrr)
-    print(result.count)
+//   let user = AppUser.findOrInsertAppUser(in: coreData.saveContext)
+//        user?.name = "Fred"
+//        let model = coreData.managedObjectModel
+//            let userr = AppUser.fetchRequestAppUser(model: model)
+//    guard let userrr = userr else { fatalError() }
+//    try! coreData.performSave(with: coreData.saveContext)
+//    let result = try! coreData.mainContext.fetch(userrr)
+//    print(result.last?.name)
+//
+//    ////
+//    print(user?.name)
     /////////////////////////
     UINavigationBar.appearance().shadowImage = UIImage()
 

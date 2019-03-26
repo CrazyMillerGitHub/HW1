@@ -58,9 +58,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     statusButtons(bool: false)
   }
   func loadData() {
-    if let label = UserDefaults.standard.string(forKey: "profileLabel") { self.titleLabel.text = label }
-    if let description = UserDefaults.standard.string(forKey: "descriptionLabel") { self.descriptionView.text = description }
-    if let image = UserDefaults.standard.data(forKey: "imageView") { self.imageView.image = UIImage(data: image) }
+    let coreData = StorageManager.Instance.coreDataStack
+    let model = coreData.managedObjectModel
+    let user = AppUser.fetchRequestAppUser(model: model)
+    guard let userr = user else { fatalError() }
+    let result = try! coreData.mainContext.fetch(userr)
+    if let label = result.last?.name { self.titleLabel.text = label }
+    if let description = result.last?.descriptionLabel { self.descriptionView.text = description }
+    if let image = result.last?.image { self.imageView.image = UIImage(data: image) }
   }
   private func setTraget() {
     addImageButton.addTarget(self, action: #selector(addImageButtonAction), for: .touchUpInside)
@@ -286,11 +291,11 @@ extension ProfileViewController: ProfileViewControllerDelegate {
       self.myActivityIndicator.stopAnimating()
       self.statusButtons(bool: false)
       
-      
-      let model = StorageManager.Instance.coreDataStack.managedObjectModel
-      let userr = AppUser.fetchRequestAppUser(model: model)
-      guard let userrr = userr else { fatalError() }
-      let result = try! StorageManager.Instance.coreDataStack.mainContext.fetch(userrr)
+      let coreData = StorageManager.Instance.coreDataStack
+      let model = coreData.managedObjectModel
+      let user = AppUser.fetchRequestAppUser(model: model)
+      guard let userr = user else { fatalError() }
+      let result = try! coreData.mainContext.fetch(userr)
       
       if self.titleBool {
         if let label = result.last?.name {
@@ -301,7 +306,7 @@ extension ProfileViewController: ProfileViewControllerDelegate {
         if let description = result.last?.descriptionLabel { self.descriptionView.text = description }
       }
       if self.imageBool {
-        if let image = UserDefaults.standard.data(forKey: "imageView") { self.imageView.image = UIImage(data: image)}
+        if let image = result.last?.image { self.imageView.image = UIImage(data: image)}
       }
       if self.increase {
         self.view.endEditing(true)
