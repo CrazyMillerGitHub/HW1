@@ -8,5 +8,5 @@ line_length:
 disabled_rules:
  — trailing_whitespace
  - line_length
- - force_cast
- - force_try
+opt_in_rules:
+ - force_unwrapping

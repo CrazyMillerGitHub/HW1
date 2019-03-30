@@ -30,7 +30,6 @@ let coreData = CoreDataStack()
 //    print(user?.name)
     /////////////////////////
     UINavigationBar.appearance().shadowImage = UIImage()
-
     Logger.SharedInstance.log(message: "Application moved from Not Running to Inactive: \(#function)")
     return true
   }

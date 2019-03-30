@@ -23,6 +23,7 @@ class TableViewCell: UITableViewCell, ConversationCellonfiguration {
   private func rnd() -> CGFloat {
     return CGFloat.random(in: 0...100) / 100
   }
+
   func configureCell(name: String, message: String, date: Date, online: Bool, hasUnreadmessage: Bool) {
 
     self.name = name
@@ -32,7 +33,9 @@ class TableViewCell: UITableViewCell, ConversationCellonfiguration {
     self.profileImage.layer.cornerRadius = 22.5
     self.hasUnreadMessage = hasUnreadmessage
     self.date = date
-    lastVisitDate.text = dateToString(from: self.date!)
+    if let date = self.date {
+         lastVisitDate.text = dateToString(from: date)
+    }
     descriptionLabel.text = self.message
     onlineStatusView.layer.cornerRadius = 7
     titleLabel.text = name
@@ -54,6 +57,7 @@ class TableViewCell: UITableViewCell, ConversationCellonfiguration {
       self.prepareForReuse()
     }
   }
+
   override func prepareForReuse() {
     super.prepareForReuse()
     self.onlineStatusView.backgroundColor = .clear

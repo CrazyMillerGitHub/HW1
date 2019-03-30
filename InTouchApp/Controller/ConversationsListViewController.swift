@@ -57,9 +57,9 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
     var messageTime = Date()
     var message = ""
     if let lastMessage = CommunicatorManager.Instance.communicator.message[CommunicatorManager.Instance.users[indexPath.row].peerID] {
-      print(message)
-      message = (lastMessage.last?.message)!
-      messageTime = (lastMessage.last?.date)!
+        guard let last = lastMessage.last else { fatalError("You don't have message") }
+        message = last.message
+        messageTime = last.date
     }
       cell.configureCell(name: CommunicatorManager.Instance.users[indexPath.row].username, message: message, date: messageTime, online: true, hasUnreadmessage: true)
       // swiftlint:enable force_cast
@@ -89,7 +89,8 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "segueIndentifier" {
       guard let destinationViewController = segue.destination as? ConversationViewController else { return }
-      guard let _ = tableView.indexPathForSelectedRow?.section, let row = tableView.indexPathForSelectedRow?.row else { return }
+//      guard let _ = tableView.indexPathForSelectedRow?.section,
+      guard let row = tableView.indexPathForSelectedRow?.row else { return }
       destinationViewController.userData.peerID = CommunicatorManager.Instance.users[row].peerID
       destinationViewController.userData.userName = CommunicatorManager.Instance.users[row].username
       print(destinationViewController.userData)

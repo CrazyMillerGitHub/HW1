@@ -11,19 +11,21 @@ import MultipeerConnectivity
 class MultipeerCommunicator: NSObject, Communicator {
   var online: Bool
   func generateMessageId() -> String {
+    // swiftlint:disable force_unwrapping
     return "\(arc4random_uniform(UINT32_MAX))+\(Date.timeIntervalSinceReferenceDate)"
       .data(using: .utf8)!.base64EncodedString()
+    // swiftlint:enable force_unwrapping
   }
   func sendMessage(string: String, to userID: String, completionHandler: ((Bool, Error?) -> Void)?) {
 
     if self.message[peerID.displayName] == nil {
-      self.message[peerID.displayName] = [messageStruct(inOut: 0, message: string, date: Date())]
+      self.message[peerID.displayName] = [MessageStruct(inOut: 0, message: string, date: Date())]
     } else {
-      self.message[peerID.displayName]?.append(messageStruct(inOut: 0, message: string, date: Date()))
+      self.message[peerID.displayName]?.append(MessageStruct(inOut: 0, message: string, date: Date()))
     }
   }
-  
-  //MARK: - Возвращает Peer
+
+  // MARK: - Возвращает Peer
   func mcPeerIDFunc(name: String) -> MCPeerID? {
     for value in session.connectedPeers where value.displayName == name {
       return value
@@ -40,7 +42,7 @@ class MultipeerCommunicator: NSObject, Communicator {
   var foundPeers = [MCPeerID: String]()
   //
   weak var delegate: CommunicatorDelegate?
-  var message = [String: [messageStruct]]()
+  var message = [String: [MessageStruct]]()
   var converstionViewController = ConversationViewController()
   override init() {
     self.online = true
@@ -49,7 +51,7 @@ class MultipeerCommunicator: NSObject, Communicator {
     session = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .none)
     session.delegate =  self
     self.advertiser = MCNearbyServiceAdvertiser(peer: peerID,
-                                                discoveryInfo: ["userName": "\(UserDefaults.standard.string(forKey: "profileLabel")!)"],
+                                                discoveryInfo: ["userName": "\(UserDefaults.standard.string(forKey: "profileLabel") ?? "EmptyName")"],
                                                 serviceType: "tinkoff-chat")
     self.advertiser.delegate = self
     self.browser = MCNearbyServiceBrowser(peer: peerID,
@@ -75,12 +77,12 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate, MCSessionDelega
 
   func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
     // swiftlint:disable force_cast
-    let convertedString = String(data: data, encoding: String.Encoding.utf8)
-    if let dict = convertedString!.toJSON() as? [String: AnyObject] {
+    guard let convertedString = String(data: data, encoding: String.Encoding.utf8) else { fatalError() }
+    if let dict = convertedString.toJSON() as? [String: AnyObject] {
       if self.message[peerID.displayName] == nil {
-        self.message[peerID.displayName] = [messageStruct(inOut: 1, message: dict["text"] as! String, date: Date())]
+        self.message[peerID.displayName] = [MessageStruct(inOut: 1, message: dict["text"] as! String, date: Date())]
       } else {
-        self.message[peerID.displayName]?.append(messageStruct(inOut: 1, message: dict["text"] as! String, date: Date()))
+        self.message[peerID.displayName]?.append(MessageStruct(inOut: 1, message: dict["text"] as! String, date: Date()))
       }
       delegate?.didRecieveMessage(text: dict["text"] as! String, fromUser: peerID.displayName, toUser: session.myPeerID.displayName)
     }
@@ -116,9 +118,11 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate, MCSessionDelega
   }
 
   func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
-    foundPeers[peerID] = info!["userName"]
-    browser.invitePeer(peerID, to: session, withContext: nil, timeout: 5)
-    delegate?.didFoundUser(userID: peerID.displayName, userName: info!["userName"])
+    if let info = info {
+        foundPeers[peerID] = info["userName"]
+        browser.invitePeer(peerID, to: session, withContext: nil, timeout: 5)
+        delegate?.didFoundUser(userID: peerID.displayName, userName: info["userName"])
+    }
   }
 
   func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
@@ -132,11 +136,11 @@ protocol CommunicatorDelegate: class {
   //Error
   func failedToStartBrowsingForUsers(error: Error)
   func failedToStartAdvertising(error: Error)
-
   func didRecieveMessage(text: String, fromUser: String, toUser: String)
 
 }
 
+// MARK: - StringExtension
 extension String {
   func toJSON() -> Any? {
     guard let data = self.data(using: .utf8, allowLossyConversion: false) else { return nil }

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import MultipeerConnectivity
-struct messageStruct {
+struct MessageStruct {
   let inOut: Int
   let message: String
   let date: Date
@@ -18,11 +18,11 @@ class CommunicatorManager: NSObject, CommunicatorDelegate {
   var users: [(username: String, peerID: String)] = []
   weak var delegate: dataDelegate?
   func didFoundUser(userID: String, userName: String?) {
-    if users.contains(where: { (username, peerID) -> Bool in
+    if users.contains(where: { (username, _) -> Bool in
       return username == userName
     }) != true {
-      users.append((userName!, userID))
-      
+        users.append((userName ?? "nameIsEmpty", userID))
+
       delegate?.reloadData(status: true)
     }
   }

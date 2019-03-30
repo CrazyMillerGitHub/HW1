@@ -21,7 +21,7 @@ class GCDDataManager: NSObject {
     group.enter()
     StorageManager.Instance.coreDataStack.saveContext.performAndWait {
     let user = AppUser.findOrInsertAppUser(in: StorageManager.Instance.coreDataStack.mainContext)
-  
+
     concurentQueue.async {
       if let title = self.arr["title"] as? String {
         UserDefaults.standard.set(title, forKey: "profileLabel")

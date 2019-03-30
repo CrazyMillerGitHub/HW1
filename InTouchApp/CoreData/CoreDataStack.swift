@@ -11,15 +11,16 @@ import UIKit
 import CoreData
 class CoreDataStack: NSObject {
   var storeURL: URL {
-    let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    guard let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { fatalError() }
     return documentsUrl.appendingPathComponent("MyStore.sqlite")
   }
   weak var delegate: StorageManager?
   let dataModelName = "coreData"
   let dataModelExtension = "momd"
   lazy var managedObjectModel: NSManagedObjectModel = {
-    let modelURL = Bundle.main.url(forResource: self.dataModelName, withExtension: self.dataModelExtension)!
-    return NSManagedObjectModel(contentsOf: modelURL)!
+    guard let modelURL = Bundle.main.url(forResource: self.dataModelName, withExtension: self.dataModelExtension) else {fatalError()}
+    guard let object = NSManagedObjectModel(contentsOf: modelURL) else { fatalError("object is nill") }
+    return object
   }()
   lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
     let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
@@ -44,7 +45,7 @@ class CoreDataStack: NSObject {
     mainContext.mergePolicy = NSOverwriteMergePolicy
     return mainContext
   }()
-  
+
   lazy var saveContext: NSManagedObjectContext = {
     var mainContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
     mainContext.parent = self.mainContext
@@ -81,13 +82,13 @@ extension AppUser {
     return appUser
   }
   static func findOrInsertAppUser(in context: NSManagedObjectContext) -> AppUser? {
-    
+
     guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
       print("Model is not available in context!")
       assert(false)
       return nil
     }
-    var appUser : AppUser?
+    var appUser: AppUser?
     guard let fetchRequest = AppUser.fetchRequestAppUser(model: model) else {
       return nil
     }
@@ -97,7 +98,7 @@ extension AppUser {
       if let foundUser = results.first {
         appUser = foundUser
       }
-    }catch {
+    } catch {
       print("Failed to fetch AppUser: \(error)")
     }
     if appUser == nil {
@@ -105,7 +106,7 @@ extension AppUser {
     }
     return appUser
   }
-  
+
 }
 
   extension AppUser {
