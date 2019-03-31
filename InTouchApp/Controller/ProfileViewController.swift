@@ -52,7 +52,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         hideUnhideFunction()
         customizeTextField()
         view.addSubview(editLabel)
-        
         customizeDescription()
         view.addSubview(editDescriptionTextView)
         statusButtons(bool: false)
@@ -67,6 +66,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         if let description = result.last?.descriptionLabel { self.descriptionView.text = description }
         if let image = result.last?.image { self.imageView.image = UIImage(data: image) }
     }
+    
     private func setTraget() {
         addImageButton.addTarget(self, action: #selector(addImageButtonAction), for: .touchUpInside)
         editButton.addTarget(self, action: #selector(editButtonAction), for: .touchUpInside)
@@ -74,20 +74,23 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         operationButton.addTarget(self, action: #selector(operationButtonAction), for: .touchUpInside)
         editLabel.addTarget(self, action: #selector(editLabelChanged), for: .editingChanged)
     }
+    
     private func customizeImageView() {
         imageView.image = UIImage(named: "placeholder-user")
         imageView.layer.cornerRadius = 30
         imageView.layer.masksToBounds = true
     }
+    
     private func customizeEditButton() {
         editButton.layer.borderWidth = 1
         editButton.layer.borderColor = UIColor.black.cgColor
         editButton.layer.cornerRadius = 15
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         Logger.SharedInstance.log(message: "Application moved from DidLoad to Appearing: \(#function)")
     }
-    
+
     func customizeTextField() {
         editLabel.text = titleLabel.text
         editLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
@@ -100,6 +103,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         editLabel.leftView = paddingView
         editLabel.leftViewMode = UITextField.ViewMode.always
     }
+    
     private func customizeDescription() {
         let viewForDoneButtonOnKeyboard = UIToolbar()
         viewForDoneButtonOnKeyboard.sizeToFit()
@@ -110,19 +114,20 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         editDescriptionTextView.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         editDescriptionTextView.textColor = .gray
     }
+    
     override func viewDidAppear(_ animated: Bool) {
-        
         super.viewDidAppear(true)
         editLabel.isHidden = true
         editDescriptionTextView.isHidden = true
         editLabel.frame = self.titleLabel.frame
         editDescriptionTextView.frame = self.descriptionView.frame
-        
     }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         Logger.SharedInstance.log(message: "Application moved from Appearing to WillLayoutSubviews: \(#function)")
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         Logger.SharedInstance.log(message: "Application moved from WillLayoutSubviews to DidLayoutSubviews: \(#function)")
@@ -132,13 +137,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewWillDisappear(true)
         Logger.SharedInstance.log(message: "5")
     }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
         Logger.SharedInstance.log(message: "6")
     }
+    
     @objc private func doneBtnFromKeyboardClicked() {
         self.view.endEditing(true)
     }
+    
     @objc func addImageButtonAction() {
         print("Выберите изображения профиля")
         let myPickerController = UIImagePickerController()
@@ -163,6 +171,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         alertController.addAction(action3)
         self.present(alertController, animated: true, completion: nil)
     }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let pickedImage = info[.originalImage] as? UIImage else { return }
         imageView.image = pickedImage
@@ -171,8 +180,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.count = 1
             self.hideUnhideFunction()
         })
-        
     }
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
@@ -196,11 +205,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             count-=1
         }
     }
+    
     @objc func editButtonAction() {
         DispatchQueue.main.async {
             self.hideUnhideFunction()
         }
     }
+    
     private func check() -> [String: Any] {
         var arr = [String: Any]()
         if editLabel.text != titleLabel.text {
@@ -220,6 +231,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.imageBool = true
         return arr
     }
+    
     @objc private func gcdButtonAction() {
         statusButtons(bool: false)
         self.myActivityIndicator.startAnimating()
@@ -227,6 +239,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         dataManger.delegate = self
         dataManger.save()
     }
+    
     @objc private func operationButtonAction() {
         self.myActivityIndicator.startAnimating()
         statusButtons(bool: false)
@@ -234,14 +247,15 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         dataManger.delegate = self
         dataManger.apply()
     }
+    
     private func statusButtons(bool: Bool = false) {
         gcdButton.isEnabled = bool
         operationButton.isEnabled = bool
     }
+    
     func moveText(moveDistance: Int, upAction: Bool) {
         let moveDuration = 0.3
         let movement: CGFloat = CGFloat(upAction ? moveDistance : -moveDistance)
-        
         UIView.beginAnimations("animateTextField", context: nil)
         UIView.setAnimationBeginsFromCurrentState(true)
         UIView.setAnimationDuration(moveDuration)
@@ -250,6 +264,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
 }
 
+
+// MARK: - UITextViewDelegate, UITextFieldDelegate
 extension ProfileViewController: UITextViewDelegate, UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         moveText(moveDistance: -250, upAction: true)
@@ -285,6 +301,8 @@ extension ProfileViewController: UITextViewDelegate, UITextFieldDelegate {
         return true
     }
 }
+
+// MARK: - ProfileViewControllerDelegate
 extension ProfileViewController: ProfileViewControllerDelegate {
     func changeProileData(success: Bool) {
         DispatchQueue.main.async {
@@ -318,6 +336,13 @@ extension ProfileViewController: ProfileViewControllerDelegate {
         }
     }
     
+    
+    /// AlertAction
+    ///
+    /// - Parameters:
+    ///   - title: title description
+    ///   - message: message description
+    ///   - handler: handler description
     private func alert(title: String = "Данные сохраненны", _ message: String?, handler: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in

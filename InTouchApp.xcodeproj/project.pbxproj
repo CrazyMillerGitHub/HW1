@@ -26,6 +26,7 @@
 		74A79CE522168CC700F23890 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74A79CB4221684A700F23890 /* LaunchScreen.storyboard */; };
 		74A79CE622168CC700F23890 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74A79CB6221684A700F23890 /* Main.storyboard */; };
 		74B33C902230773B00F3BB59 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B33C8F2230773B00F3BB59 /* ProfileViewController.swift */; };
+		74CBDB4A224FF4830007C72B /* FetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CBDB49224FF4830007C72B /* FetchedResultsControllerDelegate.swift */; };
 		74CDAE692226B5F1001FEF3B /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CDAE682226B5F1001FEF3B /* TableViewCell.swift */; };
 		74D746A5222C3A5200383066 /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D746A4222C3A5200383066 /* Themes.m */; };
 		74E254782247F546009E089F /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E254772247F546009E089F /* StorageManager.swift */; };
@@ -55,6 +56,7 @@
 		74A79CB8221684A700F23890 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74A79CB9221684A700F23890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74B33C8F2230773B00F3BB59 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		74CBDB49224FF4830007C72B /* FetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
 		74CDAE682226B5F1001FEF3B /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		74D74677222AB3C000383066 /* ThemesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemesViewControllerDelegate.h; sourceTree = "<group>"; };
 		74D746A3222C3A5200383066 /* Themes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				74958A50223839CC0022B883 /* OperationDataManager.swift */,
+				74CBDB49224FF4830007C72B /* FetchedResultsControllerDelegate.swift */,
 				745DEE4B2236BBFA008C4A5E /* GCDDataManager.swift */,
 			);
 			path = DataManger;
@@ -265,7 +268,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint\"\nexit 1\nfi\n";
+			shellScript = "
+";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -275,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7495F9782242AFAD00F7E152 /* coreData.xcdatamodeld in Sources */,
+				74CBDB4A224FF4830007C72B /* FetchedResultsControllerDelegate.swift in Sources */,
 				74424E8D22407A3C00F1BC7B /* Communicator.swift in Sources */,
 				741515AC221FF3B40039E987 /* Users.swift in Sources */,
 				7495F97A2242B00000F7E152 /* CoreDataStack.swift in Sources */,
