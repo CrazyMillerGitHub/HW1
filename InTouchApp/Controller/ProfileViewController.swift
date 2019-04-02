@@ -9,7 +9,7 @@
 import UIKit
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+
     var imageBool: Bool = false
     var titleBool: Bool = false
     var descriptionTextBool: Bool = false
@@ -27,7 +27,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBAction func dismissButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         //    editButton.frame = nil - нету. В ините нельзя получить значение frame. Слишком рано
@@ -62,11 +62,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let user = AppUser.fetchRequestAppUser(model: model)
         guard let userr = user else { fatalError() }
         guard let result = try? coreData.mainContext.fetch(userr) else {fatalError("Fetch failded")}
-        if let label = result.last?.name { self.titleLabel.text = label }
-        if let description = result.last?.descriptionLabel { self.descriptionView.text = description }
-        if let image = result.last?.image { self.imageView.image = UIImage(data: image) }
+        if let label = result.last?.currentUser?.name { self.titleLabel.text = label }
+        if let description = result.last?.currentUser?.descriptionText { self.descriptionView.text = description }
+        if let image = result.last?.currentUser?.image { self.imageView.image = UIImage(data: image) }
     }
-    
+
     private func setTraget() {
         addImageButton.addTarget(self, action: #selector(addImageButtonAction), for: .touchUpInside)
         editButton.addTarget(self, action: #selector(editButtonAction), for: .touchUpInside)
@@ -74,19 +74,19 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         operationButton.addTarget(self, action: #selector(operationButtonAction), for: .touchUpInside)
         editLabel.addTarget(self, action: #selector(editLabelChanged), for: .editingChanged)
     }
-    
+
     private func customizeImageView() {
         imageView.image = UIImage(named: "placeholder-user")
         imageView.layer.cornerRadius = 30
         imageView.layer.masksToBounds = true
     }
-    
+
     private func customizeEditButton() {
         editButton.layer.borderWidth = 1
         editButton.layer.borderColor = UIColor.black.cgColor
         editButton.layer.cornerRadius = 15
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         Logger.SharedInstance.log(message: "Application moved from DidLoad to Appearing: \(#function)")
     }
@@ -103,7 +103,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         editLabel.leftView = paddingView
         editLabel.leftViewMode = UITextField.ViewMode.always
     }
-    
+
     private func customizeDescription() {
         let viewForDoneButtonOnKeyboard = UIToolbar()
         viewForDoneButtonOnKeyboard.sizeToFit()
@@ -114,7 +114,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         editDescriptionTextView.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         editDescriptionTextView.textColor = .gray
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         editLabel.isHidden = true
@@ -122,31 +122,31 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         editLabel.frame = self.titleLabel.frame
         editDescriptionTextView.frame = self.descriptionView.frame
     }
-    
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         Logger.SharedInstance.log(message: "Application moved from Appearing to WillLayoutSubviews: \(#function)")
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         Logger.SharedInstance.log(message: "Application moved from WillLayoutSubviews to DidLayoutSubviews: \(#function)")
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         Logger.SharedInstance.log(message: "5")
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
         Logger.SharedInstance.log(message: "6")
     }
-    
+
     @objc private func doneBtnFromKeyboardClicked() {
         self.view.endEditing(true)
     }
-    
+
     @objc func addImageButtonAction() {
         print("Выберите изображения профиля")
         let myPickerController = UIImagePickerController()
@@ -156,7 +156,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 myPickerController.sourceType = .camera
                 self.present(myPickerController, animated: true, completion: nil)}
-            
+
         }
         let action2 = UIAlertAction(title: "Выбрать из библиотеки", style: .default) { (_:UIAlertAction) in
             myPickerController.sourceType = .photoLibrary
@@ -171,7 +171,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         alertController.addAction(action3)
         self.present(alertController, animated: true, completion: nil)
     }
-    
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let pickedImage = info[.originalImage] as? UIImage else { return }
         imageView.image = pickedImage
@@ -181,11 +181,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.hideUnhideFunction()
         })
     }
-    
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
-    
+
     func hideUnhideFunction() {
         if count == 0 {
             self.editLabel.isHidden = true
@@ -205,13 +205,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             count-=1
         }
     }
-    
+
     @objc func editButtonAction() {
         DispatchQueue.main.async {
             self.hideUnhideFunction()
         }
     }
-    
+
     private func check() -> [String: Any] {
         var arr = [String: Any]()
         if editLabel.text != titleLabel.text {
@@ -231,7 +231,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.imageBool = true
         return arr
     }
-    
+
     @objc private func gcdButtonAction() {
         statusButtons(bool: false)
         self.myActivityIndicator.startAnimating()
@@ -239,7 +239,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         dataManger.delegate = self
         dataManger.save()
     }
-    
+
     @objc private func operationButtonAction() {
         self.myActivityIndicator.startAnimating()
         statusButtons(bool: false)
@@ -247,12 +247,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         dataManger.delegate = self
         dataManger.apply()
     }
-    
+
     private func statusButtons(bool: Bool = false) {
         gcdButton.isEnabled = bool
         operationButton.isEnabled = bool
     }
-    
+
     func moveText(moveDistance: Int, upAction: Bool) {
         let moveDuration = 0.3
         let movement: CGFloat = CGFloat(upAction ? moveDistance : -moveDistance)
@@ -263,7 +263,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         UIView.commitAnimations()
     }
 }
-
 
 // MARK: - UITextViewDelegate, UITextFieldDelegate
 extension ProfileViewController: UITextViewDelegate, UITextFieldDelegate {
@@ -292,7 +291,7 @@ extension ProfileViewController: UITextViewDelegate, UITextFieldDelegate {
             statusButtons(bool: true)
         }
     }
-    
+
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let currect = editDescriptionTextView.text + text
         if descriptionView.text != currect {
@@ -315,15 +314,15 @@ extension ProfileViewController: ProfileViewControllerDelegate {
             guard let userr = user else { fatalError() }
             guard let result = try? coreData.mainContext.fetch(userr) else {fatalError("Fetch failed")}
             if self.titleBool {
-                if let label = result.last?.name {
+                if let label = result.last?.currentUser?.name {
                     self.titleLabel.text = label
                 }
             }
             if self.descriptionTextBool {
-                if let description = result.last?.descriptionLabel { self.descriptionView.text = description }
+                if let description = result.last?.currentUser?.descriptionText { self.descriptionView.text = description }
             }
             if self.imageBool {
-                if let image = result.last?.image { self.imageView.image = UIImage(data: image)}
+                if let image = result.last?.currentUser?.image { self.imageView.image = UIImage(data: image)}
             }
             if self.increase {
                 self.view.endEditing(true)
@@ -335,8 +334,7 @@ extension ProfileViewController: ProfileViewControllerDelegate {
             }
         }
     }
-    
-    
+
     /// AlertAction
     ///
     /// - Parameters:

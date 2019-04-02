@@ -30,13 +30,13 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, dataDel
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
+
     func reloadData(status: Bool) {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
-    
+
     @IBAction func sendAction(_ sender: Any) {
         //    delegate?.sendMessage(string: textField.text!, to: "peer", completionHandler: nil)
         let array = ["eventType": "TextMessage", "text": "\(textField.text ?? "")", "messageId": "\(generateMessageId())"]
@@ -55,7 +55,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, dataDel
             }
         }
     }
-    
+
     private func messageNotSent() {
         if CommunicatorManager.Instance.communicator.message[userData.peerID]?.count == 1 {
             CommunicatorManager.Instance.communicator.message[userData.peerID] = nil
@@ -70,14 +70,14 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, dataDel
         alertController.addAction(action)
         self.present(alertController, animated: true, completion: nil)
     }
-    
+
     func generateMessageId() -> String {
          // swiftlint:disable force_unwrapping
         return "\(arc4random_uniform(UINT32_MAX))+\(Date.timeIntervalSinceReferenceDate)"
             .data(using: .utf8)!.base64EncodedString()
         // swiftlint:enable force_unwrapping
     }
-    
+
     @objc func keyboardNotification(notification: NSNotification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let isKeyboardShowing = notification.name == UIResponder.keyboardWillShowNotification
@@ -92,7 +92,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, dataDel
             })
         }
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         textField.endEditing(true)
     }
@@ -128,7 +128,7 @@ class CustomConversationCell1: UITableViewCell, MessageCellConfiguration {
     var txt: String?
     @IBOutlet weak var bgImage: UIImageView!
     @IBOutlet weak var inTextLabel: UILabel!
-    
+
     func config(text: String) {
         self.backgroundColor = .clear
         self.txt = text
@@ -144,7 +144,7 @@ class CustomConversationCell2: UITableViewCell, MessageCellConfiguration {
     var txt: String?
     @IBOutlet weak var bgImage: UIImageView!
     @IBOutlet weak var outTextLabel: UILabel!
-    
+
     func config(text: String) {
         self.backgroundColor = .clear
         self.txt = text

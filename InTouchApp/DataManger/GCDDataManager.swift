@@ -11,12 +11,11 @@ import CoreData
 class GCDDataManager: NSObject {
     weak var delegate: ProfileViewControllerDelegate?
     var arr = [String: Any]()
-    
+
     init(arr: [String: Any]) {
         self.arr = arr
     }
-    
-    
+
     /// Сохранение с помощью GCD
     func save() {
         let group = DispatchGroup()
@@ -24,33 +23,33 @@ class GCDDataManager: NSObject {
         group.enter()
         StorageManager.Instance.coreDataStack.mainContext.performAndWait {
             let user = AppUser.findOrInsertAppUser(in: StorageManager.Instance.coreDataStack.mainContext)
-            
+
             concurentQueue.async {
                 if let title = self.arr["title"] as? String {
                     UserDefaults.standard.set(title, forKey: "profileLabel")
                     print("hello")
                     StorageManager.Instance.coreDataStack.mainContext.performAndWait {
-                        user?.name = title
+                        user?.currentUser?.name = title
                     }
                 }
                 group.leave()
             }
-            
+
             group.enter()
             concurentQueue.async {
                 if let image = self.arr["image"] as? NSData {
                     StorageManager.Instance.coreDataStack.mainContext.performAndWait {
-                        user?.image = image as Data
+                        user?.currentUser?.image = image as Data
                     }
                 }
                 group.leave()
             }
-            
+
             group.enter()
             concurentQueue.async {
                 if let description = self.arr["description"] as? String {
                     StorageManager.Instance.coreDataStack.mainContext.performAndWait {
-                        user?.descriptionLabel = description
+                        user?.currentUser?.descriptionText = description
                     }
                 }
                 group.leave()

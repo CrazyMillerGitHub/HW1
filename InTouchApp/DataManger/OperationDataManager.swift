@@ -13,7 +13,7 @@ class OperationDataManager: NSObject {
     init(arr: [String: Any]) {
         self.arr = arr
     }
-    
+
     func apply() {
         let printerQueue =  OperationQueue()
         let notify = Notify()
@@ -33,9 +33,9 @@ class OperationDataManager: NSObject {
         printerQueue.waitUntilAllOperationsAreFinished()
         StorageManager.Instance.coreDataStack.performSave(with: StorageManager.Instance.coreDataStack.mainContext)
         self.delegate?.changeProileData(success: true)
-        
+
     }
-    
+
     class EditImage: Operation {
         var image: NSData
         init(image: NSData) {
@@ -44,9 +44,9 @@ class OperationDataManager: NSObject {
         override func main() {
             StorageManager.Instance.coreDataStack.mainContext.perform {
                 let user = AppUser.findOrInsertAppUser(in: StorageManager.Instance.coreDataStack.mainContext)
-                user?.image = self.image as Data
+                user?.currentUser?.image = self.image as Data
             }
-            
+
         }
     }
     class EditTitle: Operation {
@@ -58,7 +58,7 @@ class OperationDataManager: NSObject {
             UserDefaults.standard.set(self.titleLabel, forKey: "profileLabel")
             StorageManager.Instance.coreDataStack.mainContext.perform {
                 let user = AppUser.findOrInsertAppUser(in: StorageManager.Instance.coreDataStack.mainContext)
-                user?.name = self.titleLabel
+                user?.currentUser?.name = self.titleLabel
             }
         }
     }
@@ -71,14 +71,12 @@ class OperationDataManager: NSObject {
             //         UserDefaults.standard.set(self.dscr, forKey: "descriptionLabel")
             StorageManager.Instance.coreDataStack.mainContext.perform {
                 let user = AppUser.findOrInsertAppUser(in: StorageManager.Instance.coreDataStack.mainContext)
-                user?.descriptionLabel = self.dscr
+                user?.currentUser?.descriptionText = self.dscr
             }
         }
     }
-    
 }
 class Notify: Operation {
     override func main() {
     }
 }
-

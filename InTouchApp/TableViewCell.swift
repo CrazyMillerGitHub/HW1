@@ -14,18 +14,18 @@ class TableViewCell: UITableViewCell, ConversationCellonfiguration {
     var date: Date?
     var online: Bool = false
     var hasUnreadMessage: Bool = false
-    @IBOutlet private var onlineStatusView: UIView!
+    @IBOutlet weak var onlineStatusView: UIView!
     @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet private var titleLabel: UILabel!
-    @IBOutlet private var descriptionLabel: UILabel!
-    @IBOutlet private var lastVisitDate: UILabel!
-    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var lastVisitDate: UILabel!
+
     private func rnd() -> CGFloat {
         return CGFloat.random(in: 0...100) / 100
     }
-    
+
     func configureCell(name: String, message: String, date: Date, online: Bool, hasUnreadmessage: Bool) {
-        
+
         self.name = name
         self.message = message
         self.online = online
@@ -39,7 +39,7 @@ class TableViewCell: UITableViewCell, ConversationCellonfiguration {
         descriptionLabel.text = self.message
         onlineStatusView.layer.cornerRadius = 7
         titleLabel.text = name
-        
+
         if self.message == "" {
             self.message = nil
             descriptionLabel.text = "No messages yet"
@@ -57,15 +57,15 @@ class TableViewCell: UITableViewCell, ConversationCellonfiguration {
             self.prepareForReuse()
         }
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         self.onlineStatusView.backgroundColor = .clear
         self.descriptionLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         self.backgroundColor = UIColor.white
-        
+
     }
-    
+
     private func dateToString(from date: Date) -> String {
         let calendar = NSCalendar.autoupdatingCurrent
         let components = calendar.dateComponents([.month, .day, .year], from: date, to: Date())

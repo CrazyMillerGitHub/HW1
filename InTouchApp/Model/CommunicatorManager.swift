@@ -22,11 +22,11 @@ class CommunicatorManager: NSObject, CommunicatorDelegate {
             return username == userName
         }) != true {
             users.append((userName ?? "nameIsEmpty", userID))
-            
+
             delegate?.reloadData(status: true)
         }
     }
-    
+
     func didLostUser(userID: String) {
         for (index, aPeer) in users.enumerated() where aPeer.peerID == userID {
             users.remove(at: index)
@@ -34,15 +34,15 @@ class CommunicatorManager: NSObject, CommunicatorDelegate {
             break
         }
     }
-    
+
     func failedToStartBrowsingForUsers(error: Error) {
         print(error.localizedDescription)
     }
-    
+
     func failedToStartAdvertising(error: Error) {
         print(error.localizedDescription)
     }
-    
+
     func didRecieveMessage(text: String, fromUser: String, toUser: String) {
         delegate?.reloadData(status: true)
     }
@@ -53,7 +53,7 @@ class CommunicatorManager: NSObject, CommunicatorDelegate {
         super.init()
         self.communicator.delegate = self
     }
-    
+
 }
 protocol dataDelegate: class {
     func reloadData(status: Bool)

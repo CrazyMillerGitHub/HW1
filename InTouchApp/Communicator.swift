@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 protocol Communicator: class {
     func sendMessage(string: String, to userID: String, completionHandler: ((_ success: Bool, _ error: Error?) -> Void)?)
     var delegate: CommunicatorDelegate? {get set}
