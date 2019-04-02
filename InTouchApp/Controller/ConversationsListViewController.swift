@@ -41,12 +41,12 @@ class ConversationsListViewController: UIViewController, dataDelegate {
         do {
             try fetchedResultsController.performFetch()
         } catch {}
-        do {
-        let keke = try AppUser.fetchAllUsers(in: StorageManager.Instance.coreDataStack.saveContext)
-            keke.forEach {print( $0.name) }
-        } catch {
-            print("Hello")
-        }
+//        do {
+//        let keke = try AppUser.fetchAllUsers(in: StorageManager.Instance.coreDataStack.saveContext)
+//            keke.forEach {print( $0.name) }
+//        } catch {
+//            print("Hello")
+//        }
 
     }
 
@@ -149,8 +149,8 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
                         let managedObject = fetchedResultsController.object(at: indexPath)
             StorageManager.Instance.coreDataStack.mainContext.delete(managedObject)
             do { try StorageManager.Instance.coreDataStack.performSave(with: StorageManager.Instance.coreDataStack.mainContext)
-                let users = fetchedResultsController.fetchedObjects
-                print(users)
+//                let users = fetchedResultsController.fetchedObjects
+//                print(users)
               let request2: NSFetchRequest<User> = User.fetchRequest()
                 do {
                              let result2 = try StorageManager.Instance.coreDataStack.mainContext.fetch(request2)

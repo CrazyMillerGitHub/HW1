@@ -40,7 +40,7 @@ print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory,
         if let user1 = user2 {
             result.last?.addToUsers(user1)
         }
-        do { try StorageManager.Instance.coreDataStack.performSave(with: StorageManager.Instance.coreDataStack.mainContext) } catch {}
+        StorageManager.Instance.coreDataStack.performSave(with: StorageManager.Instance.coreDataStack.mainContext)
     }
   func applicationWillResignActive(_ application: UIApplication) {
     Logger.SharedInstance.log(message: "Application moved from Actvie to Inactive: \(#function)")
