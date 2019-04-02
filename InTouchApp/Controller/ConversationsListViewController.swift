@@ -8,6 +8,7 @@
 
 import UIKit
 import MultipeerConnectivity
+import CoreData
 class ConversationsListViewController: UIViewController, dataDelegate {
     func reloadData(status: Bool) {
         if status == true {
@@ -16,6 +17,12 @@ class ConversationsListViewController: UIViewController, dataDelegate {
             }
         }
     }
+    
+    
+    /// NSFetchResultController
+    let request: NSFetchRequest<User> = User.fetchRequest()
+    let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+    
     
     @IBOutlet private var tableView: UITableView!
     override func viewDidLoad() {
@@ -26,6 +33,14 @@ class ConversationsListViewController: UIViewController, dataDelegate {
         CommunicatorManager.Instance.delegate = self
         CommunicatorManager.Instance.communicator.advertiser.startAdvertisingPeer()
         CommunicatorManager.Instance.communicator.browser.startBrowsingForPeers()
+        let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: StorageManager.Instance.coreDataStack.mainContext, sectionNameKeyPath: nil, cacheName: nil)
+        do {
+           try frc.performFetch()
+        }catch{
+            print(error.localizedDescription)
+        }
+        let users = frc.fetchedObjects
+        print(users?.count)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -39,6 +54,7 @@ extension ConversationsListViewController: ThemesViewControllerDelegate {
         logThemeChanging(selectedTheme: selectedTheme)
     }
 }
+extension ConversationsListViewController: NSFetchedResultsControllerDelegate {}
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension ConversationsListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -85,7 +101,13 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return CommunicatorManager.Instance.users.count
+        guard let sections = self.fetchedResultsController.sections else {
+            fatalError("No sections in fetchedResultsController")
+        }
+        let sectionInfo = sections[section]
+        print(sectionInfo.numberOfObjects)
+        return sectionInfo.numberOfObjects
+//        return CommunicatorManager.Instance.users.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

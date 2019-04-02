@@ -82,7 +82,6 @@ extension AppUser {
     static func insertAppUser(in context: NSManagedObjectContext) -> AppUser? {
         guard let appUser = NSEntityDescription.insertNewObject(forEntityName: "AppUser", into: context) as? AppUser else {return nil}
         let currentUser = User.insertUser(in: context)
-        //    currectUser?.name = "kek"
         appUser.currentUser = currentUser
         return appUser
     }
@@ -117,7 +116,7 @@ extension AppUser {
 extension User {
     static func insertUser(in context: NSManagedObjectContext) -> User? {
         guard let user = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as? User else {return nil}
-
+        //user.appUser = user.currentAppUser
         return user
     }
 }

@@ -7,7 +7,7 @@
         <relationship name="conversations" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Conversation" inverseName="appUser" inverseEntity="Conversation" syncable="YES"/>
         <relationship name="currentUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="currentAppUser" inverseEntity="User" syncable="YES"/>
         <relationship name="lastMessage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Message" inverseName="lastMessageAppUser" inverseEntity="Message" syncable="YES"/>
-        <relationship name="users" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="appUser" inverseEntity="User" syncable="YES"/>
+        <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="appUser" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Conversation" representedClassName="Conversation" syncable="YES" codeGenerationType="class">
         <attribute name="conversationID" optional="YES" attributeType="String" syncable="YES"/>
@@ -33,8 +33,8 @@
     <fetchRequest name="UserRequest" entity="User"/>
     <elements>
         <element name="AppUser" positionX="-63" positionY="-18" width="128" height="150"/>
-        <element name="User" positionX="593.7109375" positionY="-212.52734375" width="128" height="135"/>
-        <element name="Message" positionX="498.71484375" positionY="56.79296875" width="128" height="118"/>
         <element name="Conversation" positionX="324.8828125" positionY="-166.26953125" width="128" height="73"/>
+        <element name="Message" positionX="498.71484375" positionY="56.79296875" width="128" height="118"/>
+        <element name="User" positionX="593.7109375" positionY="-212.52734375" width="128" height="135"/>
     </elements>
 </model>

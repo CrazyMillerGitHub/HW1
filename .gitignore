@@ -3,3 +3,5 @@ DerivedData/
 xcuserdata/
 *.xccheckout
 *.xcscmblueprint
+Pods/
+
