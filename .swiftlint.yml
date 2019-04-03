@@ -6,5 +6,8 @@ error: 0
 line_length:
  warning: 200
 disabled_rules:
- — trailing_whitespace
- - line_length
+  - trailing_whitespace
+excluded:
+  — Pods
+opt_in_rules:
+  - force_unwrapping

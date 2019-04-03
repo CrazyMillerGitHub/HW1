@@ -84,6 +84,7 @@ extension AppUser {
         appUser.currentUser = currentUser
         return appUser
     }
+    
     static func findOrInsertAppUser(in context: NSManagedObjectContext) -> AppUser? {
         guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
             print("Model is not available in context!")
@@ -156,12 +157,13 @@ extension AppUser {
     ///   - context:  context
     ///   - userId: userId
     /// - Returns: User
-    static func fetchCurrectUserWithID(in context: NSManagedObjectContext, userId: String) -> User {
+    static func fetchCurrectUserWithID(in context: NSManagedObjectContext, userId: String) -> User? {
         let users = fetchAllUsers(in: context)
         for user in users where user.userID == userId { return user}
-        fatalError()
+        return nil
     }
 }
+
 // MARK: - Message
 extension Message {
     static func insertMessage(in context: NSManagedObjectContext) -> Message? {
@@ -169,6 +171,9 @@ extension Message {
         return message
     }
 }
+
+
+// MARK: - Conversation
 extension Conversation {
     static func insertConversation(in context: NSManagedObjectContext) -> Conversation? {
         guard let conversation = NSEntityDescription.insertNewObject(forEntityName: "Conversation", into: context) as? Conversation else {return nil}
@@ -187,7 +192,7 @@ extension Conversation {
         let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
         request.predicate = NSPredicate(format: "conversationID == %@", conversationID)
         guard let result = try? StorageManager.Instance.coreDataStack.mainContext.fetch(request) else {fatalError("Fetch failded")}
-         guard let results = result.last?.messages?.allObjects as? [Message] else {fatalError("No messages")}
+        guard let results = result.last?.messages?.allObjects as? [Message] else {fatalError("No messages")}
         return results
     }
     /// получения беседы с определенным conversationId
@@ -196,12 +201,12 @@ extension Conversation {
     ///   - context: context
     ///   - conversationID: ID
     /// - Returns: беседа
-    static func fetchConversation(in context: NSManagedObjectContext, conversationID: String) -> Conversation {
+    static func fetchConversation(in context: NSManagedObjectContext, conversationID: String) -> Conversation? {
         let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
         guard let conversations = try? StorageManager.Instance.coreDataStack.mainContext.fetch(request) else {fatalError("Fetch failded")}
         for conversation in conversations where conversation.conversationID == conversationID {
             return conversation
         }
-        fatalError("Unsuccesful fetch Conversation")
+        return nil
     }
 }
