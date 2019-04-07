@@ -16,32 +16,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     if UserDefaults.standard.string(forKey: "profileLabel") != nil { } else { UserDefaults.standard.set("StandartUser", forKey: "profileLabel") }
 print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
     UINavigationBar.appearance().shadowImage = UIImage()
-    setup("Veronika")
-//    let results = result.last!.users!.allObjects as! [User]
-//    results.forEach {print($0.name)}
-//    let request2: NSFetchRequest<User> = User.fetchRequest()
-//    guard let result2 = try? StorageManager.Instance.coreDataStack.mainContext.fetch(request2) else {fatalError("Fetch failded")}
-//    print(result2)
-//    result2.forEach {print(($0.users?.allObjects as! [User]))}
+    checkAvailableAppUser()
     Logger.SharedInstance.log(message: "Application moved from Not Running to Inactive: \(#function)")
     return true
   }
-    func setup(_ name: String) {
-//        let user = AppUser.findOrInsertAppUser(in: StorageManager.Instance.coreDataStack.mainContext)
-        let user2 = User.insertUser(in: StorageManager.Instance.coreDataStack.mainContext)
-//        if let use3 = user {
-//            use3.currentUser?.name = name
-//        }
-        //Сохранение пользователя
-        let request: NSFetchRequest<AppUser> = AppUser.fetchRequest()
-   guard let result = try? StorageManager.Instance.coreDataStack.mainContext.fetch(request) else {fatalError("Fetch failded")}
-        user2?.name = name
-        user2?.userID = name + UIDevice.current.name
-        if let user1 = user2 {
-            result.last?.addToUsers(user1)
+   
+    private func checkAvailableAppUser() {
+        if AppUser.requestAppUser(in: StorageManager.Instance.coreDataStack.mainContext) == nil {
+            generateCurrectUser()
         }
-        StorageManager.Instance.coreDataStack.performSave(with: StorageManager.Instance.coreDataStack.mainContext)
     }
+    
+    private func generateCurrectUser() {
+        StorageManager.Instance.coreDataStack.saveContext.performAndWait {
+         
+        let user = AppUser.findOrInsertAppUser(in: StorageManager.Instance.coreDataStack.saveContext)
+        if let user = user {
+            user.currentUser?.name = "defaultUser"
+            user.currentUser?.userID = NSUUID().uuidString.lowercased()
+        }
+                StorageManager.Instance.coreDataStack.performSave()
+        }
+    }
+    
   func applicationWillResignActive(_ application: UIApplication) {
     Logger.SharedInstance.log(message: "Application moved from Actvie to Inactive: \(#function)")
 

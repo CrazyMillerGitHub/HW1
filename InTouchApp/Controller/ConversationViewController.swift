@@ -7,17 +7,28 @@
 //
 
 import UIKit
-
+import CoreData
 protocol MessageCellConfiguration: class {
     var txt: String? {get set}
 }
 class ConversationViewController: UIViewController, UITextFieldDelegate, dataDelegate {
-    var userData = (peerID: String(), userName: String())
+    var userId: String!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var textField: UITextField!
     @IBOutlet var searchView: UIView!
     @IBOutlet var bottomConstraint: NSLayoutConstraint!
     weak var delegate: Communicator?
+    
+    lazy var fetchedResultsController: NSFetchedResultsController<Message> = {
+        let request: NSFetchRequest<Message> = Message.fetchRequest()
+        let sort = NSSortDescriptor(key: "date", ascending: true)
+        request.sortDescriptors = [sort]
+        guard let userID = userId else { fatalError("Not found UserID") }
+        request.predicate = NSPredicate(format: "conversationID == %@", "\(userID)")
+        let frc =  NSFetchedResultsController(fetchRequest: request, managedObjectContext: StorageManager.Instance.coreDataStack.mainContext, sectionNameKeyPath: nil, cacheName: nil)
+        return frc
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = false
@@ -29,37 +40,45 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, dataDel
         tableView.backgroundColor = .white
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        fetchedResultsController.delegate = self
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {}
     }
-
+    
     func reloadData(status: Bool) {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
-
+    
     @IBAction func sendAction(_ sender: Any) {
         //    delegate?.sendMessage(string: textField.text!, to: "peer", completionHandler: nil)
         let array = ["eventType": "TextMessage", "text": "\(textField.text ?? "")", "messageId": "\(generateMessageId())"]
-        if CommunicatorManager.Instance.communicator.message[userData.peerID] == nil {
-            CommunicatorManager.Instance.communicator.message[userData.peerID] = [MessageStruct(inOut: 0, message: textField.text ?? "", date: Date())]
-        } else {
-            CommunicatorManager.Instance.communicator.message[userData.peerID]?.append(MessageStruct(inOut: 0, message: textField.text ?? "", date: Date()))
+        
+        StorageManager.Instance.coreDataStack.saveContext.performAndWait {
+            let message = Message.insertMessage(in: StorageManager.Instance.coreDataStack.saveContext)
+            message?.inOut = 0
+            message?.date = Date()
+            message?.message = textField.text ?? ""
+            message?.messageID = generateMessageId()
+            message?.conversationID = userId
+            let conversation = Conversation.requestConversation(in: StorageManager.Instance.coreDataStack.saveContext, conversationID: userId)
+            if let message = message { conversation?.addToMessages(message)
+            }
+            StorageManager.Instance.coreDataStack.performSave()
         }
         if let arr = try? JSONSerialization.data(withJSONObject: array, options: .prettyPrinted) {
-            if let peer = CommunicatorManager.Instance.communicator.mcPeerIDFunc(name: userData.peerID) {
+            if let peer = CommunicatorManager.Instance.communicator.mcPeerIDFunc(name: ((AppUser.requestAppUser(in: StorageManager.Instance.coreDataStack.mainContext))?.currentUser!.userID)!) {
                 try? CommunicatorManager.Instance.communicator.session.send(arr, toPeers: [peer], with: .reliable)
                 textField.text = ""
-                tableView.reloadData()
             } else {
                 self.messageNotSent()
             }
         }
     }
-
+    
     private func messageNotSent() {
-        if CommunicatorManager.Instance.communicator.message[userData.peerID]?.count == 1 {
-            CommunicatorManager.Instance.communicator.message[userData.peerID] = nil
-        }
         let alertController = UIAlertController(title: "Извините,сообщение не было отправленно", message: nil, preferredStyle: .actionSheet)
         let action = UIAlertAction(title: "ОК", style: .default) { (_:UIAlertAction) in
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -70,14 +89,14 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, dataDel
         alertController.addAction(action)
         self.present(alertController, animated: true, completion: nil)
     }
-
+    
     func generateMessageId() -> String {
-         // swiftlint:disable force_unwrapping
+        // swiftlint:disable force_unwrapping
         return "\(arc4random_uniform(UINT32_MAX))+\(Date.timeIntervalSinceReferenceDate)"
             .data(using: .utf8)!.base64EncodedString()
         // swiftlint:enable force_unwrapping
     }
-
+    
     @objc func keyboardNotification(notification: NSNotification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let isKeyboardShowing = notification.name == UIResponder.keyboardWillShowNotification
@@ -92,7 +111,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, dataDel
             })
         }
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         textField.endEditing(true)
     }
@@ -101,24 +120,25 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, dataDel
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension ConversationViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let value = CommunicatorManager.Instance.communicator.message[userData.peerID]?.count {
-            return value
-        } else {
-            return 0
-        }
+        guard let sections = self.fetchedResultsController.sections else {
+            return 0 }
+        let sectionInfo = sections[section]
+        return sectionInfo.numberOfObjects
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let dat = CommunicatorManager.Instance.communicator.message[userData.peerID] else {fatalError("No found messages for user: \(userData.peerID)")}
-        let message = dat[indexPath.row]
+        let message = self.fetchedResultsController.object(at: indexPath)
         if message.inOut == 1 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) as? CustomConversationCell1 else {
                 return tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) }
-            cell.config(text: message.message)
+            let message = message.message ?? ""
+            cell.config(text: message)
             return cell
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) as? CustomConversationCell2 else {
                 return tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) }
-            cell.config(text: message.message)
+            let message = message.message ?? ""
+            cell.config(text: message)
             return cell
         }
     }
@@ -128,7 +148,7 @@ class CustomConversationCell1: UITableViewCell, MessageCellConfiguration {
     var txt: String?
     @IBOutlet weak var bgImage: UIImageView!
     @IBOutlet weak var inTextLabel: UILabel!
-
+    
     func config(text: String) {
         self.backgroundColor = .clear
         self.txt = text
@@ -144,7 +164,7 @@ class CustomConversationCell2: UITableViewCell, MessageCellConfiguration {
     var txt: String?
     @IBOutlet weak var bgImage: UIImageView!
     @IBOutlet weak var outTextLabel: UILabel!
-
+    
     func config(text: String) {
         self.backgroundColor = .clear
         self.txt = text
@@ -152,5 +172,30 @@ class CustomConversationCell2: UITableViewCell, MessageCellConfiguration {
         if let image = UIImage(named: "bubble_blue")?.resizableImage(withCapInsets: UIEdgeInsets(top: 22, left: 26, bottom: 22, right: 26)).withRenderingMode(.alwaysTemplate) {
             bgImage.image = image
         }
+    }
+}
+extension ConversationViewController: NSFetchedResultsControllerDelegate {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.tableView.beginUpdates()
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.tableView.endUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        //swiftlint:disable force_unwrapping
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .automatic)
+        case .move:
+            tableView.deleteRows(at: [indexPath!], with: .automatic)
+            tableView.insertRows(at: [newIndexPath!], with: .automatic)
+        case .update:
+            tableView.reloadRows(at: [indexPath!], with: .automatic)
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .automatic)
+        }
+        //swiftlint:enable force_unwrapping
     }
 }

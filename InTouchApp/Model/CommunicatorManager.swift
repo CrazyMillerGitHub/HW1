@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import MultipeerConnectivity
+import CoreData
 struct MessageStruct {
     let inOut: Int
     let message: String
@@ -18,31 +19,26 @@ class CommunicatorManager: NSObject, CommunicatorDelegate {
     var users: [(username: String, peerID: String)] = []
     weak var delegate: dataDelegate?
     func didFoundUser(userID: String, userName: String?) {
-        if users.contains(where: { (username, _) -> Bool in
-            return username == userName
-        }) != true {
-            users.append((userName ?? "nameIsEmpty", userID))
-
-            delegate?.reloadData(status: true)
-        }
+       
     }
-
+    
     func didLostUser(userID: String) {
-        for (index, aPeer) in users.enumerated() where aPeer.peerID == userID {
-            users.remove(at: index)
-            delegate?.reloadData(status: true)
-            break
+        let user = AppUser.fetchCurrectUserWithID(in: StorageManager.Instance.coreDataStack.mainContext, userId: userID)
+        user?.isOnline = false
+        StorageManager.Instance.coreDataStack.saveContext.performAndWait {
+            StorageManager.Instance.coreDataStack.performSave()
         }
+        
     }
-
+    
     func failedToStartBrowsingForUsers(error: Error) {
         print(error.localizedDescription)
     }
-
+    
     func failedToStartAdvertising(error: Error) {
         print(error.localizedDescription)
     }
-
+    
     func didRecieveMessage(text: String, fromUser: String, toUser: String) {
         delegate?.reloadData(status: true)
     }
@@ -53,7 +49,7 @@ class CommunicatorManager: NSObject, CommunicatorDelegate {
         super.init()
         self.communicator.delegate = self
     }
-
+    
 }
 protocol dataDelegate: class {
     func reloadData(status: Bool)

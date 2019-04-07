@@ -31,7 +31,7 @@ class OperationDataManager: NSObject {
         }
         printerQueue.addOperation(notify)
         printerQueue.waitUntilAllOperationsAreFinished()
-        StorageManager.Instance.coreDataStack.performSave(with: StorageManager.Instance.coreDataStack.mainContext)
+        StorageManager.Instance.coreDataStack.performSave()
         self.delegate?.changeProileData(success: true)
 
     }

@@ -28,6 +28,7 @@
 		74B33C902230773B00F3BB59 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B33C8F2230773B00F3BB59 /* ProfileViewController.swift */; };
 		74CDAE692226B5F1001FEF3B /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CDAE682226B5F1001FEF3B /* TableViewCell.swift */; };
 		74D746A5222C3A5200383066 /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D746A4222C3A5200383066 /* Themes.m */; };
+		74DF00C52257226800DF175A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DF00C42257226800DF175A /* Extensions.swift */; };
 		74E254782247F546009E089F /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E254772247F546009E089F /* StorageManager.swift */; };
 		88593BF059C58C70158D5453 /* Pods_InTouchApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB272B38AFABA8B9347BA26 /* Pods_InTouchApp.framework */; };
 /* End PBXBuildFile section */
@@ -61,6 +62,7 @@
 		74D74677222AB3C000383066 /* ThemesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemesViewControllerDelegate.h; sourceTree = "<group>"; };
 		74D746A3222C3A5200383066 /* Themes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
 		74D746A4222C3A5200383066 /* Themes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Themes.m; sourceTree = "<group>"; };
+		74DF00C42257226800DF175A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		74DF70C5220D4F1D00755684 /* InTouchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InTouchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74E254772247F546009E089F /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		A5A0F7E4470AC1FE07065532 /* Pods-InTouchApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InTouchApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-InTouchApp/Pods-InTouchApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				74A79CB2221684A700F23890 /* Logger.swift */,
 				74424E8C22407A3C00F1BC7B /* Communicator.swift */,
 				74424E8A224042A500F1BC7B /* MultipeerCommunicator.swift */,
+				74DF00C42257226800DF175A /* Extensions.swift */,
 				74958A4E223761F20022B883 /* ProfileViewControllerDelegate.swift */,
 				74CDAE682226B5F1001FEF3B /* TableViewCell.swift */,
 				740C7FB2222D00D500471199 /* InTouchApp-Bridging-Header.h */,
@@ -336,6 +339,7 @@
 				74CDAE692226B5F1001FEF3B /* TableViewCell.swift in Sources */,
 				7436027C223021E500D7FED3 /* ThemesViewController.m in Sources */,
 				74130152222F1AA00093181F /* Theme.swift in Sources */,
+				74DF00C52257226800DF175A /* Extensions.swift in Sources */,
 				74424E8B224042A500F1BC7B /* MultipeerCommunicator.swift in Sources */,
 				745DEE4C2236BBFA008C4A5E /* GCDDataManager.swift in Sources */,
 				74D746A5222C3A5200383066 /* Themes.m in Sources */,

@@ -24,7 +24,7 @@ class TableViewCell: UITableViewCell, ConversationCellonfiguration {
         return CGFloat.random(in: 0...100) / 100
     }
 
-    func configureCell(name: String, message: String, date: Date, online: Bool, hasUnreadmessage: Bool) {
+    func configureCell(name: String, message: String, date: Date?, online: Bool, hasUnreadmessage: Bool) {
 
         self.name = name
         self.message = message
