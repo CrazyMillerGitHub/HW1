@@ -11,7 +11,7 @@ import UIKit
 protocol ISaveProfileService {
     
 }
-class SaveProfileService:ISaveProfileService  {
+class SaveProfileService: ISaveProfileService {
     let saveProfile: ISaveProfile
     init(saveProfile: ISaveProfile) {
         self.saveProfile = saveProfile
