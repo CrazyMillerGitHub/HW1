@@ -10,13 +10,13 @@ import Foundation
 import UIKit
 
 enum Theme: Int {
-    //1
+    
     case light, dark, champagne
-    //2
+   
     private enum Keys {
         static let selectedTheme = "SelectedTheme"
     }
-    //3
+    
     static var current: Theme {
         let storedTheme = UserDefaults.standard.integer(forKey: Keys.selectedTheme)
         return Theme(rawValue: storedTheme) ?? .light
@@ -53,6 +53,7 @@ enum Theme: Int {
         }
     }
     
+    /// Обработка темы
     func apply() {
         UserDefaults.standard.set(rawValue, forKey: Keys.selectedTheme)
         

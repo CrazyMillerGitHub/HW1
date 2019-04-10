@@ -18,6 +18,32 @@ class ConversationsListViewController: UIViewController, dataDelegate {
         }
     }
     
+    /// Present ProfileViewController
+    ///
+    /// - Parameter sender: sender
+    @IBAction func profileAction(_ sender: Any) {
+        let rootProfileView = sendActionWithIdentifier(withIdentifier: "rootProfileSTR")
+        self.present(rootProfileView, animated: true, completion: nil)
+    }
+    
+    /// Выбор темы в настройках
+    ///
+    /// - Parameter sender: sender
+    @IBAction func settingAction(_ sender: Any) {
+        let rootProfileView = sendActionWithIdentifier(withIdentifier: "rootThemeSTD")
+        guard let segueViewController = rootProfileView.topViewController as? ThemesViewController else { fatalError() }
+        segueViewController.model = Themes()
+        segueViewController.delegate = self
+        self.present(rootProfileView, animated: true, completion: nil)
+    }
+    
+    func sendActionWithIdentifier(withIdentifier id: String) -> UINavigationController {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let rootViewController = storyBoard.instantiateViewController(withIdentifier: id) as? UINavigationController else { fatalError()
+        }
+        return rootViewController
+    }
+    
     /// NSFetchResultController
     lazy var fetchedResultsController: NSFetchedResultsController<User> = {
         let request: NSFetchRequest<User> = User.fetchRequest()
@@ -33,9 +59,9 @@ class ConversationsListViewController: UIViewController, dataDelegate {
         extendedLayoutIncludesOpaqueBars = true
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        CommunicatorManager.Instance.delegate = self
-        CommunicatorManager.Instance.communicator.advertiser.startAdvertisingPeer()
-        CommunicatorManager.Instance.communicator.browser.startBrowsingForPeers()
+        CommunicatorManager.instance.delegate = self
+        CommunicatorManager.instance.communicator.advertiser.startAdvertisingPeer()
+        CommunicatorManager.instance.communicator.browser.startBrowsingForPeers()
         fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()
@@ -54,6 +80,8 @@ extension ConversationsListViewController: ThemesViewControllerDelegate {
     }
 }
 
+
+// MARK: - NSFetchedResultsControllerDelegate
 extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.tableView.beginUpdates()
@@ -144,23 +172,15 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "segueIndentifier" {
-            guard let destinationViewController = segue.destination as? ConversationViewController else { return }
-            guard let row = tableView.indexPathForSelectedRow?.row else { return }
-            destinationViewController.title = self.fetchedResultsController.fetchedObjects?[row].name
-            destinationViewController.userId = self.fetchedResultsController.fetchedObjects?[row].userID
-        } else if segue.identifier == "themeSegueIdentifier"{
-            // swiftlint:disable force_cast
-            let navigationViewController = segue.destination as! UINavigationController
-            let segueViewController = navigationViewController.topViewController as! ThemesViewController
-            // swiftlint:enable force_cast
-            segueViewController.model = Themes()
-            segueViewController.delegate = self
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let messageViewController = storyBoard.instantiateViewController(withIdentifier: "messageStb") as? ConversationViewController else {
+            fatalError()
         }
+        guard let row = tableView.indexPathForSelectedRow?.row else { return }
+        messageViewController.userId = self.fetchedResultsController.fetchedObjects?[row].userID
+        messageViewController.title = self.fetchedResultsController.fetchedObjects?[row].name
+        self.navigationController?.pushViewController(messageViewController, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func logThemeChanging(selectedTheme: UIColor) {

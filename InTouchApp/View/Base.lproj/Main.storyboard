@@ -100,7 +100,6 @@
                                             <outlet property="onlineStatusView" destination="9Rq-Of-3s8" id="XwH-Ij-tNs"/>
                                             <outlet property="profileImage" destination="jqX-Mm-FzP" id="SwB-jK-Q3K"/>
                                             <outlet property="titleLabel" destination="yz1-Iv-MyS" id="fS5-oz-lIq"/>
-                                            <segue destination="8CB-Kv-9y4" kind="show" identifier="segueIndentifier" id="nZX-Av-1vB"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -118,12 +117,12 @@
                     <navigationItem key="navigationItem" title="Tinkoff Chat" id="HG2-wd-l2n">
                         <barButtonItem key="leftBarButtonItem" image="editButton" id="XBH-N0-1BF">
                             <connections>
-                                <segue destination="DMt-fp-bIA" kind="showDetail" identifier="themeSegueIdentifier" id="5lk-ww-VOh"/>
+                                <action selector="settingAction:" destination="2Js-Wa-dA0" id="amg-8P-WJb"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="acc" id="lnq-er-kuc">
                             <connections>
-                                <segue destination="HqM-cO-o0G" kind="showDetail" id="oXX-cI-0qd"/>
+                                <action selector="profileAction:" destination="2Js-Wa-dA0" id="jHH-37-z9x"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -133,18 +132,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hBA-bc-EpW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2018" y="32"/>
+            <point key="canvasLocation" x="2012" y="64"/>
         </scene>
         <!--Conversation View Controller-->
         <scene sceneID="2pW-2k-o3b">
             <objects>
-                <viewController id="8CB-Kv-9y4" customClass="ConversationViewController" customModule="InTouchApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="messageStb" id="8CB-Kv-9y4" customClass="ConversationViewController" customModule="InTouchApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DlB-bV-a09">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="457"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TWc-b2-QtU">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="411"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="502"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell1" id="EqK-g4-pgQ" customClass="CustomConversationCell1" customModule="InTouchApp" customModuleProvider="target">
@@ -215,7 +214,7 @@
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pru-Cm-r1N">
-                                <rect key="frame" x="0.0" y="411" width="320" height="46"/>
+                                <rect key="frame" x="0.0" y="522" width="320" height="46"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="message" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8vM-Lz-3Gw">
                                         <rect key="frame" x="5" y="0.0" width="264" height="46"/>
@@ -268,7 +267,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZ0-MC-KR8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3271.875" y="52.816901408450704"/>
+            <point key="canvasLocation" x="3754" y="53"/>
         </scene>
         <!--Theme-->
         <scene sceneID="xjW-tV-zEW">
@@ -380,7 +379,7 @@
         <!--Navigation Controller-->
         <scene sceneID="9E1-dk-eGE">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DMt-fp-bIA" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="rootThemeSTD" automaticallyAdjustsScrollViewInsets="NO" id="DMt-fp-bIA" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="RTg-tb-AWz">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
@@ -523,12 +522,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NsD-qK-PXN" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3811.875" y="-675"/>
+            <point key="canvasLocation" x="3823" y="-675"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qaI-3Q-4ya">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HqM-cO-o0G" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="rootProfileSTR" automaticallyAdjustsScrollViewInsets="NO" id="HqM-cO-o0G" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="vLj-D5-ZLE">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>

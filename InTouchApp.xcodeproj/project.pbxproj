@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		74130152222F1AA00093181F /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74130151222F1AA00093181F /* Theme.swift */; };
 		741515AA221FC9410039E987 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741515A9221FC9400039E987 /* ConversationViewController.swift */; };
-		741515AC221FF3B40039E987 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741515AB221FF3B40039E987 /* Users.swift */; };
 		74360279222FEC6400D7FED3 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74677B72221F28C500B4B70F /* ConversationsListViewController.swift */; };
 		7436027C223021E500D7FED3 /* ThemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 740C7FAD222CFE5D00471199 /* ThemesViewController.m */; };
 		74424E8B224042A500F1BC7B /* MultipeerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74424E8A224042A500F1BC7B /* MultipeerCommunicator.swift */; };
@@ -40,7 +39,6 @@
 		740C7FB2222D00D500471199 /* InTouchApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "InTouchApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		74130151222F1AA00093181F /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		741515A9221FC9400039E987 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
-		741515AB221FF3B40039E987 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		74360272222FE2FE00D7FED3 /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
 		74424E8A224042A500F1BC7B /* MultipeerCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerCommunicator.swift; sourceTree = "<group>"; };
 		74424E8C22407A3C00F1BC7B /* Communicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Communicator.swift; sourceTree = "<group>"; };
@@ -94,9 +92,41 @@
 			path = "obj-c";
 			sourceTree = "<group>";
 		};
+		741ADDF0225C909500C033A0 /* Soa */ = {
+			isa = PBXGroup;
+			children = (
+				741ADDF3225C910400C033A0 /* Core */,
+				741ADDF2225C90FD00C033A0 /* Service */,
+				741ADDF1225C909D00C033A0 /* Assembly */,
+			);
+			path = Soa;
+			sourceTree = "<group>";
+		};
+		741ADDF1225C909D00C033A0 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		741ADDF2225C90FD00C033A0 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		741ADDF3225C910400C033A0 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		74A79CB0221684A700F23890 /* InTouchApp */ = {
 			isa = PBXGroup;
 			children = (
+				741ADDF0225C909500C033A0 /* Soa */,
 				74E254752247AFA2009E089F /* View */,
 				74F9A0DE2246B935002B116B /* Controller */,
 				74F9A0DD2246B860002B116B /* Supported folders */,
@@ -146,7 +176,6 @@
 			isa = PBXGroup;
 			children = (
 				74424E8E22407ECC00F1BC7B /* CommunicatorManager.swift */,
-				741515AB221FF3B40039E987 /* Users.swift */,
 				74130151222F1AA00093181F /* Theme.swift */,
 				74E254772247F546009E089F /* StorageManager.swift */,
 			);
@@ -243,6 +272,11 @@
 					74DF70C4220D4F1D00755684 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -326,7 +360,6 @@
 			files = (
 				7495F9782242AFAD00F7E152 /* coreData.xcdatamodeld in Sources */,
 				74424E8D22407A3C00F1BC7B /* Communicator.swift in Sources */,
-				741515AC221FF3B40039E987 /* Users.swift in Sources */,
 				7495F97A2242B00000F7E152 /* CoreDataStack.swift in Sources */,
 				74958A51223839CC0022B883 /* OperationDataManager.swift in Sources */,
 				74958A4F223761F30022B883 /* ProfileViewControllerDelegate.swift in Sources */,

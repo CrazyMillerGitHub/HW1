@@ -9,10 +9,10 @@
 import UIKit
 
 class StorageManager: NSObject {
-  var coreDataStack = CoreDataStack()
-  override init() {
-    super.init()
-    coreDataStack.delegate = self
-  }
-  static var Instance = StorageManager()
+    var coreDataStack = CoreDataStack()
+    override init() {
+        super.init()
+        coreDataStack.delegate = self
+    }
+    static var Instance = StorageManager()
 }

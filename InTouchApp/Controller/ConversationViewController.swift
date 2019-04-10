@@ -33,7 +33,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, dataDel
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = false
         extendedLayoutIncludesOpaqueBars = true
-        CommunicatorManager.Instance.delegate = self
+        CommunicatorManager.instance.delegate = self
         tableView.delegate = self
         textField.delegate = self
         tableView.dataSource = self
@@ -69,8 +69,8 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, dataDel
             StorageManager.Instance.coreDataStack.performSave()
         }
         if let arr = try? JSONSerialization.data(withJSONObject: array, options: .prettyPrinted) {
-            if let peer = CommunicatorManager.Instance.communicator.mcPeerIDFunc(name: ((AppUser.requestAppUser(in: StorageManager.Instance.coreDataStack.mainContext))?.currentUser!.userID)!) {
-                try? CommunicatorManager.Instance.communicator.session.send(arr, toPeers: [peer], with: .reliable)
+            if let peer = CommunicatorManager.instance.communicator.mcPeerIDFunc(name: ((AppUser.requestAppUser(in: StorageManager.Instance.coreDataStack.mainContext))?.currentUser!.userID)!) {
+                try? CommunicatorManager.instance.communicator.session.send(arr, toPeers: [peer], with: .reliable)
                 textField.text = ""
             } else {
                 self.messageNotSent()

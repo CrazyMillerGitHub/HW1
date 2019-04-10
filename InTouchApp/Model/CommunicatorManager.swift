@@ -19,7 +19,6 @@ class CommunicatorManager: NSObject, CommunicatorDelegate {
     var users: [(username: String, peerID: String)] = []
     weak var delegate: dataDelegate?
     func didFoundUser(userID: String, userName: String?) {
-       
     }
     
     func didLostUser(userID: String) {
@@ -40,10 +39,10 @@ class CommunicatorManager: NSObject, CommunicatorDelegate {
     }
     
     func didRecieveMessage(text: String, fromUser: String, toUser: String) {
-        delegate?.reloadData(status: true)
     }
+    
     var communicator: MultipeerCommunicator
-    static var Instance = CommunicatorManager()
+    static var instance = CommunicatorManager()
     private override init() {
         self.communicator = MultipeerCommunicator()
         super.init()
@@ -51,6 +50,7 @@ class CommunicatorManager: NSObject, CommunicatorDelegate {
     }
     
 }
+
 protocol dataDelegate: class {
     func reloadData(status: Bool)
 }

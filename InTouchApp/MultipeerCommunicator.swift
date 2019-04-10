@@ -75,7 +75,7 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate, MCSessionDelega
                 let array = ["image": base64String]
                 if let arr = try? JSONSerialization.data(withJSONObject: array, options: .prettyPrinted) {
                     do {
-                        try CommunicatorManager.Instance.communicator.session.send(arr, toPeers: [peerID], with: .reliable)
+                        try CommunicatorManager.instance.communicator.session.send(arr, toPeers: [peerID], with: .reliable)
                         print("Success")
                     } catch {
                         print("Message not sent")
@@ -97,9 +97,9 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate, MCSessionDelega
         if let dict = convertedString.toJSON() as? [String: AnyObject] {
             if dict["image"] != nil {
                 StorageManager.Instance.coreDataStack.mainContext.performAndWait {
-                if let user = AppUser.fetchCurrectUserWithID(in: StorageManager.Instance.coreDataStack.mainContext, userId: peerID.displayName) {
-                    guard let data = NSData(base64Encoded: dict["image"] as! String, options: .ignoreUnknownCharacters) else {fatalError()}
-                    user.image = data as Data
+                    if let user = AppUser.fetchCurrectUserWithID(in: StorageManager.Instance.coreDataStack.mainContext, userId: peerID.displayName) {
+                        guard let data = NSData(base64Encoded: dict["image"] as! String, options: .ignoreUnknownCharacters) else {fatalError()}
+                        user.image = data as Data
                         StorageManager.Instance.coreDataStack.performSave()
                     }
                 }
@@ -110,7 +110,7 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate, MCSessionDelega
                     message?.inOut = 1
                     message?.date = Date()
                     if let textMessage = dict["text"] as? String {
-                          message?.message = textMessage
+                        message?.message = textMessage
                     }
                     message?.messageID = generateMessageId()
                     message?.conversationID = peerID.displayName
@@ -120,16 +120,17 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate, MCSessionDelega
                         
                     }
                     StorageManager.Instance.coreDataStack.saveContext.performAndWait {
-                    if let user = AppUser.fetchCurrectUserWithID(in: StorageManager.Instance.coreDataStack.saveContext, userId: peerID.displayName) {
-                        if let textMessage = dict["text"] as? String {
-                            user.lastMessage = textMessage
+                        if let user = AppUser.fetchCurrectUserWithID(in: StorageManager.Instance.coreDataStack.saveContext, userId: peerID.displayName) {
+                            if let textMessage = dict["text"] as? String {
+                                user.lastMessage = textMessage
+                            }
                         }
-                    }
                         StorageManager.Instance.coreDataStack.performSave()
                     }
-            delegate?.didRecieveMessage(text: dict["text"] as! String, fromUser: peerID.displayName, toUser: session.myPeerID.displayName)
-        }
-        }
+                }
+                
+            }
+             delegate?.didRecieveMessage(text: dict["text"] as! String, fromUser: peerID.displayName, toUser: session.myPeerID.displayName)
         }
         // swiftlint:enable force_cast
     }

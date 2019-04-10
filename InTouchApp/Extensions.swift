@@ -8,12 +8,14 @@
 
 import Foundation
 import UIKit
+
 extension UIImage {
     func toString() -> String? {
         let data: Data? = self.pngData()
         return data?.base64EncodedString(options: .endLineWithLineFeed)
     }
 }
+
 extension String {
     func toImage() -> UIImage? {
         if let data = Data(base64Encoded: self, options: .ignoreUnknownCharacters) {
@@ -22,6 +24,7 @@ extension String {
         return nil
     }
 }
+
 extension UIImage {
     enum JPEGQuality: CGFloat {
         case lowest  = 0
@@ -35,6 +38,7 @@ extension UIImage {
         return jpegData(compressionQuality: jpegQuality.rawValue)
     }
 }
+
 extension UIImage {
     func resizeWithPercent(percentage: CGFloat) -> UIImage? {
         let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: size.width * percentage, height: size.height * percentage)))
@@ -47,6 +51,7 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return result
     }
+    
     func resizeWithWidth(width: CGFloat) -> UIImage? {
         let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))))
         imageView.contentMode = .scaleAspectFit
