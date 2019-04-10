@@ -7,14 +7,14 @@
 //
 
 import Foundation
-class OperationDataManager: NSObject {
+class OperationDataManager: NSObject, ISaveProfile {
     weak var delegate: ProfileViewControllerDelegate?
     var arr = [String: Any]()
     init(arr: [String: Any]) {
         self.arr = arr
     }
 
-    func apply() {
+    func save() {
         let printerQueue =  OperationQueue()
         let notify = Notify()
         if let image = self.arr["image"] as? NSData {

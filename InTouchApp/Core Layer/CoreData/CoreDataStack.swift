@@ -9,7 +9,9 @@
 import Foundation
 import UIKit
 import CoreData
-class CoreDataStack: NSObject {
+class CoreDataStack: NSObject, ICoreDara {
+    func fetchRequest(in context: NSManagedObjectContext) {
+    }
     var storeURL: URL {
         guard let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { fatalError() }
         return documentsUrl.appendingPathComponent("MyStore.sqlite")

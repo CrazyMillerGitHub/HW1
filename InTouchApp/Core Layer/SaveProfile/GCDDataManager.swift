@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreData
-class GCDDataManager: NSObject {
+class GCDDataManager: NSObject, ISaveProfile {
     weak var delegate: ProfileViewControllerDelegate?
     var arr = [String: Any]()
 

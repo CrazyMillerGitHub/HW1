@@ -245,7 +245,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         statusButtons(bool: false)
         let dataManger = OperationDataManager(arr: check())
         dataManger.delegate = self
-        dataManger.apply()
+        dataManger.save()
     }
 
     private func statusButtons(bool: Bool = false) {

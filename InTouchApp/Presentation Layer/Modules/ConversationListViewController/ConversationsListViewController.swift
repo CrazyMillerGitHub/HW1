@@ -80,7 +80,6 @@ extension ConversationsListViewController: ThemesViewControllerDelegate {
     }
 }
 
-
 // MARK: - NSFetchedResultsControllerDelegate
 extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
