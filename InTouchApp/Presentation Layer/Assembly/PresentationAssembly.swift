@@ -18,9 +18,9 @@ class PresentationAssembly: IPresentationAssembly {
         return ProfileViewController(coder: NSCoder())!
     }
     
-    func conversationListViewController() -> ConversationsListViewController {
-        return ConversationsListViewController()
-    }
+//    func conversationListViewController() -> ConversationsListViewController {
+//        return ConversationsListViewController()
+//    }
     
 }
 protocol IPresentationAssembly {
@@ -38,5 +38,5 @@ protocol IPresentationAssembly {
     /// ConversationListViewController
     ///
     /// - Returns: ConversationsListViewController класс
-    func conversationListViewController() -> ConversationsListViewController
+//    func conversationListViewController() -> ConversationsListViewController
 }

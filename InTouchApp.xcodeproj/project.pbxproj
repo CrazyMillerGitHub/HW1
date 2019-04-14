@@ -16,6 +16,14 @@
 		741ADE15225E308B00C033A0 /* ServicesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741ADE14225E308B00C033A0 /* ServicesAssembly.swift */; };
 		741ADE17225E30D700C033A0 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741ADE16225E30D700C033A0 /* CoreDataService.swift */; };
 		741ADE19225E310A00C033A0 /* SaveProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741ADE18225E310A00C033A0 /* SaveProfileService.swift */; };
+		742EE8EF226395DD0039ED12 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742EE8EE226395DD0039ED12 /* DataProvider.swift */; };
+		742EE8F1226395EE0039ED12 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742EE8F0226395EE0039ED12 /* DataManager.swift */; };
+		742EE8F32263C7320039ED12 /* EditLabelClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742EE8F22263C7320039ED12 /* EditLabelClass.swift */; };
+		742EE8F52263C7660039ED12 /* EditDescriptionClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742EE8F42263C7660039ED12 /* EditDescriptionClass.swift */; };
+		742EE8F72263C90B0039ED12 /* ProfileViewDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742EE8F62263C90B0039ED12 /* ProfileViewDataProvider.swift */; };
+		742EE8F92263CF880039ED12 /* MyActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742EE8F82263CF880039ED12 /* MyActivityIndicator.swift */; };
+		742EE8FE2263D3DF0039ED12 /* ListProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742EE8FD2263D3DF0039ED12 /* ListProvider.swift */; };
+		742EE9002263D8990039ED12 /* ListFRCdelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742EE8FF2263D8990039ED12 /* ListFRCdelegate.swift */; };
 		74360279222FEC6400D7FED3 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74677B72221F28C500B4B70F /* ConversationsListViewController.swift */; };
 		7436027C223021E500D7FED3 /* ThemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 740C7FAD222CFE5D00471199 /* ThemesViewController.m */; };
 		74424E8B224042A500F1BC7B /* MultipeerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74424E8A224042A500F1BC7B /* MultipeerCommunicator.swift */; };
@@ -53,6 +61,14 @@
 		741ADE14225E308B00C033A0 /* ServicesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesAssembly.swift; sourceTree = "<group>"; };
 		741ADE16225E30D700C033A0 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		741ADE18225E310A00C033A0 /* SaveProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveProfileService.swift; sourceTree = "<group>"; };
+		742EE8EE226395DD0039ED12 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		742EE8F0226395EE0039ED12 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		742EE8F22263C7320039ED12 /* EditLabelClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLabelClass.swift; sourceTree = "<group>"; };
+		742EE8F42263C7660039ED12 /* EditDescriptionClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDescriptionClass.swift; sourceTree = "<group>"; };
+		742EE8F62263C90B0039ED12 /* ProfileViewDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewDataProvider.swift; sourceTree = "<group>"; };
+		742EE8F82263CF880039ED12 /* MyActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActivityIndicator.swift; sourceTree = "<group>"; };
+		742EE8FD2263D3DF0039ED12 /* ListProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProvider.swift; sourceTree = "<group>"; };
+		742EE8FF2263D8990039ED12 /* ListFRCdelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFRCdelegate.swift; sourceTree = "<group>"; };
 		74360272222FE2FE00D7FED3 /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
 		74424E8A224042A500F1BC7B /* MultipeerCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerCommunicator.swift; sourceTree = "<group>"; };
 		74424E8C22407A3C00F1BC7B /* Communicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Communicator.swift; sourceTree = "<group>"; };
@@ -129,6 +145,8 @@
 			isa = PBXGroup;
 			children = (
 				741515A9221FC9400039E987 /* ConversationViewController.swift */,
+				742EE8EE226395DD0039ED12 /* DataProvider.swift */,
+				742EE8F0226395EE0039ED12 /* DataManager.swift */,
 			);
 			path = ConversationViewController;
 			sourceTree = "<group>";
@@ -136,7 +154,9 @@
 		741ADE02225E257800C033A0 /* ProfileViewController */ = {
 			isa = PBXGroup;
 			children = (
-				74B33C8F2230773B00F3BB59 /* ProfileViewController.swift */,
+				742EE8ED226385E00039ED12 /* Controller */,
+				742EE8EB226385D00039ED12 /* Model */,
+				742EE8EC226385DA0039ED12 /* View */,
 			);
 			path = ProfileViewController;
 			sourceTree = "<group>";
@@ -144,7 +164,9 @@
 		741ADE03225E258800C033A0 /* ConversationListViewController */ = {
 			isa = PBXGroup;
 			children = (
-				74677B72221F28C500B4B70F /* ConversationsListViewController.swift */,
+				742EE8FC2263D3C40039ED12 /* View */,
+				742EE8FB2263D3BF0039ED12 /* Model */,
+				742EE8FA2263D3B60039ED12 /* Controller */,
 			);
 			path = ConversationListViewController;
 			sourceTree = "<group>";
@@ -208,6 +230,56 @@
 				741ADE18225E310A00C033A0 /* SaveProfileService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		742EE8EB226385D00039ED12 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				742EE8F62263C90B0039ED12 /* ProfileViewDataProvider.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		742EE8EC226385DA0039ED12 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				742EE8F22263C7320039ED12 /* EditLabelClass.swift */,
+				742EE8F42263C7660039ED12 /* EditDescriptionClass.swift */,
+				742EE8F82263CF880039ED12 /* MyActivityIndicator.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		742EE8ED226385E00039ED12 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				74B33C8F2230773B00F3BB59 /* ProfileViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		742EE8FA2263D3B60039ED12 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				74677B72221F28C500B4B70F /* ConversationsListViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		742EE8FB2263D3BF0039ED12 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				742EE8FD2263D3DF0039ED12 /* ListProvider.swift */,
+				742EE8FF2263D8990039ED12 /* ListFRCdelegate.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		742EE8FC2263D3C40039ED12 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		74A79CB0221684A700F23890 /* InTouchApp */ = {
@@ -439,8 +511,11 @@
 				74424E8D22407A3C00F1BC7B /* Communicator.swift in Sources */,
 				741ADE10225E2C9300C033A0 /* ICoreData.swift in Sources */,
 				7495F97A2242B00000F7E152 /* CoreDataStack.swift in Sources */,
+				742EE8F92263CF880039ED12 /* MyActivityIndicator.swift in Sources */,
 				74958A51223839CC0022B883 /* OperationDataManager.swift in Sources */,
 				74958A4F223761F30022B883 /* ProfileViewControllerDelegate.swift in Sources */,
+				742EE8F32263C7320039ED12 /* EditLabelClass.swift in Sources */,
+				742EE8EF226395DD0039ED12 /* DataProvider.swift in Sources */,
 				741515AA221FC9410039E987 /* ConversationViewController.swift in Sources */,
 				74424E8F22407ECC00F1BC7B /* CommunicatorManager.swift in Sources */,
 				74B33C902230773B00F3BB59 /* ProfileViewController.swift in Sources */,
@@ -451,15 +526,20 @@
 				74360279222FEC6400D7FED3 /* ConversationsListViewController.swift in Sources */,
 				741ADE15225E308B00C033A0 /* ServicesAssembly.swift in Sources */,
 				74A79CE022168C9F00F23890 /* Logger.swift in Sources */,
+				742EE8F1226395EE0039ED12 /* DataManager.swift in Sources */,
+				742EE8F52263C7660039ED12 /* EditDescriptionClass.swift in Sources */,
 				74CDAE692226B5F1001FEF3B /* TableViewCell.swift in Sources */,
 				7436027C223021E500D7FED3 /* ThemesViewController.m in Sources */,
+				742EE8F72263C90B0039ED12 /* ProfileViewDataProvider.swift in Sources */,
 				741ADE07225E25E800C033A0 /* PresentationAssembly.swift in Sources */,
 				74130152222F1AA00093181F /* Theme.swift in Sources */,
+				742EE9002263D8990039ED12 /* ListFRCdelegate.swift in Sources */,
 				74DF00C52257226800DF175A /* Extensions.swift in Sources */,
 				74424E8B224042A500F1BC7B /* MultipeerCommunicator.swift in Sources */,
 				745DEE4C2236BBFA008C4A5E /* GCDDataManager.swift in Sources */,
 				74D746A5222C3A5200383066 /* Themes.m in Sources */,
 				74A79CE122168C9F00F23890 /* AppDelegate.swift in Sources */,
+				742EE8FE2263D3DF0039ED12 /* ListProvider.swift in Sources */,
 				741ADE17225E30D700C033A0 /* CoreDataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

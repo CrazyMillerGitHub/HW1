@@ -9,18 +9,12 @@
 import UIKit
 import MultipeerConnectivity
 import CoreData
-class ConversationsListViewController: UIViewController, dataDelegate {
-    func reloadData(status: Bool) {
-        if status == true {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-    }
+class ConversationsListViewController: UIViewController {
     
     /// Present ProfileViewController
     ///
     /// - Parameter sender: sender
+    
     @IBAction func profileAction(_ sender: Any) {
         let rootProfileView = sendActionWithIdentifier(withIdentifier: "rootProfileSTR")
         self.present(rootProfileView, animated: true, completion: nil)
@@ -28,6 +22,7 @@ class ConversationsListViewController: UIViewController, dataDelegate {
     
     /// Выбор темы в настройках
     ///
+    @IBOutlet var listProvider: ListProvider!
     /// - Parameter sender: sender
     @IBAction func settingAction(_ sender: Any) {
         let rootProfileView = sendActionWithIdentifier(withIdentifier: "rootThemeSTD")
@@ -37,6 +32,8 @@ class ConversationsListViewController: UIViewController, dataDelegate {
         self.present(rootProfileView, animated: true, completion: nil)
     }
     
+    @IBOutlet private var tableView: UITableView!
+    
     func sendActionWithIdentifier(withIdentifier id: String) -> UINavigationController {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         guard let rootViewController = storyBoard.instantiateViewController(withIdentifier: id) as? UINavigationController else { fatalError()
@@ -44,27 +41,15 @@ class ConversationsListViewController: UIViewController, dataDelegate {
         return rootViewController
     }
     
-    /// NSFetchResultController
-    lazy var fetchedResultsController: NSFetchedResultsController<User> = {
-        let request: NSFetchRequest<User> = User.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        request.sortDescriptors = [sortDescriptor]
-        let frc =  NSFetchedResultsController(fetchRequest: request, managedObjectContext: StorageManager.Instance.coreDataStack.mainContext, sectionNameKeyPath: nil, cacheName: nil)
-        return frc
-    }()
-    
-    @IBOutlet private var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         extendedLayoutIncludesOpaqueBars = true
-        self.tableView.dataSource = self
         self.tableView.delegate = self
-        CommunicatorManager.instance.delegate = self
         CommunicatorManager.instance.communicator.advertiser.startAdvertisingPeer()
         CommunicatorManager.instance.communicator.browser.startBrowsingForPeers()
-        fetchedResultsController.delegate = self
+        listProvider.fetchedResultsController.delegate = self
         do {
-            try fetchedResultsController.performFetch()
+            try listProvider.fetchedResultsController.performFetch()
         } catch {}
     }
     
@@ -108,25 +93,8 @@ extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
-extension ConversationsListViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TableViewCell else { fatalError() }
-        let user = self.fetchedResultsController.object(at: indexPath)
-        if let image = user.image {
-            cell.profileImage.image = UIImage(data: image)
-            cell.profileImage.layer.cornerRadius = 22.5
-        }
-        let message = user.lastMessage ?? ""
-        let online = user.isOnline
-        guard let userID = user.userID else { fatalError("No found UserID. Are you Okay?") }
-        let date = Conversation.requestLastMessageWithCurrectId(in: StorageManager.Instance.coreDataStack.mainContext, conversationID: userID)?.date
-        let name = user.name ?? ""
-        cell.configureCell(name: name, message: message, date: date, online: online, hasUnreadmessage: true)
-        // swiftlint:enable force_cast
-        return cell
-    }
-    
+extension ConversationsListViewController: UITableViewDelegate {
+   
     private func convertToDate(from string: String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
@@ -141,22 +109,9 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
         tableView.reloadData()
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sections = self.fetchedResultsController.sections else {
-            fatalError("No sections in fetchedResultsController")
-        }
-        let sectionInfo = sections[section]
-        print(sectionInfo.numberOfObjects)
-        return sectionInfo.numberOfObjects
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let managedObject = fetchedResultsController.object(at: indexPath)
+            let managedObject = listProvider.fetchedResultsController.object(at: indexPath)
             StorageManager.Instance.coreDataStack.mainContext.delete(managedObject)
             do {  StorageManager.Instance.coreDataStack.performSave()
                 let request2: NSFetchRequest<User> = User.fetchRequest()
@@ -176,8 +131,8 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
             fatalError()
         }
         guard let row = tableView.indexPathForSelectedRow?.row else { return }
-        messageViewController.userId = self.fetchedResultsController.fetchedObjects?[row].userID
-        messageViewController.title = self.fetchedResultsController.fetchedObjects?[row].name
+        messageViewController.userId = self.listProvider.fetchedResultsController.fetchedObjects?[row].userID
+        messageViewController.title = self.listProvider.fetchedResultsController.fetchedObjects?[row].name
         self.navigationController?.pushViewController(messageViewController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }

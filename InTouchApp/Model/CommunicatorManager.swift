@@ -17,11 +17,11 @@ struct MessageStruct {
 }
 class CommunicatorManager: NSObject, CommunicatorDelegate {
     var users: [(username: String, peerID: String)] = []
-    weak var delegate: dataDelegate?
     func didFoundUser(userID: String, userName: String?) {
     }
     
     func didLostUser(userID: String) {
+        print("User did lost")
         let user = AppUser.fetchCurrectUserWithID(in: StorageManager.Instance.coreDataStack.mainContext, userId: userID)
         user?.isOnline = false
         StorageManager.Instance.coreDataStack.saveContext.performAndWait {
@@ -49,8 +49,4 @@ class CommunicatorManager: NSObject, CommunicatorDelegate {
         self.communicator.delegate = self
     }
     
-}
-
-protocol dataDelegate: class {
-    func reloadData(status: Bool)
 }

@@ -18,7 +18,7 @@ class CoreAssembly: ICoreAssembly {
     
     var operationDataManager: ISaveProfile = OperationDataManager(arr: ["String": "Any"])
     
-    var gcdDataManager: ISaveProfile = GCDDataManager(arr: ["String" : "Any"])
+    var gcdDataManager: ISaveProfile = GCDDataManager(arr: ["String": "Any"])
     
     var coreData: ICoreDara = CoreDataStack()
     

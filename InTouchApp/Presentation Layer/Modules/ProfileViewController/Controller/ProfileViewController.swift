@@ -9,7 +9,6 @@
 import UIKit
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
     var imageBool: Bool = false
     var titleBool: Bool = false
     var descriptionTextBool: Bool = false
@@ -17,17 +16,18 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet weak var addImageButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
-    var editLabel =  UITextField()
     @IBOutlet var operationButton: UIButton!
     @IBOutlet var descriptionView: UILabel!
     @IBOutlet weak var editButton: UIButton!
-    let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+    var myActivityIndicator = UIActivityIndicatorView()
     var count = 0
     var increase: Bool = false
+    var editLabel = UITextField()
+    var editDescriptionTextView = UITextView()
+    var dataProvider = ProfileViewDataProvider()
     @IBAction func dismissButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         //    editButton.frame = nil - нету. В ините нельзя получить значение frame. Слишком рано
@@ -35,116 +35,43 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             print(editButton.frame)
         } else {return}
     }
-    var editDescriptionTextView = UITextView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        myActivityIndicator.center = view.center
-        myActivityIndicator.hidesWhenStopped = true
+        myActivityIndicator = MyActivityIndicator(view: view)
         view.addSubview(myActivityIndicator)
-        customizeEditButton()
-        customizeImageView()
-        addImageButton.layer.cornerRadius = 30
-        addImageButton.setImage(UIImage(named: "slr-camera-2-xxl"), for: .normal)
-        setTraget()
-        self.editLabel.delegate = self
-        self.editDescriptionTextView.delegate = self
+        addTargets()
         loadData()
         hideUnhideFunction()
-        customizeTextField()
+        editLabel = EditLabelClass(text: titleLabel.text ?? "", paddingView: UIView(frame: CGRect(x: 0, y: 0, width: 15, height: editLabel.frame.height)))
+        editDescriptionTextView = EditDescriptionClass(descriptionText: descriptionView.text ?? "", view: view)
         view.addSubview(editLabel)
-        customizeDescription()
+        editLabel.delegate = self
+        editDescriptionTextView.delegate = self
         view.addSubview(editDescriptionTextView)
         statusButtons(bool: false)
     }
+    
     func loadData() {
-        let coreData = StorageManager.Instance.coreDataStack
-        let model = coreData.managedObjectModel
-        let user = AppUser.fetchRequestAppUser(model: model)
-        guard let userr = user else { fatalError() }
-        guard let result = try? coreData.mainContext.fetch(userr) else {fatalError("Fetch failded")}
-        if let label = result.last?.currentUser?.name { self.titleLabel.text = label }
-        if let description = result.last?.currentUser?.descriptionText { self.descriptionView.text = description }
-        if let image = result.last?.currentUser?.image { self.imageView.image = UIImage(data: image) }
+        if let label = dataProvider.labelText { self.titleLabel.text = label }
+        if let description = dataProvider.descriptionText { self.descriptionView.text = description }
+        if let image = dataProvider.image { self.imageView.image = UIImage(data: image) }
     }
 
-    private func setTraget() {
+    private func addTargets() {
         addImageButton.addTarget(self, action: #selector(addImageButtonAction), for: .touchUpInside)
         editButton.addTarget(self, action: #selector(editButtonAction), for: .touchUpInside)
         gcdButton.addTarget(self, action: #selector(gcdButtonAction), for: .touchUpInside)
         operationButton.addTarget(self, action: #selector(operationButtonAction), for: .touchUpInside)
         editLabel.addTarget(self, action: #selector(editLabelChanged), for: .editingChanged)
     }
-
-    private func customizeImageView() {
-        imageView.image = UIImage(named: "placeholder-user")
-        imageView.layer.cornerRadius = 30
-        imageView.layer.masksToBounds = true
-    }
-
-    private func customizeEditButton() {
-        editButton.layer.borderWidth = 1
-        editButton.layer.borderColor = UIColor.black.cgColor
-        editButton.layer.cornerRadius = 15
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        Logger.SharedInstance.log(message: "Application moved from DidLoad to Appearing: \(#function)")
-    }
-
-    func customizeTextField() {
-        editLabel.text = titleLabel.text
-        editLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        editLabel.textColor = .black
-        editLabel.backgroundColor = .white
-        editLabel.layer.borderWidth = 1.0
-        editLabel.layer.borderColor = UIColor.lightGray.cgColor
-        editLabel.layer.cornerRadius = 3
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: editLabel.frame.height))
-        editLabel.leftView = paddingView
-        editLabel.leftViewMode = UITextField.ViewMode.always
-    }
-
-    private func customizeDescription() {
-        let viewForDoneButtonOnKeyboard = UIToolbar()
-        viewForDoneButtonOnKeyboard.sizeToFit()
-        let btnDoneOnKeyboard = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneBtnFromKeyboardClicked))
-        viewForDoneButtonOnKeyboard.items = [btnDoneOnKeyboard]
-        editDescriptionTextView.inputAccessoryView = viewForDoneButtonOnKeyboard
-        editDescriptionTextView.text = descriptionView.text
-        editDescriptionTextView.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        editDescriptionTextView.textColor = .gray
-    }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         editLabel.isHidden = true
         editDescriptionTextView.isHidden = true
         editLabel.frame = self.titleLabel.frame
         editDescriptionTextView.frame = self.descriptionView.frame
-    }
-
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        Logger.SharedInstance.log(message: "Application moved from Appearing to WillLayoutSubviews: \(#function)")
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        Logger.SharedInstance.log(message: "Application moved from WillLayoutSubviews to DidLayoutSubviews: \(#function)")
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        Logger.SharedInstance.log(message: "5")
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(true)
-        Logger.SharedInstance.log(message: "6")
-    }
-
-    @objc private func doneBtnFromKeyboardClicked() {
-        self.view.endEditing(true)
     }
 
     @objc func addImageButtonAction() {
@@ -162,13 +89,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             myPickerController.sourceType = .photoLibrary
             self.present(myPickerController, animated: true, completion: nil)
         }
-        let action3 = UIAlertAction(title: "Отмена", style: .cancel) { (_:UIAlertAction) in
+        let action4 = UIAlertAction(title: "Отмена", style: .cancel) { (_:UIAlertAction) in
             myPickerController.sourceType = .photoLibrary
-            self.dismiss(animated: true, completion: nil)
         }
+        let action3 = UIAlertAction(title: "Выбрать с сервера", style: .default) { (_:UIAlertAction) in
+            //self.present(, animated: true, completion: nil)
+        }
+        
         alertController.addAction(action1)
         alertController.addAction(action2)
         alertController.addAction(action3)
+        alertController.addAction(action4)
         self.present(alertController, animated: true, completion: nil)
     }
 
@@ -187,7 +118,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
 
     func hideUnhideFunction() {
-        if count == 0 {
+        switch count {
+        case 0:
             self.editLabel.isHidden = true
             self.editDescriptionTextView.isHidden = true
             self.editButton.isHidden = false
@@ -195,7 +127,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.gcdButton.isHidden = true
             self.addImageButton.isHidden = true
             count += 1
-        } else {
+        default:
             self.editLabel.isHidden = false
             self.editDescriptionTextView.isHidden = false
             self.editButton.isHidden = true
@@ -301,7 +233,7 @@ extension ProfileViewController: UITextViewDelegate, UITextFieldDelegate {
     }
 }
 
-// MARK: - ProfileViewControllerDelegate
+// MARK: - Сохранение данных
 extension ProfileViewController: ProfileViewControllerDelegate {
     func changeProileData(success: Bool) {
         DispatchQueue.main.async {
@@ -335,6 +267,11 @@ extension ProfileViewController: ProfileViewControllerDelegate {
         }
     }
 
+}
+
+// MARK: - AlertView
+extension ProfileViewController {
+    
     /// AlertAction
     ///
     /// - Parameters:
@@ -342,14 +279,22 @@ extension ProfileViewController: ProfileViewControllerDelegate {
     ///   - message: message description
     ///   - handler: handler description
     private func alert(title: String = "Данные сохраненны", _ message: String?, handler: String) {
+        let alert = AlertController.shared.alert(title: title, message: message, handler: handler)
+        self.present(alert, animated: true, completion: nil)
+    }
+}
+
+/// AlertController
+class AlertController {
+    static var shared = AlertController()
+    func alert(title: String, message: String?, handler: String) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
         }))
         if handler == "err" {
             alertController.addAction(UIAlertAction(title: NSLocalizedString("Повторить", comment: "Default action"), style: .default, handler: { _ in
-                self.gcdButtonAction()
             }))
         }
-        self.present(alertController, animated: true, completion: nil)
+        return alertController
     }
 }

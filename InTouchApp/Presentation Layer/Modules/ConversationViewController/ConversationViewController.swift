@@ -11,48 +11,34 @@ import CoreData
 protocol MessageCellConfiguration: class {
     var txt: String? {get set}
 }
-class ConversationViewController: UIViewController, UITextFieldDelegate, dataDelegate {
+
+class ConversationViewController: UIViewController, UITextFieldDelegate {
     var userId: String!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var dtProvider: ViewDataProvider!
     @IBOutlet var textField: UITextField!
     @IBOutlet var searchView: UIView!
     @IBOutlet var bottomConstraint: NSLayoutConstraint!
-    weak var delegate: Communicator?
     
-    lazy var fetchedResultsController: NSFetchedResultsController<Message> = {
-        let request: NSFetchRequest<Message> = Message.fetchRequest()
-        let sort = NSSortDescriptor(key: "date", ascending: true)
-        request.sortDescriptors = [sort]
-        guard let userID = userId else { fatalError("Not found UserID") }
-        request.predicate = NSPredicate(format: "conversationID == %@", "\(userID)")
-        let frc =  NSFetchedResultsController(fetchRequest: request, managedObjectContext: StorageManager.Instance.coreDataStack.mainContext, sectionNameKeyPath: nil, cacheName: nil)
-        return frc
-    }()
+    weak var communicator: Communicator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = false
         extendedLayoutIncludesOpaqueBars = true
-        CommunicatorManager.instance.delegate = self
-        tableView.delegate = self
         textField.delegate = self
-        tableView.dataSource = self
+        dtProvider.userId = userId
         tableView.backgroundColor = .white
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        fetchedResultsController.delegate = self
+        dtProvider.fetchedResultsController.delegate = self
         do {
-            try fetchedResultsController.performFetch()
+            try dtProvider.fetchedResultsController.performFetch()
         } catch {}
     }
     
-    func reloadData(status: Bool) {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    
     @IBAction func sendAction(_ sender: Any) {
+        communicator?.sendMessage(string: "d", to: "", completionHandler: nil)
         //    delegate?.sendMessage(string: textField.text!, to: "peer", completionHandler: nil)
         let array = ["eventType": "TextMessage", "text": "\(textField.text ?? "")", "messageId": "\(generateMessageId())"]
         
@@ -114,33 +100,6 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, dataDel
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         textField.endEditing(true)
-    }
-}
-
-// MARK: - UITableViewDelegate, UITableViewDataSource
-extension ConversationViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sections = self.fetchedResultsController.sections else {
-            return 0 }
-        let sectionInfo = sections[section]
-        return sectionInfo.numberOfObjects
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let message = self.fetchedResultsController.object(at: indexPath)
-        if message.inOut == 1 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) as? CustomConversationCell1 else {
-                return tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) }
-            let message = message.message ?? ""
-            cell.config(text: message)
-            return cell
-        } else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) as? CustomConversationCell2 else {
-                return tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) }
-            let message = message.message ?? ""
-            cell.config(text: message)
-            return cell
-        }
     }
 }
 

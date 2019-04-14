@@ -10,6 +10,9 @@ import UIKit
 import MultipeerConnectivity
 import CoreData
 class MultipeerCommunicator: NSObject, Communicator {
+    
+    weak var delegate: CommunicatorDelegate?
+    
     var online: Bool
 
     func generateMessageId() -> String {
@@ -42,11 +45,11 @@ class MultipeerCommunicator: NSObject, Communicator {
     var mcAdvertiserAssistant: MCAdvertiserAssistant!
     var browser: MCNearbyServiceBrowser!
     //
-    weak var delegate: CommunicatorDelegate?
     var message = [String: [MessageStruct]]()
-    var converstionViewController = ConversationViewController()
+    let conversation: ConversationViewController
     override init() {
         self.online = true
+        self.conversation = ConversationViewController()
         super.init()
         let userID = AppUser.requestAppUser(in: StorageManager.Instance.coreDataStack.mainContext)?.currentUser?.userID
         peerID = MCPeerID(displayName: userID ?? UIDevice.current.name)
@@ -58,8 +61,8 @@ class MultipeerCommunicator: NSObject, Communicator {
         self.advertiser.delegate = self
         self.browser = MCNearbyServiceBrowser(peer: peerID,
                                               serviceType: "tinkoff-chat")
-        converstionViewController.delegate = self
         browser.delegate = self
+        conversation.communicator = self
     }
 }
 
@@ -130,7 +133,7 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate, MCSessionDelega
                 }
                 
             }
-             delegate?.didRecieveMessage(text: dict["text"] as! String, fromUser: peerID.displayName, toUser: session.myPeerID.displayName)
+//             delegate?.didRecieveMessage(text: dict["text"] as! String, fromUser: peerID.displayName, toUser: session.myPeerID.displayName)
         }
         // swiftlint:enable force_cast
     }

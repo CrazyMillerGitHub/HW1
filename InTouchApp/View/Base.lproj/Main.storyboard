@@ -103,6 +103,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="UBf-HY-1TX" id="Vha-hJ-Vnn"/>
+                                    <outlet property="delegate" destination="UBf-HY-1TX" id="ZVN-dD-GfQ"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -127,10 +131,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="listProvider" destination="UBf-HY-1TX" id="uMY-j5-KqC"/>
                         <outlet property="tableView" destination="Jne-Sx-hQM" id="9VS-77-BxP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hBA-bc-EpW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="UBf-HY-1TX" customClass="ListProvider" customModule="InTouchApp" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="2012" y="64"/>
         </scene>
@@ -212,6 +218,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="OYg-ga-jQu" id="bzf-Ys-QId"/>
+                                    <outlet property="delegate" destination="OYg-ga-jQu" id="pdY-Ou-FQI"/>
+                                </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pru-Cm-r1N">
                                 <rect key="frame" x="0.0" y="522" width="320" height="46"/>
@@ -260,14 +270,16 @@
                     <navigationItem key="navigationItem" id="xO8-Ne-UAw"/>
                     <connections>
                         <outlet property="bottomConstraint" destination="Zgg-HR-XAB" id="D0I-0T-8Pw"/>
+                        <outlet property="dtProvider" destination="OYg-ga-jQu" id="t5X-E2-kft"/>
                         <outlet property="searchView" destination="pru-Cm-r1N" id="GRL-E1-CEB"/>
                         <outlet property="tableView" destination="TWc-b2-QtU" id="JIH-pr-JeU"/>
                         <outlet property="textField" destination="8vM-Lz-3Gw" id="q2e-Hc-nsY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZ0-MC-KR8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="OYg-ga-jQu" customClass="ViewDataProvider" customModule="InTouchApp" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="3754" y="53"/>
+            <point key="canvasLocation" x="3491" y="45"/>
         </scene>
         <!--Theme-->
         <scene sceneID="xjW-tV-zEW">
@@ -402,11 +414,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="edw-RQ-VWK">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder-user" translatesAutoresizingMaskIntoConstraints="NO" id="edw-RQ-VWK">
                                 <rect key="frame" x="16" y="4" width="288" height="288"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="edw-RQ-VWK" secondAttribute="height" multiplier="1:1" id="bIl-Jd-ehC"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F7E-eX-4qD">
                                 <rect key="frame" x="244" y="232" width="60" height="60"/>
@@ -417,6 +435,12 @@
                                 </constraints>
                                 <color key="tintColor" red="0.2470588235" green="0.47058823529999999" blue="0.94117647059999998" alpha="0.80359053940000003" colorSpace="calibratedRGB"/>
                                 <inset key="contentEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
+                                <state key="normal" image="slr-camera-2-xxl"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Борисов Михаил" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-29-vcg">
                                 <rect key="frame" x="16" y="300" width="288" height="32.5"/>
@@ -434,6 +458,14 @@
                                 <state key="normal" title="Редактировать">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cWd-JQ-Fgs">
                                 <rect key="frame" x="16" y="340.5" width="288" height="95.5"/>
@@ -546,5 +578,7 @@
     <resources>
         <image name="acc" width="24" height="24"/>
         <image name="editButton" width="20" height="20"/>
+        <image name="placeholder-user" width="600" height="600"/>
+        <image name="slr-camera-2-xxl" width="256" height="256"/>
     </resources>
 </document>
