@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/mikhail_borisov/Documents/Education/Tinkoff_courses/HW/InTouchApp/Presentation Layer/Modules/ServerImageViewController/View/ServerImageCollectionViewCell.swift">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/mikhail_borisov/Documents/Education/Tinkoff_courses/HW/InTouchApp/Presentation Layer/Modules/ServerImageViewController/View/ServerImageCollectionViewCell.xib">
-   </FileRef>
-   <FileRef
       location = "group:InTouchApp.xcodeproj">
    </FileRef>
    <FileRef
