@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ServerImageViewController" customModule="InTouchApp" customModuleProvider="target">
+            <connections>
+                <outlet property="activityindicator" destination="cjR-Yf-QN7" id="ecS-62-xGR"/>
+                <outlet property="collectionView" destination="sQF-QX-23f" id="zd0-fn-Dga"/>
+                <outlet property="dataProvider" destination="Yeu-4e-zfN" id="Yhz-78-dxO"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <customObject id="Yeu-4e-zfN" customClass="ServerImageProvider" customModule="InTouchApp" customModuleProvider="target"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="sQF-QX-23f">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2w7-YQ-88K">
+                        <size key="itemSize" width="0.0" height="0.0"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="Yeu-4e-zfN" id="Ewj-lP-oqY"/>
+                        <outlet property="delegate" destination="Yeu-4e-zfN" id="HB2-x5-b5J"/>
+                    </connections>
+                </collectionView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="cjR-Yf-QN7">
+                    <rect key="frame" x="150" y="274" width="20" height="20"/>
+                </activityIndicatorView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R6e-Of-cBF">
+                    <rect key="frame" x="117" y="146" width="46" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="act:" destination="-1" eventType="touchUpInside" id="TND-7a-ohk"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="sQF-QX-23f" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="6nq-81-fDc"/>
+                <constraint firstItem="cjR-Yf-QN7" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="KNZ-wR-2hP"/>
+                <constraint firstAttribute="trailing" secondItem="sQF-QX-23f" secondAttribute="trailing" id="NDP-JD-9yl"/>
+                <constraint firstItem="cjR-Yf-QN7" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Qrd-z5-gqi"/>
+                <constraint firstAttribute="bottom" secondItem="sQF-QX-23f" secondAttribute="bottom" id="bKq-8s-vb8"/>
+                <constraint firstItem="sQF-QX-23f" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="tPc-pr-up3"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="137.68115942028987" y="132.58928571428572"/>
+        </view>
+    </objects>
+</document>

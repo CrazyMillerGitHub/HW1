@@ -8,11 +8,11 @@
 
 import Foundation
 class MyActivityIndicator: UIActivityIndicatorView {
-    let view: UIView
-    init(view: UIView) {
-         self.view = view
+    let view: UIView?
+    init(view: UIView?) {
+        self.view = view ?? nil
         super.init(frame: .zero)
-        self.center = view.center
+        if let centerOfView = view?.center { self.center = centerOfView }
         self.hidesWhenStopped = true
         self.style = .gray
     }

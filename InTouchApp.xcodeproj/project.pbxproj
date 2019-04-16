@@ -26,6 +26,11 @@
 		742EE9002263D8990039ED12 /* ListFRCdelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742EE8FF2263D8990039ED12 /* ListFRCdelegate.swift */; };
 		74360279222FEC6400D7FED3 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74677B72221F28C500B4B70F /* ConversationsListViewController.swift */; };
 		7436027C223021E500D7FED3 /* ThemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 740C7FAD222CFE5D00471199 /* ThemesViewController.m */; };
+		743A69452265A49D00FC2995 /* ServerImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A69432265A49D00FC2995 /* ServerImageViewController.swift */; };
+		743A69462265A49D00FC2995 /* ServerImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 743A69442265A49D00FC2995 /* ServerImageViewController.xib */; };
+		743A69482265A8BA00FC2995 /* ServerImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A69472265A8BA00FC2995 /* ServerImageProvider.swift */; };
+		743A694D2265A94600FC2995 /* ServerImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A694C2265A94600FC2995 /* ServerImageCollectionViewCell.swift */; };
+		743A694E2265B0C700FC2995 /* ServerImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 743A694B2265A94600FC2995 /* ServerImageCollectionViewCell.xib */; };
 		74424E8B224042A500F1BC7B /* MultipeerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74424E8A224042A500F1BC7B /* MultipeerCommunicator.swift */; };
 		74424E8D22407A3C00F1BC7B /* Communicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74424E8C22407A3C00F1BC7B /* Communicator.swift */; };
 		74424E8F22407ECC00F1BC7B /* CommunicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74424E8E22407ECC00F1BC7B /* CommunicatorManager.swift */; };
@@ -70,6 +75,11 @@
 		742EE8FD2263D3DF0039ED12 /* ListProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProvider.swift; sourceTree = "<group>"; };
 		742EE8FF2263D8990039ED12 /* ListFRCdelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFRCdelegate.swift; sourceTree = "<group>"; };
 		74360272222FE2FE00D7FED3 /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
+		743A69432265A49D00FC2995 /* ServerImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerImageViewController.swift; sourceTree = "<group>"; };
+		743A69442265A49D00FC2995 /* ServerImageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerImageViewController.xib; sourceTree = "<group>"; };
+		743A69472265A8BA00FC2995 /* ServerImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerImageProvider.swift; sourceTree = "<group>"; };
+		743A694B2265A94600FC2995 /* ServerImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ServerImageCollectionViewCell.xib; path = "/Users/mikhail_borisov/Documents/Education/Tinkoff_courses/HW/InTouchApp/Presentation Layer/Modules/ServerImageViewController/View/ServerImageCollectionViewCell.xib"; sourceTree = "<absolute>"; };
+		743A694C2265A94600FC2995 /* ServerImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ServerImageCollectionViewCell.swift; path = "/Users/mikhail_borisov/Documents/Education/Tinkoff_courses/HW/InTouchApp/Presentation Layer/Modules/ServerImageViewController/View/ServerImageCollectionViewCell.swift"; sourceTree = "<absolute>"; };
 		74424E8A224042A500F1BC7B /* MultipeerCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerCommunicator.swift; sourceTree = "<group>"; };
 		74424E8C22407A3C00F1BC7B /* Communicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Communicator.swift; sourceTree = "<group>"; };
 		74424E8E22407ECC00F1BC7B /* CommunicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicatorManager.swift; sourceTree = "<group>"; };
@@ -134,6 +144,7 @@
 		741ADE00225E254300C033A0 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				743A693F2265A43B00FC2995 /* ServerImageViewController */,
 				741ADE03225E258800C033A0 /* ConversationListViewController */,
 				741ADE02225E257800C033A0 /* ProfileViewController */,
 				741ADE01225E255F00C033A0 /* ConversationViewController */,
@@ -280,6 +291,42 @@
 			children = (
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		743A693F2265A43B00FC2995 /* ServerImageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				743A69422265A46D00FC2995 /* Controller */,
+				743A69412265A46200FC2995 /* View */,
+				743A69402265A45000FC2995 /* Model */,
+			);
+			path = ServerImageViewController;
+			sourceTree = "<group>";
+		};
+		743A69402265A45000FC2995 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				743A69472265A8BA00FC2995 /* ServerImageProvider.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		743A69412265A46200FC2995 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				743A694C2265A94600FC2995 /* ServerImageCollectionViewCell.swift */,
+				743A694B2265A94600FC2995 /* ServerImageCollectionViewCell.xib */,
+				743A69442265A49D00FC2995 /* ServerImageViewController.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		743A69422265A46D00FC2995 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				743A69432265A49D00FC2995 /* ServerImageViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		74A79CB0221684A700F23890 /* InTouchApp */ = {
@@ -453,8 +500,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				74A79CE522168CC700F23890 /* LaunchScreen.storyboard in Resources */,
+				743A694E2265B0C700FC2995 /* ServerImageCollectionViewCell.xib in Resources */,
 				7443B6FB22188DDD007FDEF3 /* Assets.xcassets in Resources */,
 				74A79CE622168CC700F23890 /* Main.storyboard in Resources */,
+				743A69462265A49D00FC2995 /* ServerImageViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,6 +562,7 @@
 				7495F97A2242B00000F7E152 /* CoreDataStack.swift in Sources */,
 				742EE8F92263CF880039ED12 /* MyActivityIndicator.swift in Sources */,
 				74958A51223839CC0022B883 /* OperationDataManager.swift in Sources */,
+				743A69452265A49D00FC2995 /* ServerImageViewController.swift in Sources */,
 				74958A4F223761F30022B883 /* ProfileViewControllerDelegate.swift in Sources */,
 				742EE8F32263C7320039ED12 /* EditLabelClass.swift in Sources */,
 				742EE8EF226395DD0039ED12 /* DataProvider.swift in Sources */,
@@ -527,10 +577,12 @@
 				741ADE15225E308B00C033A0 /* ServicesAssembly.swift in Sources */,
 				74A79CE022168C9F00F23890 /* Logger.swift in Sources */,
 				742EE8F1226395EE0039ED12 /* DataManager.swift in Sources */,
+				743A694D2265A94600FC2995 /* ServerImageCollectionViewCell.swift in Sources */,
 				742EE8F52263C7660039ED12 /* EditDescriptionClass.swift in Sources */,
 				74CDAE692226B5F1001FEF3B /* TableViewCell.swift in Sources */,
 				7436027C223021E500D7FED3 /* ThemesViewController.m in Sources */,
 				742EE8F72263C90B0039ED12 /* ProfileViewDataProvider.swift in Sources */,
+				743A69482265A8BA00FC2995 /* ServerImageProvider.swift in Sources */,
 				741ADE07225E25E800C033A0 /* PresentationAssembly.swift in Sources */,
 				74130152222F1AA00093181F /* Theme.swift in Sources */,
 				742EE9002263D8990039ED12 /* ListFRCdelegate.swift in Sources */,

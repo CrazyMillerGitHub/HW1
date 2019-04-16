@@ -92,8 +92,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let action4 = UIAlertAction(title: "Отмена", style: .cancel) { (_:UIAlertAction) in
             myPickerController.sourceType = .photoLibrary
         }
-        let action3 = UIAlertAction(title: "Выбрать с сервера", style: .default) { (_:UIAlertAction) in
-            //self.present(, animated: true, completion: nil)
+        let action3 = UIAlertAction(title: "Загрузить", style: .default) { (_:UIAlertAction) in
+            let serverImageViewController = ServerImageViewController(nibName: "ServerImageViewController", bundle: nil)
+            self.present(serverImageViewController, animated: true, completion: nil)
         }
         
         alertController.addAction(action1)
