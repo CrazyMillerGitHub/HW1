@@ -27,6 +27,7 @@ class ServerImageViewController: UIViewController, IDemoModelDelegate {
     func setup(dataSource: [CellDisplayModel]) {
         self.dataSource = dataSource
         dataProvider.data = dataSource
+        
         DispatchQueue.main.async {
             self.collectionView.reloadData()
             self.activityindicator.stopAnimating()
@@ -53,12 +54,20 @@ class ServerImageViewController: UIViewController, IDemoModelDelegate {
  
     }
     @IBAction func cancelButton(_ sender: Any) {
-        model.fetchImages(pageNumber: 2)
-    }
+        self.dismiss(animated: true, completion: nil)
 }
-
+} 
 // MARK: - Сохранение результата
 extension ServerImageViewController: SaveDelegate {
+    
+    ///! Здесь где-то проблема с  delegate. Значение отправлению. 
+    /// Добавление новых элементов
+    ///
+    /// - Parameter number:
+    func addNewElements(number: Int) {
+        model.fetchImages(pageNumber: number)
+    }
+    
     func save(sender: ServerImageProvider) {
         self.dismiss(animated: true, completion: nil)
     }

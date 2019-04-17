@@ -12,7 +12,7 @@ struct CellDisplayModel {
 }
 
 protocol IDemoModel: class {
-    weak var delegate: IDemoModelDelegate? { get set }
+    var delegate: IDemoModelDelegate? { get set }
     func fetchImages(pageNumber: Int)
 }
 
@@ -23,7 +23,7 @@ protocol IDemoModelDelegate: class {
 class DemoModel: IDemoModel {
     
     weak var delegate: IDemoModelDelegate?
-    let imageService:  IImageService
+    let imageService: IImageService
     
     init(imageService: IImageService) {
         self.imageService = imageService

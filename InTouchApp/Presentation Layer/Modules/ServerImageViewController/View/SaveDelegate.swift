@@ -9,4 +9,5 @@
 import Foundation
 protocol SaveDelegate: AnyObject {
     func save(sender: ServerImageProvider)
+    func addNewElements(number: Int)
 }
