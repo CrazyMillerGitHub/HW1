@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="321" height="340"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder-user" translatesAutoresizingMaskIntoConstraints="NO" id="0Fu-pC-paT">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_placeHolder" translatesAutoresizingMaskIntoConstraints="NO" id="0Fu-pC-paT">
                         <rect key="frame" x="0.0" y="0.0" width="321" height="340"/>
                     </imageView>
                 </subviews>
@@ -40,6 +40,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="placeholder-user" width="600" height="600"/>
+        <image name="image_placeHolder" width="204" height="184"/>
     </resources>
 </document>

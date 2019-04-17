@@ -16,19 +16,20 @@ class ServerImageProvider: NSObject, UICollectionViewDelegate, UICollectionViewD
     let serverViewController = RootAmbessy()
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
+        switch data.count {
+        case 1...:
+            return data.count
+        default:
+            return 20
+        }
     }
     
     /// Загружаем ячейку
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ServerCell", for: indexPath) as? ServerImageCollectionViewCell else { fatalError() }
-        guard let imageUrl = URL(string: data[indexPath.row].imageUrl) else { fatalError("Failed to get URl.  ") }
-        
-        do {
-            let imageData = try Data(contentsOf: imageUrl)
-            cell.serverImage.image = UIImage(data: imageData)
-        } catch {
-            print(error.localizedDescription)
+        if data.count > 0 {
+            guard URL(string: data[indexPath.row].imageUrl) != nil else { fatalError("Failed to get URl.  ") }
+            cell.serverImage.imageFromServerURL(urlString: data[indexPath.row].imageUrl, defaultImage: nil)
         }
         return cell
     }

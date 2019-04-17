@@ -38,7 +38,29 @@ extension UIImage {
         return jpegData(compressionQuality: jpegQuality.rawValue)
     }
 }
+let imageCache = NSCache<NSString, UIImage>()
 
+extension UIImageView {
+    
+    public func imageFromServerURL(urlString: String, defaultImage : String?) {
+        if let di = defaultImage {
+            self.image = UIImage(named: di)
+        }
+        
+        URLSession.shared.dataTask(with: NSURL(string: urlString)! as URL, completionHandler: { (data, response, error) -> Void in
+            
+            if error != nil {
+                print(error ?? "error")
+                return
+            }
+            DispatchQueue.main.async(execute: { () -> Void in
+                let image = UIImage(data: data!)
+                self.image = image
+            })
+            
+        }).resume()
+    }
+}
 extension UIImage {
     func resizeWithPercent(percentage: CGFloat) -> UIImage? {
         let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: size.width * percentage, height: size.height * percentage)))

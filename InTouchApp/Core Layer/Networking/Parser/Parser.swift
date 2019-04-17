@@ -21,14 +21,17 @@ struct HitModel: Decodable {
 }
 class PhotoParser: IParser {
     typealias Model = [PhotoApiModel]
+    static var photos: [PhotoApiModel]? = []
     func parse(data: Data) -> [PhotoApiModel]? {
-      let decoder = JSONDecoder()
-        var photos: [PhotoApiModel]? = []
-        do {
-            photos = try decoder.decode(HitModel.self, from: data).hits
-        } catch {
-            print("not today")
-        }
-        return photos
+    
+    let decoder = JSONDecoder()
+    do {
+             let additionalPhotos = try? decoder.decode(HitModel.self, from: data).hits
+        additionalPhotos?.forEach {PhotoParser.photos?.append($0)}
+    } catch {
+    print("not today")
     }
+        return PhotoParser.photos
+    }
+    
 }

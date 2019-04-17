@@ -13,7 +13,7 @@ struct CellDisplayModel {
 
 protocol IDemoModel: class {
     weak var delegate: IDemoModelDelegate? { get set }
-    func fetchImages()
+    func fetchImages(pageNumber: Int)
 }
 
 protocol IDemoModelDelegate: class {
@@ -29,8 +29,8 @@ class DemoModel: IDemoModel {
         self.imageService = imageService
     }
     
-    func fetchImages() {
-        imageService.loadNewImages { (images: [PhotoApiModel]?, error) in
+    func fetchImages(pageNumber: Int) {
+        imageService.loadNewImages(pageNumber: pageNumber) { (images: [PhotoApiModel]?, error) in
             if let images = images {
                 let cells = images.map {CellDisplayModel(imageUrl: $0.previewURL)}
                 self.delegate?.setup(dataSource: cells)

@@ -12,21 +12,25 @@ class PhotoReqest: IRequest {
         assertionFailure("❌ Should use a subclass of PhotoRequest ")
         return ""
     }
-   
+    
     private var baseUrl: String = "https://pixabay.com/api/"
     private var api: String = "?key=1317965-6d1fa1bab7a3ad6d02eab5f24"
+    private var page: Int
     // MARK: - IRequest
     
     var urlRequest: URLRequest? {
-        let urlString: String = baseUrl + api + command
+        let urlString: String = baseUrl + api + command + "&page=\(page)"
         if let url = URL(string: urlString) {
             return URLRequest(url: url)
         }
         
         return nil
     }
+    init(page: Int) {
+        self.page = page
+    }
 }
 
 class PhotoRequestConfig: PhotoReqest {
-    override var command: String { return "&q=yellow+flowers&image_type=photo&pretty=true&per_page=40" }
+    override var command: String { return "&q=yellow+flowers&image_type=photo&pretty=true&per_page=100" }
 }

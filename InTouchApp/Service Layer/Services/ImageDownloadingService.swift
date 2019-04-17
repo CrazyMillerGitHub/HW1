@@ -8,7 +8,7 @@
 
 import Foundation
 protocol IImageService {
-    func loadNewImages(completionHandler: @escaping ([PhotoApiModel]?, String?) -> Void)
+    func loadNewImages(pageNumber: Int, completionHandler: @escaping ([PhotoApiModel]?, String?) -> Void)
 }
 class PhotoService: IImageService {
     
@@ -18,8 +18,8 @@ class PhotoService: IImageService {
         self.requestSender = requestSender
     }
     
-    func loadNewImages(completionHandler: @escaping ([PhotoApiModel]?, String?) -> Void) {
-        let requestConfig = RequestsFactory.photoImages()
+    func loadNewImages(pageNumber: Int,completionHandler: @escaping ([PhotoApiModel]?, String?) -> Void) {
+        let requestConfig = RequestsFactory.photoImages(pageNumber: pageNumber)
         loadImages(requestConfig: requestConfig, completionHandler: completionHandler)
     }
   

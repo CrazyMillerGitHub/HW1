@@ -17,6 +17,7 @@ class ServerImageViewController: UIViewController, IDemoModelDelegate {
     
     init(model: IDemoModel) {
         self.model = model
+        
         super.init(nibName: "ServerImageViewController", bundle: nil)
     }
     required init?(coder aDecoder: NSCoder) {
@@ -28,6 +29,7 @@ class ServerImageViewController: UIViewController, IDemoModelDelegate {
         dataProvider.data = dataSource
         DispatchQueue.main.async {
             self.collectionView.reloadData()
+            self.activityindicator.stopAnimating()
         }
     }
     
@@ -43,16 +45,15 @@ class ServerImageViewController: UIViewController, IDemoModelDelegate {
         super.viewDidLoad()
         let nib = UINib(nibName: "ServerImageCollectionViewCell", bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: "ServerCell")
-        activityindicator = MyActivityIndicator(view: nil)
         view.addSubview(activityindicator)
         dataProvider.view = view
         collectionView.dataSource = dataProvider
         collectionView.delegate = dataProvider
-        model.fetchImages()
+        model.fetchImages(pageNumber: 1)
  
     }
-    @IBAction func act(_ sender: Any) {
-
+    @IBAction func cancelButton(_ sender: Any) {
+        model.fetchImages(pageNumber: 2)
     }
 }
 
