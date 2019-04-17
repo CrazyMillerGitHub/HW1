@@ -10,6 +10,23 @@ import Foundation
 import UIKit
 class PresentationAssembly: IPresentationAssembly {
     
+    private let serviceAssembly: IServicesAssembly
+
+    init(serviceAssembly: IServicesAssembly) {
+        self.serviceAssembly = serviceAssembly
+    }
+    
+    func serverImageViewController() -> ServerImageViewController {
+        let model = demoModel()
+        let demoVC = ServerImageViewController(model: model)
+        model.delegate = demoVC
+        return demoVC
+    }
+    private func demoModel() -> IDemoModel {
+        return DemoModel(imageService: serviceAssembly.imageService)
+    }
+    
+    
     func conversationViewController() -> ConversationViewController {
         return ConversationViewController()
     }
@@ -18,10 +35,6 @@ class PresentationAssembly: IPresentationAssembly {
         return ProfileViewController(coder: NSCoder())!
     }
     
-//    func conversationListViewController() -> ConversationsListViewController {
-//        return ConversationsListViewController()
-//    }
-    
 }
 protocol IPresentationAssembly {
     
@@ -29,6 +42,12 @@ protocol IPresentationAssembly {
     ///
     /// - Returns: ConversationViewController класс
     func conversationViewController() -> ConversationViewController
+    
+    
+    /// ServerViewController
+    ///
+    /// - Returns: возвращает ServerImageViewController класс
+    func serverImageViewController() -> ServerImageViewController
     
     /// profileViewController
     ///

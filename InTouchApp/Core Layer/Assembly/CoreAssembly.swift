@@ -13,13 +13,17 @@ protocol ICoreAssembly {
     var coreData: ICoreDara { get }
     var operationDataManager: ISaveProfile { get }
     var gcdDataManager: ISaveProfile { get }
+    var requestSender: IRequestSender { get }
 }
 class CoreAssembly: ICoreAssembly {
+    var requestSender: IRequestSender = RequestSender()
     
     var operationDataManager: ISaveProfile = OperationDataManager(arr: ["String": "Any"])
     
     var gcdDataManager: ISaveProfile = GCDDataManager(arr: ["String": "Any"])
     
     var coreData: ICoreDara = CoreDataStack()
+    
+
     
 }

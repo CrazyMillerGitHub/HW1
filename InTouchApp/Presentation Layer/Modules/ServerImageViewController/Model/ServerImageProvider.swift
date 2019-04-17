@@ -11,15 +11,25 @@ import UIKit
 class ServerImageProvider: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     var view: UIView? // передаем view экрана
-    let serverViewController = ServerImageViewController()
+    weak var delegate: SaveDelegate?
+    var data: [CellDisplayModel] = []
+    let serverViewController = RootAmbessy()
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return data.count
     }
     
     /// Загружаем ячейку
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ServerCell", for: indexPath) as? ServerImageCollectionViewCell else { fatalError() }
+        guard let imageUrl = URL(string: data[indexPath.row].imageUrl) else { fatalError("Failed to get URl.  ") }
+        
+        do {
+            let imageData = try Data(contentsOf: imageUrl)
+            cell.serverImage.image = UIImage(data: imageData)
+        } catch {
+            print(error.localizedDescription)
+        }
         return cell
     }
     
@@ -32,6 +42,6 @@ class ServerImageProvider: NSObject, UICollectionViewDelegate, UICollectionViewD
     
     /// Возвращаемся обратно в профиль
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        serverViewController.act("nil")
+        self.delegate?.save(sender: self)
     }
 }

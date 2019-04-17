@@ -93,17 +93,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             myPickerController.sourceType = .photoLibrary
         }
         let action3 = UIAlertAction(title: "Загрузить", style: .default) { (_:UIAlertAction) in
-            let serverImageViewController = ServerImageViewController(nibName: "ServerImageViewController", bundle: nil)
-            self.present(serverImageViewController, animated: true, completion: nil)
+            let rootAssembly = RootAmbessy()
+            let serverimageViewController = rootAssembly.presentationAssembly.serverImageViewController()
+            self.present(serverimageViewController, animated: true, completion: nil)
         }
-        
         alertController.addAction(action1)
         alertController.addAction(action2)
         alertController.addAction(action3)
         alertController.addAction(action4)
         self.present(alertController, animated: true, completion: nil)
     }
-
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let pickedImage = info[.originalImage] as? UIImage else { return }
         imageView.image = pickedImage

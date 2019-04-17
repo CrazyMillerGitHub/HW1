@@ -9,10 +9,14 @@
 import Foundation
 import UIKit
 protocol IServicesAssembly {
-    
+    var imageService: IImageService { get }
 }
 class ServicesAssembly: IServicesAssembly {
+    
     private let coreAssembly: ICoreAssembly
+    
+     lazy var imageService: IImageService = PhotoService(requestSender: self.coreAssembly.requestSender)
+    
     
     init(coreAssembly: ICoreAssembly) {
         self.coreAssembly = coreAssembly

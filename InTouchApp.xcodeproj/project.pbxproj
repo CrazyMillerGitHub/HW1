@@ -31,6 +31,17 @@
 		743A69482265A8BA00FC2995 /* ServerImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A69472265A8BA00FC2995 /* ServerImageProvider.swift */; };
 		743A694D2265A94600FC2995 /* ServerImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A694C2265A94600FC2995 /* ServerImageCollectionViewCell.swift */; };
 		743A694E2265B0C700FC2995 /* ServerImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 743A694B2265A94600FC2995 /* ServerImageCollectionViewCell.xib */; };
+		743A695022665A7E00FC2995 /* SaveDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A694F22665A7E00FC2995 /* SaveDelegate.swift */; };
+		743A6955226669FF00FC2995 /* IParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A6954226669FF00FC2995 /* IParser.swift */; };
+		743A695722666CD400FC2995 /* IRequestSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A695622666CD400FC2995 /* IRequestSender.swift */; };
+		743A695922666D3200FC2995 /* IRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A695822666D3200FC2995 /* IRequest.swift */; };
+		743A695B22666DAB00FC2995 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A695A22666DAB00FC2995 /* Parser.swift */; };
+		743A695D2266ED2300FC2995 /* RequestSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A695C2266ED2300FC2995 /* RequestSender.swift */; };
+		743A695F2266EDB100FC2995 /* RequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A695E2266EDB100FC2995 /* RequestFactory.swift */; };
+		743A69612266EFF500FC2995 /* PhotoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A69602266EFF500FC2995 /* PhotoRequest.swift */; };
+		743A6963226723AA00FC2995 /* ServerimageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A6962226723AA00FC2995 /* ServerimageModel.swift */; };
+		743A6965226724B800FC2995 /* ImageDownloadingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A6964226724B800FC2995 /* ImageDownloadingService.swift */; };
+		743A6969226742E200FC2995 /* RootAmbessy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A6968226742E200FC2995 /* RootAmbessy.swift */; };
 		74424E8B224042A500F1BC7B /* MultipeerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74424E8A224042A500F1BC7B /* MultipeerCommunicator.swift */; };
 		74424E8D22407A3C00F1BC7B /* Communicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74424E8C22407A3C00F1BC7B /* Communicator.swift */; };
 		74424E8F22407ECC00F1BC7B /* CommunicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74424E8E22407ECC00F1BC7B /* CommunicatorManager.swift */; };
@@ -80,6 +91,17 @@
 		743A69472265A8BA00FC2995 /* ServerImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerImageProvider.swift; sourceTree = "<group>"; };
 		743A694B2265A94600FC2995 /* ServerImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ServerImageCollectionViewCell.xib; path = "/Users/mikhail_borisov/Documents/Education/Tinkoff_courses/HW/InTouchApp/Presentation Layer/Modules/ServerImageViewController/View/ServerImageCollectionViewCell.xib"; sourceTree = "<absolute>"; };
 		743A694C2265A94600FC2995 /* ServerImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ServerImageCollectionViewCell.swift; path = "/Users/mikhail_borisov/Documents/Education/Tinkoff_courses/HW/InTouchApp/Presentation Layer/Modules/ServerImageViewController/View/ServerImageCollectionViewCell.swift"; sourceTree = "<absolute>"; };
+		743A694F22665A7E00FC2995 /* SaveDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDelegate.swift; sourceTree = "<group>"; };
+		743A6954226669FF00FC2995 /* IParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IParser.swift; sourceTree = "<group>"; };
+		743A695622666CD400FC2995 /* IRequestSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRequestSender.swift; sourceTree = "<group>"; };
+		743A695822666D3200FC2995 /* IRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRequest.swift; sourceTree = "<group>"; };
+		743A695A22666DAB00FC2995 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		743A695C2266ED2300FC2995 /* RequestSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSender.swift; sourceTree = "<group>"; };
+		743A695E2266EDB100FC2995 /* RequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFactory.swift; sourceTree = "<group>"; };
+		743A69602266EFF500FC2995 /* PhotoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRequest.swift; sourceTree = "<group>"; };
+		743A6962226723AA00FC2995 /* ServerimageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerimageModel.swift; sourceTree = "<group>"; };
+		743A6964226724B800FC2995 /* ImageDownloadingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadingService.swift; sourceTree = "<group>"; };
+		743A6968226742E200FC2995 /* RootAmbessy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootAmbessy.swift; sourceTree = "<group>"; };
 		74424E8A224042A500F1BC7B /* MultipeerCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerCommunicator.swift; sourceTree = "<group>"; };
 		74424E8C22407A3C00F1BC7B /* Communicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Communicator.swift; sourceTree = "<group>"; };
 		74424E8E22407ECC00F1BC7B /* CommunicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicatorManager.swift; sourceTree = "<group>"; };
@@ -193,6 +215,7 @@
 		741ADE08225E271500C033A0 /* Core Layer */ = {
 			isa = PBXGroup;
 			children = (
+				743A69512266694D00FC2995 /* Networking */,
 				74F9A0DC2246B7CD002B116B /* SaveProfile */,
 				741ADE0A225E290F00C033A0 /* CoreData */,
 				741ADE09225E276B00C033A0 /* Assembly */,
@@ -239,6 +262,7 @@
 			children = (
 				741ADE16225E30D700C033A0 /* CoreDataService.swift */,
 				741ADE18225E310A00C033A0 /* SaveProfileService.swift */,
+				743A6964226724B800FC2995 /* ImageDownloadingService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -307,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				743A69472265A8BA00FC2995 /* ServerImageProvider.swift */,
+				743A6962226723AA00FC2995 /* ServerimageModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -315,6 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				743A694C2265A94600FC2995 /* ServerImageCollectionViewCell.swift */,
+				743A694F22665A7E00FC2995 /* SaveDelegate.swift */,
 				743A694B2265A94600FC2995 /* ServerImageCollectionViewCell.xib */,
 				743A69442265A49D00FC2995 /* ServerImageViewController.xib */,
 			);
@@ -329,6 +355,36 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		743A69512266694D00FC2995 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				743A6953226669E500FC2995 /* Request */,
+				743A6952226669DA00FC2995 /* Parser */,
+				743A695E2266EDB100FC2995 /* RequestFactory.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		743A6952226669DA00FC2995 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				743A6954226669FF00FC2995 /* IParser.swift */,
+				743A695A22666DAB00FC2995 /* Parser.swift */,
+			);
+			path = Parser;
+			sourceTree = "<group>";
+		};
+		743A6953226669E500FC2995 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				743A695622666CD400FC2995 /* IRequestSender.swift */,
+				743A695822666D3200FC2995 /* IRequest.swift */,
+				743A695C2266ED2300FC2995 /* RequestSender.swift */,
+				743A69602266EFF500FC2995 /* PhotoRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
 		74A79CB0221684A700F23890 /* InTouchApp */ = {
 			isa = PBXGroup;
 			children = (
@@ -341,6 +397,7 @@
 				74F9A0DF2246BE21002B116B /* CoreData */,
 				74E254762247AFF0009E089F /* Model */,
 				74A79CB2221684A700F23890 /* Logger.swift */,
+				743A6968226742E200FC2995 /* RootAmbessy.swift */,
 				74424E8C22407A3C00F1BC7B /* Communicator.swift */,
 				74424E8A224042A500F1BC7B /* MultipeerCommunicator.swift */,
 				74DF00C42257226800DF175A /* Extensions.swift */,
@@ -556,10 +613,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				743A695F2266EDB100FC2995 /* RequestFactory.swift in Sources */,
 				7495F9782242AFAD00F7E152 /* coreData.xcdatamodeld in Sources */,
+				743A695D2266ED2300FC2995 /* RequestSender.swift in Sources */,
+				743A69612266EFF500FC2995 /* PhotoRequest.swift in Sources */,
 				74424E8D22407A3C00F1BC7B /* Communicator.swift in Sources */,
 				741ADE10225E2C9300C033A0 /* ICoreData.swift in Sources */,
 				7495F97A2242B00000F7E152 /* CoreDataStack.swift in Sources */,
+				743A695922666D3200FC2995 /* IRequest.swift in Sources */,
 				742EE8F92263CF880039ED12 /* MyActivityIndicator.swift in Sources */,
 				74958A51223839CC0022B883 /* OperationDataManager.swift in Sources */,
 				743A69452265A49D00FC2995 /* ServerImageViewController.swift in Sources */,
@@ -571,11 +632,15 @@
 				74B33C902230773B00F3BB59 /* ProfileViewController.swift in Sources */,
 				741ADE0C225E299600C033A0 /* CoreAssembly.swift in Sources */,
 				741ADE19225E310A00C033A0 /* SaveProfileService.swift in Sources */,
+				743A695022665A7E00FC2995 /* SaveDelegate.swift in Sources */,
 				74E254782247F546009E089F /* StorageManager.swift in Sources */,
+				743A6965226724B800FC2995 /* ImageDownloadingService.swift in Sources */,
 				741ADE0E225E2AF200C033A0 /* iSaveProfile.swift in Sources */,
 				74360279222FEC6400D7FED3 /* ConversationsListViewController.swift in Sources */,
+				743A695B22666DAB00FC2995 /* Parser.swift in Sources */,
 				741ADE15225E308B00C033A0 /* ServicesAssembly.swift in Sources */,
 				74A79CE022168C9F00F23890 /* Logger.swift in Sources */,
+				743A6963226723AA00FC2995 /* ServerimageModel.swift in Sources */,
 				742EE8F1226395EE0039ED12 /* DataManager.swift in Sources */,
 				743A694D2265A94600FC2995 /* ServerImageCollectionViewCell.swift in Sources */,
 				742EE8F52263C7660039ED12 /* EditDescriptionClass.swift in Sources */,
@@ -584,10 +649,13 @@
 				742EE8F72263C90B0039ED12 /* ProfileViewDataProvider.swift in Sources */,
 				743A69482265A8BA00FC2995 /* ServerImageProvider.swift in Sources */,
 				741ADE07225E25E800C033A0 /* PresentationAssembly.swift in Sources */,
+				743A6969226742E200FC2995 /* RootAmbessy.swift in Sources */,
 				74130152222F1AA00093181F /* Theme.swift in Sources */,
 				742EE9002263D8990039ED12 /* ListFRCdelegate.swift in Sources */,
 				74DF00C52257226800DF175A /* Extensions.swift in Sources */,
+				743A695722666CD400FC2995 /* IRequestSender.swift in Sources */,
 				74424E8B224042A500F1BC7B /* MultipeerCommunicator.swift in Sources */,
+				743A6955226669FF00FC2995 /* IParser.swift in Sources */,
 				745DEE4C2236BBFA008C4A5E /* GCDDataManager.swift in Sources */,
 				74D746A5222C3A5200383066 /* Themes.m in Sources */,
 				74A79CE122168C9F00F23890 /* AppDelegate.swift in Sources */,
