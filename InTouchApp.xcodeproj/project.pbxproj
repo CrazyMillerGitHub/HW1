@@ -16,6 +16,8 @@
 		741ADE15225E308B00C033A0 /* ServicesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741ADE14225E308B00C033A0 /* ServicesAssembly.swift */; };
 		741ADE17225E30D700C033A0 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741ADE16225E30D700C033A0 /* CoreDataService.swift */; };
 		741ADE19225E310A00C033A0 /* SaveProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741ADE18225E310A00C033A0 /* SaveProfileService.swift */; };
+		742725D0226783A300539428 /* ServerImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742725CE226783A300539428 /* ServerImageCollectionViewCell.swift */; };
+		742725D1226783A300539428 /* ServerImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 742725CF226783A300539428 /* ServerImageCollectionViewCell.xib */; };
 		742EE8EF226395DD0039ED12 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742EE8EE226395DD0039ED12 /* DataProvider.swift */; };
 		742EE8F1226395EE0039ED12 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742EE8F0226395EE0039ED12 /* DataManager.swift */; };
 		742EE8F32263C7320039ED12 /* EditLabelClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742EE8F22263C7320039ED12 /* EditLabelClass.swift */; };
@@ -29,8 +31,6 @@
 		743A69452265A49D00FC2995 /* ServerImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A69432265A49D00FC2995 /* ServerImageViewController.swift */; };
 		743A69462265A49D00FC2995 /* ServerImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 743A69442265A49D00FC2995 /* ServerImageViewController.xib */; };
 		743A69482265A8BA00FC2995 /* ServerImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A69472265A8BA00FC2995 /* ServerImageProvider.swift */; };
-		743A694D2265A94600FC2995 /* ServerImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A694C2265A94600FC2995 /* ServerImageCollectionViewCell.swift */; };
-		743A694E2265B0C700FC2995 /* ServerImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 743A694B2265A94600FC2995 /* ServerImageCollectionViewCell.xib */; };
 		743A695022665A7E00FC2995 /* SaveDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A694F22665A7E00FC2995 /* SaveDelegate.swift */; };
 		743A6955226669FF00FC2995 /* IParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A6954226669FF00FC2995 /* IParser.swift */; };
 		743A695722666CD400FC2995 /* IRequestSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A695622666CD400FC2995 /* IRequestSender.swift */; };
@@ -77,6 +77,8 @@
 		741ADE14225E308B00C033A0 /* ServicesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesAssembly.swift; sourceTree = "<group>"; };
 		741ADE16225E30D700C033A0 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		741ADE18225E310A00C033A0 /* SaveProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveProfileService.swift; sourceTree = "<group>"; };
+		742725CE226783A300539428 /* ServerImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		742725CF226783A300539428 /* ServerImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		742EE8EE226395DD0039ED12 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		742EE8F0226395EE0039ED12 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		742EE8F22263C7320039ED12 /* EditLabelClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLabelClass.swift; sourceTree = "<group>"; };
@@ -89,8 +91,6 @@
 		743A69432265A49D00FC2995 /* ServerImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerImageViewController.swift; sourceTree = "<group>"; };
 		743A69442265A49D00FC2995 /* ServerImageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerImageViewController.xib; sourceTree = "<group>"; };
 		743A69472265A8BA00FC2995 /* ServerImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerImageProvider.swift; sourceTree = "<group>"; };
-		743A694B2265A94600FC2995 /* ServerImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ServerImageCollectionViewCell.xib; path = "/Users/mikhail_borisov/Documents/Education/Tinkoff_courses/HW/InTouchApp/Presentation Layer/Modules/ServerImageViewController/View/ServerImageCollectionViewCell.xib"; sourceTree = "<absolute>"; };
-		743A694C2265A94600FC2995 /* ServerImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ServerImageCollectionViewCell.swift; path = "/Users/mikhail_borisov/Documents/Education/Tinkoff_courses/HW/InTouchApp/Presentation Layer/Modules/ServerImageViewController/View/ServerImageCollectionViewCell.swift"; sourceTree = "<absolute>"; };
 		743A694F22665A7E00FC2995 /* SaveDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDelegate.swift; sourceTree = "<group>"; };
 		743A6954226669FF00FC2995 /* IParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IParser.swift; sourceTree = "<group>"; };
 		743A695622666CD400FC2995 /* IRequestSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRequestSender.swift; sourceTree = "<group>"; };
@@ -339,9 +339,9 @@
 		743A69412265A46200FC2995 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				743A694C2265A94600FC2995 /* ServerImageCollectionViewCell.swift */,
+				742725CE226783A300539428 /* ServerImageCollectionViewCell.swift */,
+				742725CF226783A300539428 /* ServerImageCollectionViewCell.xib */,
 				743A694F22665A7E00FC2995 /* SaveDelegate.swift */,
-				743A694B2265A94600FC2995 /* ServerImageCollectionViewCell.xib */,
 				743A69442265A49D00FC2995 /* ServerImageViewController.xib */,
 			);
 			path = View;
@@ -557,7 +557,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74A79CE522168CC700F23890 /* LaunchScreen.storyboard in Resources */,
-				743A694E2265B0C700FC2995 /* ServerImageCollectionViewCell.xib in Resources */,
+				742725D1226783A300539428 /* ServerImageCollectionViewCell.xib in Resources */,
 				7443B6FB22188DDD007FDEF3 /* Assets.xcassets in Resources */,
 				74A79CE622168CC700F23890 /* Main.storyboard in Resources */,
 				743A69462265A49D00FC2995 /* ServerImageViewController.xib in Resources */,
@@ -620,6 +620,7 @@
 				74424E8D22407A3C00F1BC7B /* Communicator.swift in Sources */,
 				741ADE10225E2C9300C033A0 /* ICoreData.swift in Sources */,
 				7495F97A2242B00000F7E152 /* CoreDataStack.swift in Sources */,
+				742725D0226783A300539428 /* ServerImageCollectionViewCell.swift in Sources */,
 				743A695922666D3200FC2995 /* IRequest.swift in Sources */,
 				742EE8F92263CF880039ED12 /* MyActivityIndicator.swift in Sources */,
 				74958A51223839CC0022B883 /* OperationDataManager.swift in Sources */,
@@ -642,7 +643,6 @@
 				74A79CE022168C9F00F23890 /* Logger.swift in Sources */,
 				743A6963226723AA00FC2995 /* ServerimageModel.swift in Sources */,
 				742EE8F1226395EE0039ED12 /* DataManager.swift in Sources */,
-				743A694D2265A94600FC2995 /* ServerImageCollectionViewCell.swift in Sources */,
 				742EE8F52263C7660039ED12 /* EditDescriptionClass.swift in Sources */,
 				74CDAE692226B5F1001FEF3B /* TableViewCell.swift in Sources */,
 				7436027C223021E500D7FED3 /* ThemesViewController.m in Sources */,
