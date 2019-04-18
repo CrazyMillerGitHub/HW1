@@ -14,7 +14,6 @@ struct PhotoApiModel: Decodable {
 }
 
 struct HitModel: Decodable {
-    //swiftlint:disable identifier_name
     let hits: [PhotoApiModel]
     let total: Int
     let totalHits: Int

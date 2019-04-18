@@ -236,6 +236,11 @@
                                         <rect key="frame" x="277" y="8" width="36" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <state key="normal" title="Send"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="sendAction:" destination="8CB-Kv-9y4" eventType="touchUpInside" id="HHD-01-4eK"/>
                                         </connections>
@@ -272,6 +277,7 @@
                         <outlet property="bottomConstraint" destination="Zgg-HR-XAB" id="D0I-0T-8Pw"/>
                         <outlet property="dtProvider" destination="OYg-ga-jQu" id="t5X-E2-kft"/>
                         <outlet property="searchView" destination="pru-Cm-r1N" id="GRL-E1-CEB"/>
+                        <outlet property="sendButton" destination="KFA-bu-uTn" id="0bT-OZ-x7x"/>
                         <outlet property="tableView" destination="TWc-b2-QtU" id="JIH-pr-JeU"/>
                         <outlet property="textField" destination="8vM-Lz-3Gw" id="q2e-Hc-nsY"/>
                     </connections>

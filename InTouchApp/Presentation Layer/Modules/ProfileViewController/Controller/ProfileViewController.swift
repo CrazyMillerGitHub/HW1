@@ -25,6 +25,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     var editLabel = UITextField()
     var editDescriptionTextView = UITextView()
     var dataProvider = ProfileViewDataProvider()
+    var kek = ServerImageProvider()
     @IBAction func dismissButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -95,6 +96,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let action3 = UIAlertAction(title: "Загрузить", style: .default) { (_:UIAlertAction) in
             let rootAssembly = RootAmbessy()
             let serverimageViewController = rootAssembly.presentationAssembly.serverImageViewController()
+            let ssss = self.kek
+            ssss.delegate = serverimageViewController
             self.present(serverimageViewController, animated: true, completion: nil)
         }
         alertController.addAction(action1)
@@ -128,6 +131,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.gcdButton.isHidden = true
             self.addImageButton.isHidden = true
             count += 1
+            
         default:
             self.editLabel.isHidden = false
             self.editDescriptionTextView.isHidden = false

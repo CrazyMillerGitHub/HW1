@@ -26,7 +26,6 @@ class PresentationAssembly: IPresentationAssembly {
         return DemoModel(imageService: serviceAssembly.imageService)
     }
     
-    
     func conversationViewController() -> ConversationViewController {
         return ConversationViewController()
     }
@@ -42,8 +41,6 @@ protocol IPresentationAssembly {
     ///
     /// - Returns: ConversationViewController класс
     func conversationViewController() -> ConversationViewController
-    
-    
     /// ServerViewController
     ///
     /// - Returns: возвращает ServerImageViewController класс

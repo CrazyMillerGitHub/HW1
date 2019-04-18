@@ -43,8 +43,8 @@ let imageCache = NSCache<NSString, UIImage>()
 extension UIImageView {
     
     public func imageFromServerURL(urlString: String, defaultImage : String?) {
-        if let di = defaultImage {
-            self.image = UIImage(named: di)
+        if let diImage = defaultImage {
+            self.image = UIImage(named: diImage)
         }
         
         URLSession.shared.dataTask(with: NSURL(string: urlString)! as URL, completionHandler: { (data, response, error) -> Void in

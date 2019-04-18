@@ -23,7 +23,4 @@ class CoreAssembly: ICoreAssembly {
     var gcdDataManager: ISaveProfile = GCDDataManager(arr: ["String": "Any"])
     
     var coreData: ICoreDara = CoreDataStack()
-    
-
-    
 }

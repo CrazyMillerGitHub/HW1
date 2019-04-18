@@ -11,15 +11,40 @@ import CoreData
 protocol MessageCellConfiguration: class {
     var txt: String? {get set}
 }
-
-class ConversationViewController: UIViewController, UITextFieldDelegate {
+protocol onlineOfflineUser {
+    func onlineOfflineUser(user: Bool)
+}
+class ConversationViewController: UIViewController, onlineOfflineUser , UITextFieldDelegate {
+    func onlineOfflineUser(user: Bool = true) {
+        if user {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.sendButton.backgroundColor = UIColor(red: 0.91, green: 0.20, blue: 0.35, alpha: 1.00)
+                    self.sendButton.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
+                }) { (completeion) in
+                    UIView.animate(withDuration: 0.3, delay: 0.5, options: [], animations: {
+                        self.sendButton.transform = CGAffineTransform(scaleX: 0.85, y: 0.85)
+                    }, completion: nil)
+                }
+        } else {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.sendButton.backgroundColor = .white
+                self.sendButton.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
+            }) { (completeion) in
+                UIView.animate(withDuration: 0.3, delay: 0.5, options: [], animations: {
+                    self.sendButton.transform = CGAffineTransform(scaleX: 0.85, y: 0.85)
+                }, completion: nil)
+            }
+        }
+    }
+    
     var userId: String!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var dtProvider: ViewDataProvider!
     @IBOutlet var textField: UITextField!
     @IBOutlet var searchView: UIView!
     @IBOutlet var bottomConstraint: NSLayoutConstraint!
-    
+    @IBOutlet var sendButton: UIButton!
+    var manager: MultipeerCommunicator!
     weak var communicator: Communicator?
     
     override func viewDidLoad() {
@@ -28,6 +53,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
         extendedLayoutIncludesOpaqueBars = true
         textField.delegate = self
         dtProvider.userId = userId
+        
         tableView.backgroundColor = .white
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -35,8 +61,17 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
         do {
             try dtProvider.fetchedResultsController.performFetch()
         } catch {}
+        manager = MultipeerCommunicator()
+        manager.ofOnDelegate = self
+        textField.addTarget(self, action: #selector(didChanged), for: .editingChanged)
     }
-    
+    @objc func didChanged() {
+        if textField.text != "" {
+            onlineOfflineUser(user: true)
+        }else{
+            onlineOfflineUser(user: false)
+        }
+    }
     @IBAction func sendAction(_ sender: Any) {
         communicator?.sendMessage(string: "d", to: "", completionHandler: nil)
         //    delegate?.sendMessage(string: textField.text!, to: "peer", completionHandler: nil)
@@ -62,6 +97,9 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
                 self.messageNotSent()
             }
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        onlineOfflineUser()
     }
     
     private func messageNotSent() {

@@ -14,7 +14,6 @@ class ServerImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet var serverImage: UIImageView!
     
     
-
     /// AwakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()

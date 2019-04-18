@@ -1,7 +1,7 @@
 
 variable_name:
 min_length: # not possible to disable this partial rule, so set it to zero
-warning_threshold: 20
+warning_threshold: 30
 error: 0
 line_length:
  warning: 220

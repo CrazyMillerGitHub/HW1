@@ -17,7 +17,6 @@ class ServicesAssembly: IServicesAssembly {
     
      lazy var imageService: IImageService = PhotoService(requestSender: self.coreAssembly.requestSender)
     
-    
     init(coreAssembly: ICoreAssembly) {
         self.coreAssembly = coreAssembly
     }
