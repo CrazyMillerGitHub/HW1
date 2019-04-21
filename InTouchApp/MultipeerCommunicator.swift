@@ -14,7 +14,6 @@ class MultipeerCommunicator: NSObject, Communicator {
     weak var delegate: CommunicatorDelegate?
     
     var online: Bool
-    var ofOnDelegate: onlineOfflineUser?
     func generateMessageId() -> String {
         // swiftlint:disable force_unwrapping
         return "\(arc4random_uniform(UINT32_MAX))+\(Date.timeIntervalSinceReferenceDate)"
@@ -57,10 +56,10 @@ class MultipeerCommunicator: NSObject, Communicator {
         session.delegate =  self
         self.advertiser = MCNearbyServiceAdvertiser(peer: peerID,
                                                     discoveryInfo: ["userName": "\(UserDefaults.standard.string(forKey: "profileLabel") ?? "EmptyName")"],
-                                                    serviceType: "tinkoff-chat1")
+                                                    serviceType: "tinkoff-chat")
         self.advertiser.delegate = self
         self.browser = MCNearbyServiceBrowser(peer: peerID,
-                                              serviceType: "tinkoff-chat1")
+                                              serviceType: "tinkoff-chat")
         browser.delegate = self
         conversation.communicator = self
     }
@@ -180,7 +179,6 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate, MCSessionDelega
             }
             browser.invitePeer(peerID, to: session, withContext: nil, timeout: 5)
             delegate?.didFoundUser(userID: peerID.displayName, userName: info["userName"])
-            ofOnDelegate?.onlineOfflineUser(user: true)
         }
     }
     func saveUser(peerID: MCPeerID, info: [String: String]) {
@@ -212,7 +210,6 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate, MCSessionDelega
     }
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         delegate?.didLostUser(userID: peerID.displayName)
-        ofOnDelegate?.onlineOfflineUser(user: false)
     }
 }
 

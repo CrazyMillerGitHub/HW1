@@ -18,13 +18,13 @@ class PhotoService: IImageService {
         self.requestSender = requestSender
     }
     
-    func loadNewImages(pageNumber: Int,completionHandler: @escaping ([PhotoApiModel]?, String?) -> Void) {
+    func loadNewImages(pageNumber: Int, completionHandler: @escaping ([PhotoApiModel]?, String?) -> Void) {
         let requestConfig = RequestsFactory.photoImages(pageNumber: pageNumber)
         loadImages(requestConfig: requestConfig, completionHandler: completionHandler)
     }
   
     private func loadImages(requestConfig: RequestConfig<PhotoParser>,
-                          completionHandler: @escaping ([PhotoApiModel]?, String?) -> Void) {
+                            completionHandler: @escaping ([PhotoApiModel]?, String?) -> Void) {
         requestSender.send(requestConfig: requestConfig) { (result: Result<[PhotoApiModel]>) in
             switch result {
             case .success(let photos):

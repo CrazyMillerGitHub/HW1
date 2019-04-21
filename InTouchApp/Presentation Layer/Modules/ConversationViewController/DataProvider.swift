@@ -9,9 +9,10 @@
 import Foundation
 import CoreData
 
-class ViewDataProvider: NSObject,UITableViewDataSource {
+class ViewDataProvider: NSObject, UITableViewDataSource {
     
     var userId: String?
+    var currectUser: User?
     var dataManager = DataManager()
     lazy var fetchedResultsController: NSFetchedResultsController<Message> = {
         let request: NSFetchRequest<Message> = Message.fetchRequest()

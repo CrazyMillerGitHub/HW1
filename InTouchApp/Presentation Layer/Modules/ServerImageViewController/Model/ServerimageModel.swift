@@ -32,7 +32,7 @@ class DemoModel: IDemoModel {
     func fetchImages(pageNumber: Int) {
         imageService.loadNewImages(pageNumber: pageNumber) { (images: [PhotoApiModel]?, error) in
             if let images = images {
-                let cells = images.map {CellDisplayModel(imageUrl: $0.previewURL)}
+                let cells = images.map {CellDisplayModel(imageUrl: $0.webformatURL)}
                 self.delegate?.setup(dataSource: cells)
             } else {
                 self.delegate?.show(error: error ?? "Error")

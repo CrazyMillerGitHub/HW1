@@ -13,7 +13,6 @@ class ServerImageCollectionViewCell: UICollectionViewCell {
 //  изображение,которое мы загружаем с сервера
     @IBOutlet var serverImage: UIImageView!
     
-    
     /// AwakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -149,7 +149,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TWc-b2-QtU">
-                                <rect key="frame" x="0.0" y="20" width="320" height="502"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="492"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell1" id="EqK-g4-pgQ" customClass="CustomConversationCell1" customModule="InTouchApp" customModuleProvider="target">
@@ -224,21 +224,21 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pru-Cm-r1N">
-                                <rect key="frame" x="0.0" y="522" width="320" height="46"/>
+                                <rect key="frame" x="0.0" y="512" width="320" height="56"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="message" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8vM-Lz-3Gw">
-                                        <rect key="frame" x="5" y="0.0" width="264" height="46"/>
+                                        <rect key="frame" x="5" y="5" width="264" height="46"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KFA-bu-uTn">
-                                        <rect key="frame" x="277" y="8" width="36" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                        <rect key="frame" x="277" y="14.5" width="36" height="27"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                         <state key="normal" title="Send"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="10"/>
+                                                <integer key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -248,13 +248,13 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="46" id="5gL-H4-wDB"/>
+                                    <constraint firstAttribute="height" constant="56" id="5gL-H4-wDB"/>
                                     <constraint firstItem="KFA-bu-uTn" firstAttribute="leading" secondItem="8vM-Lz-3Gw" secondAttribute="trailing" constant="8" id="FKq-uo-ul8"/>
                                     <constraint firstItem="8vM-Lz-3Gw" firstAttribute="centerY" secondItem="pru-Cm-r1N" secondAttribute="centerY" id="KFw-iS-CFe"/>
-                                    <constraint firstItem="8vM-Lz-3Gw" firstAttribute="top" secondItem="pru-Cm-r1N" secondAttribute="top" id="Rjg-Wy-vWe"/>
+                                    <constraint firstItem="8vM-Lz-3Gw" firstAttribute="top" secondItem="pru-Cm-r1N" secondAttribute="top" constant="5" id="Rjg-Wy-vWe"/>
                                     <constraint firstItem="KFA-bu-uTn" firstAttribute="centerY" secondItem="pru-Cm-r1N" secondAttribute="centerY" id="Sy2-2A-5mG"/>
                                     <constraint firstAttribute="trailing" secondItem="KFA-bu-uTn" secondAttribute="trailing" constant="7" id="Ulm-HA-t9S"/>
-                                    <constraint firstAttribute="bottom" secondItem="8vM-Lz-3Gw" secondAttribute="bottom" id="hzN-6o-nRE"/>
+                                    <constraint firstAttribute="bottom" secondItem="8vM-Lz-3Gw" secondAttribute="bottom" constant="5" id="hzN-6o-nRE"/>
                                     <constraint firstItem="8vM-Lz-3Gw" firstAttribute="leading" secondItem="pru-Cm-r1N" secondAttribute="leading" constant="5" id="jLD-Vz-CWs"/>
                                     <constraint firstAttribute="trailing" secondItem="8vM-Lz-3Gw" secondAttribute="trailing" constant="51" id="y63-Da-Lya"/>
                                 </constraints>
@@ -285,7 +285,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZ0-MC-KR8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="OYg-ga-jQu" customClass="ViewDataProvider" customModule="InTouchApp" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="3491" y="45"/>
+            <point key="canvasLocation" x="3579" y="77"/>
         </scene>
         <!--Theme-->
         <scene sceneID="xjW-tV-zEW">

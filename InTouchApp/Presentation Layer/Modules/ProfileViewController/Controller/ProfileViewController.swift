@@ -8,7 +8,17 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ProfileViewController: UIViewController, SaveDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
+    func save(imageString: String) {
+        imageView.imageFromServerURL(urlString: imageString, defaultImage: nil)
+        self.dismiss(animated: true, completion: {
+            self.statusButtons(bool: true)
+            self.count = 1
+            self.hideUnhideFunction()
+        })
+        
+    }
+        
     var imageBool: Bool = false
     var titleBool: Bool = false
     var descriptionTextBool: Bool = false
@@ -25,7 +35,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     var editLabel = UITextField()
     var editDescriptionTextView = UITextView()
     var dataProvider = ProfileViewDataProvider()
-    var kek = ServerImageProvider()
+    let rootAssembly = RootAmbessy()
+    
+    let flakeEmitterCell = CAEmitterCell()
+    
+    var snowEmitterLayer: CAEmitterLayer?
+    
     @IBAction func dismissButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -36,6 +51,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             print(editButton.frame)
         } else {return}
     }
+    
+    let panGestureRecognizer = UIPanGestureRecognizer()
+    var panGestureAnchorPoint: CGPoint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +69,63 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         editDescriptionTextView.delegate = self
         view.addSubview(editDescriptionTextView)
         statusButtons(bool: false)
+        panGestureRecognizer.addTarget(self, action: #selector(showMoreActions(touch: )))
+//        provider.saveToProfileHandler = { string in
+//                print("Hello")
+//                self.imageView.image = string.toImage()
+//                self.dismiss(animated: true, completion: nil)
+//                return "Success"
+//        }
+        view.addGestureRecognizer(panGestureRecognizer)
+        editLabel.isHidden = true
+        editDescriptionTextView.isHidden = true
     }
+    @objc func showMoreActions(touch: UITapGestureRecognizer) {
+        let touchPoint = touch.location(in: self.view)
+        switch touch.state {
+        case .possible:
+             print("ke")
+        case .began:
+           
+            snowEmitterLayer = CAEmitterLayer()
+            flakeEmitterCell.contents = #imageLiteral(resourceName: "tinkoff_logo.png").cgImage
+            flakeEmitterCell.scale = 0.06
+            flakeEmitterCell.scaleRange = 0.3
+            flakeEmitterCell.emissionRange = .pi
+            flakeEmitterCell.lifetime = 7.0
+            flakeEmitterCell.birthRate = 10
+            flakeEmitterCell.velocity = -30
+            flakeEmitterCell.velocityRange = -20
+            flakeEmitterCell.yAcceleration = 30
+            flakeEmitterCell.xAcceleration = 5
+            flakeEmitterCell.spin = -0.5
+            flakeEmitterCell.spinRange = 1.0
+            
+            snowEmitterLayer?.emitterPosition = CGPoint(x: touchPoint.x, y: touchPoint.y)
+            snowEmitterLayer?.emitterSize = CGSize(width: 10, height: 10)
+            snowEmitterLayer?.emitterShape = CAEmitterLayerEmitterShape.line
+            snowEmitterLayer?.beginTime = CACurrentMediaTime()
+            snowEmitterLayer?.timeOffset = 2
+            snowEmitterLayer?.emitterCells = [flakeEmitterCell]
+            //swiftlint:disable force_unwrapping
+            view.layer.addSublayer(snowEmitterLayer!)
+        case .changed:
+            DispatchQueue.main.async {
+               self.snowEmitterLayer?.emitterPosition = CGPoint(x: touchPoint.x, y: touchPoint.y)
+            }
+        case .ended:
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.snowEmitterLayer!.birthRate = 0
+            }
+
+        case .cancelled:
+             print("ke")
+        case .failed:
+            print("ke")
+        }
+
+    }
+    //swiftlint:enable force_unwrapping
     
     func loadData() {
         if let label = dataProvider.labelText { self.titleLabel.text = label }
@@ -69,8 +143,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        editLabel.isHidden = true
-        editDescriptionTextView.isHidden = true
         editLabel.frame = self.titleLabel.frame
         editDescriptionTextView.frame = self.descriptionView.frame
     }
@@ -94,11 +166,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             myPickerController.sourceType = .photoLibrary
         }
         let action3 = UIAlertAction(title: "Загрузить", style: .default) { (_:UIAlertAction) in
-            let rootAssembly = RootAmbessy()
-            let serverimageViewController = rootAssembly.presentationAssembly.serverImageViewController()
-            let ssss = self.kek
-            ssss.delegate = serverimageViewController
-            self.present(serverimageViewController, animated: true, completion: nil)
+            let serverView = self.rootAssembly.presentationAssembly.serverImageViewController()
+            serverView.delegate = self
+        self.present(serverView, animated: true, completion: nil)
         }
         alertController.addAction(action1)
         alertController.addAction(action2)

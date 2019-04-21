@@ -11,6 +11,7 @@ import Foundation
 struct PhotoApiModel: Decodable {
     let previewURL: String
     let userImageURL: String
+    let webformatURL: String
 }
 
 struct HitModel: Decodable {
@@ -27,8 +28,6 @@ class PhotoParser: IParser {
     do {
              let additionalPhotos = try? decoder.decode(HitModel.self, from: data).hits
         additionalPhotos?.forEach {PhotoParser.photos?.append($0)}
-    } catch {
-    print("not today")
     }
         return PhotoParser.photos
     }

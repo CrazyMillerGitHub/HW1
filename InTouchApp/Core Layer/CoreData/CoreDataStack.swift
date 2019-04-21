@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
+
 class CoreDataStack: NSObject, ICoreDara {
     func fetchRequest(in context: NSManagedObjectContext) {
     }
@@ -122,9 +123,60 @@ extension AppUser {
 
 // MARK: - insertUser
 extension User {
+    
+    /// Вставить пользователя
     static func insertUser(in context: NSManagedObjectContext) -> User? {
         guard let user = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as? User else {return nil}
         return user
+    }
+    
+    /// Запрос всех пользователей
+    ///
+    /// - Returns: NSFetchRequest
+    static func fetchRequestAnotherUsers() -> NSFetchRequest<User>? {
+        let request: NSFetchRequest<User> = User.fetchRequest()
+        request.predicate = NSPredicate(format: "currentAppUser == nil")
+        return request
+    }
+    
+    /// Запрос пользователей онлайн
+    static func fetchRequestOnlineAnotherUsers() -> NSFetchRequest<User>? {
+        guard let request: NSFetchRequest<User> = User.fetchRequestAnotherUsers() else { return nil }
+        request.predicate = NSPredicate(format: "isOnline == YES")
+        return request
+    }
+    
+    /// Запрос всех пользователей, которые онлайн и с ними есть сообщения
+    ///
+    /// - Returns: NSFetchRequest
+    static func fetchRequestOnlineAnotherUsersWithMessages() -> NSFetchRequest<User>? {
+        guard let request: NSFetchRequest<User> = User.fetchRequestOnlineAnotherUsers() else { return nil }
+        request.predicate = NSPredicate(format: "messages.count > 0")
+        return request
+    }
+    
+    /// Запрос пользователя с определенным id
+    ///
+    /// - Parameter userID: id пользователя
+    /// - Returns: NSFetchRequest
+    static func fetchRequestUserWithCurrectID(userID: String) -> NSFetchRequest<User>? {
+        guard let request: NSFetchRequest<User> = User.fetchRequestAnotherUsers() else { return nil }
+        request.predicate = NSPredicate(format: "userID == %@", userID)
+        return request
+    }
+    
+    static func fetchRequest(in context: NSManagedObjectContext) -> [User]? {
+        let request: NSFetchRequest<User> = User.fetchRequest()
+        guard let result = try? context.fetch(request) else {
+            return nil
+        }
+        return result
+    }
+    
+    static func fetchCurrectUser(userID: String, in context: NSManagedObjectContext) -> User? {
+        guard let users = fetchRequest(in: context) else { return nil }
+        for user in users where user.userID == userID { return user }
+        return nil
     }
 }
 
@@ -158,24 +210,7 @@ extension AppUser {
         }
         return results
     }
-    /// Получение всех пользователей онлайн
-    ///
-    /// - Parameter context: context
-    /// - Returns: [Users]
-    static func fetchAllOnlineUsers(in context: NSManagedObjectContext) -> [User]? {
-        guard let users = fetchAllUsers(in: context) else { return nil }
-        var onlineUsers: [User] = []
-        for user in users where user.isOnline == true {
-            onlineUsers.append(user)
-        }
-        return onlineUsers
-    }
-    /// Получение конкретного пользователя по iD
-    ///
-    /// - Parameters:
-    ///   - context:  context
-    ///   - userId: userId
-    /// - Returns: User
+
     static func fetchCurrectUserWithID(in context: NSManagedObjectContext, userId: String) -> User? {
         guard let users = fetchAllUsers(in: context) else { return nil }
         for user in users where user.userID == userId { return user}

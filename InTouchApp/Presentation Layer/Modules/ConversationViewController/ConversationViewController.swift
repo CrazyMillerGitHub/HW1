@@ -11,32 +11,31 @@ import CoreData
 protocol MessageCellConfiguration: class {
     var txt: String? {get set}
 }
-protocol onlineOfflineUser {
-    func onlineOfflineUser(user: Bool)
-}
-class ConversationViewController: UIViewController, onlineOfflineUser , UITextFieldDelegate {
-    func onlineOfflineUser(user: Bool = true) {
+
+class ConversationViewController: UIViewController, UITextFieldDelegate {
+    
+    func sendButtonStyle(user: Bool) {
         if user {
-                UIView.animate(withDuration: 0.5, animations: {
-                    self.sendButton.backgroundColor = UIColor(red: 0.91, green: 0.20, blue: 0.35, alpha: 1.00)
-                    self.sendButton.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
-                }) { (completeion) in
-                    UIView.animate(withDuration: 0.3, delay: 0.5, options: [], animations: {
-                        self.sendButton.transform = CGAffineTransform(scaleX: 0.85, y: 0.85)
-                    }, completion: nil)
-                }
+            UIView.animate(withDuration: 0.5, animations: {
+                self.sendButton.backgroundColor = .green
+                self.sendButton.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
+            }, completion: { _ in
+                UIView.animate(withDuration: 0.3, delay: 0.5, options: [], animations: {
+                    self.sendButton.transform = CGAffineTransform(scaleX: 1, y: 1)
+                }, completion: nil)
+            })
         } else {
             UIView.animate(withDuration: 0.5, animations: {
                 self.sendButton.backgroundColor = .white
                 self.sendButton.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
-            }) { (completeion) in
+            }, completion: { _ in
                 UIView.animate(withDuration: 0.3, delay: 0.5, options: [], animations: {
-                    self.sendButton.transform = CGAffineTransform(scaleX: 0.85, y: 0.85)
+                    self.sendButton.transform = CGAffineTransform(scaleX: 1, y: 1)
                 }, completion: nil)
-            }
+            })
         }
     }
-    
+    var currectUser: User!
     var userId: String!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var dtProvider: ViewDataProvider!
@@ -46,14 +45,25 @@ class ConversationViewController: UIViewController, onlineOfflineUser , UITextFi
     @IBOutlet var sendButton: UIButton!
     var manager: MultipeerCommunicator!
     weak var communicator: Communicator?
+    var userController: UserFetchResultController = UserFetchResultController()
+    
+    var titleLabel: UILabel = {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 120, height: 24))
+        label.font = UIFont.systemFont(ofSize: 17.0, weight: .semibold)
+        label.textAlignment = .center
+        return label
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.titleView = titleLabel
         extendedLayoutIncludesOpaqueBars = true
+        guard let userID = userId else { fatalError() }
+        insertMessageForCurrectUser(userID: userID, message: "Just Pray for me!")
         textField.delegate = self
         dtProvider.userId = userId
-        
+        dtProvider.currectUser = currectUser
         tableView.backgroundColor = .white
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -62,16 +72,62 @@ class ConversationViewController: UIViewController, onlineOfflineUser , UITextFi
             try dtProvider.fetchedResultsController.performFetch()
         } catch {}
         manager = MultipeerCommunicator()
-        manager.ofOnDelegate = self
         textField.addTarget(self, action: #selector(didChanged), for: .editingChanged)
-    }
-    @objc func didChanged() {
-        if textField.text != "" {
-            onlineOfflineUser(user: true)
-        }else{
-            onlineOfflineUser(user: false)
+        userController.completionHandler = { isOnline in
+            
+            if isOnline {
+                self.onlineUser()
+            } else {
+                self.offlineUser()
+            }
+            return "Sucess"
+        }
+        
+        userController.userID = userId
+        userController.fetchedResultsController.delegate = userController
+        do {
+            try userController.fetchedResultsController.performFetch()
+        } catch {
+            
         }
     }
+    @objc func didChanged() {
+        if textField.text?.count == 1 {
+            sendButtonStyle(user: true)
+        } else if textField.text?.count == 0 {
+            sendButtonStyle(user: false)
+        }
+    }
+    func onlineUser() {
+        UIView.animate(withDuration: 1.0) {
+            self.titleLabel.transform = CGAffineTransform(scaleX: 1.10, y: 1.10)
+            self.titleLabel.textColor = .green
+            self.sendButtonStyle(user: true)
+        }
+    }
+    
+    func offlineUser() {
+        UIView.animate(withDuration: 1.0) {
+            self.titleLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
+            self.titleLabel.textColor = .black
+            self.sendButtonStyle(user: false)
+        }
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    private func insertMessage(_ messageString: String) -> Message? {
+        let message = Message.insertMessage(in: StorageManager.Instance.coreDataStack.saveContext)
+        message?.message = messageString
+        return message
+    }
+    private func insertMessageForCurrectUser(userID: String, message: String) {
+        if let currectUser = User.fetchCurrectUser(userID: userID, in: StorageManager.Instance.coreDataStack.saveContext) {
+            if let message = insertMessage(message) {
+                currectUser.addToMessages(message)
+                StorageManager.Instance.coreDataStack.performSave()
+            }
+        }
+    }
+
     @IBAction func sendAction(_ sender: Any) {
         communicator?.sendMessage(string: "d", to: "", completionHandler: nil)
         //    delegate?.sendMessage(string: textField.text!, to: "peer", completionHandler: nil)
@@ -99,15 +155,12 @@ class ConversationViewController: UIViewController, onlineOfflineUser , UITextFi
         }
     }
     override func viewWillAppear(_ animated: Bool) {
-        onlineOfflineUser()
     }
     
     private func messageNotSent() {
         let alertController = UIAlertController(title: "Извините,сообщение не было отправленно", message: nil, preferredStyle: .actionSheet)
         let action = UIAlertAction(title: "ОК", style: .default) { (_:UIAlertAction) in
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                //        myPickerController.sourceType = .camera
-                //        self.present(myPickerController, animated: true, completion: nil)
             }
         }
         alertController.addAction(action)

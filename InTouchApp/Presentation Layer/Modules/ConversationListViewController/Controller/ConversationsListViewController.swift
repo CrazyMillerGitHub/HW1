@@ -33,13 +33,14 @@ class ConversationsListViewController: UIViewController {
     }
     
     @IBOutlet private var tableView: UITableView!
-    
+    //swiftlint:disable identifier_name
     func sendActionWithIdentifier(withIdentifier id: String) -> UINavigationController {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         guard let rootViewController = storyBoard.instantiateViewController(withIdentifier: id) as? UINavigationController else { fatalError()
         }
         return rootViewController
     }
+    //swiftlint:enable identifier_name
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,21 +110,21 @@ extension ConversationsListViewController: UITableViewDelegate {
         tableView.reloadData()
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let managedObject = listProvider.fetchedResultsController.object(at: indexPath)
-            StorageManager.Instance.coreDataStack.mainContext.delete(managedObject)
-            do {  StorageManager.Instance.coreDataStack.performSave()
-                let request2: NSFetchRequest<User> = User.fetchRequest()
-                do {
-                    let result2 = try StorageManager.Instance.coreDataStack.mainContext.fetch(request2)
-                    print(result2.count)
-                } catch {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-    }
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            let managedObject = listProvider.fetchedResultsController.object(at: indexPath)
+//            StorageManager.Instance.coreDataStack.mainContext.delete(managedObject)
+//            do {  StorageManager.Instance.coreDataStack.performSave()
+//                let request2: NSFetchRequest<User> = User.fetchRequest()
+//                do {
+//                    let result2 = try StorageManager.Instance.coreDataStack.mainContext.fetch(request2)
+//                    print(result2.count)
+//                } catch {
+//                    print(error.localizedDescription)
+//                }
+//            }
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -131,8 +132,9 @@ extension ConversationsListViewController: UITableViewDelegate {
             fatalError()
         }
         guard let row = tableView.indexPathForSelectedRow?.row else { return }
+        messageViewController.currectUser = self.listProvider.fetchedResultsController.fetchedObjects?[row]
         messageViewController.userId = self.listProvider.fetchedResultsController.fetchedObjects?[row].userID
-        messageViewController.title = self.listProvider.fetchedResultsController.fetchedObjects?[row].name
+        messageViewController.titleLabel.text = self.listProvider.fetchedResultsController.fetchedObjects?[row].name
         self.navigationController?.pushViewController(messageViewController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }

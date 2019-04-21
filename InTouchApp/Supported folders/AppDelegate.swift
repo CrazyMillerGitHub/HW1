@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().shadowImage = UIImage()
         checkAvailableAppUser()
         Logger.SharedInstance.log(message: "Application moved from Not Running to Inactive: \(#function)")
+//        let users = AppUser.requestAppUser(in: StorageManager.Instance.coreDataStack.mainContext)
         return true
     }
     

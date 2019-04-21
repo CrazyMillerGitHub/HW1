@@ -7,15 +7,21 @@
 //
 
 import UIKit
-
+protocol SaveDelegate: class {
+    func save(imageString: String)
+}
 class ServerImageViewController: UIViewController, IDemoModelDelegate {
+    weak var delegate: SaveDelegate?
+    func save(imageString: String) {
+        delegate?.save(imageString: imageString)
+    }
     
     private let model: IDemoModel
     
     // DisplayModel
     private var dataSource: [CellDisplayModel] = []
     
-    init(model: IDemoModel) {
+    init(model: IDemoModel ) {
         self.model = model
         
         super.init(nibName: "ServerImageViewController", bundle: nil)
@@ -32,6 +38,7 @@ class ServerImageViewController: UIViewController, IDemoModelDelegate {
             self.collectionView.reloadData()
             self.activityindicator.stopAnimating()
         }
+        dataProvider.loadMoreStatus = false
     }
     
     func show(error message: String) {
@@ -51,25 +58,17 @@ class ServerImageViewController: UIViewController, IDemoModelDelegate {
         collectionView.dataSource = dataProvider
         collectionView.delegate = dataProvider
         model.fetchImages(pageNumber: 1)
- 
+        dataProvider.completionHandler = { count in
+            self.model.fetchImages(pageNumber: count)
+            return "Success"
+        }
+        dataProvider.saveToProfileHandler = { string in
+            self.save(imageString: string)
+            return "Success"
+            
+        }
     }
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
 }
 } 
-// MARK: - Сохранение результата
-extension ServerImageViewController: SaveDelegate {
-    
-    ///! Здесь где-то проблема с  delegate. Значение отправлению. 
-    /// Добавление новых элементов
-    ///
-    /// - Parameter number:
-    func addNewElements(number: Int) {
-        model.fetchImages(pageNumber: number)
-    }
-    
-    func save(sender: ServerImageProvider) {
-        self.dismiss(animated: true, completion: nil)
-    }
-
-}

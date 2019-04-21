@@ -10,15 +10,27 @@ import Foundation
 import CoreData
 class ListProvider: NSObject, UITableViewDataSource {
     lazy var fetchedResultsController: NSFetchedResultsController<User> = {
-        let request: NSFetchRequest<User> = User.fetchRequest()
+        guard let request: NSFetchRequest<User> = User.fetchRequestAnotherUsers() else { fatalError() }
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         request.sortDescriptors = [sortDescriptor]
+        
         let frc =  NSFetchedResultsController(fetchRequest: request, managedObjectContext: StorageManager.Instance.coreDataStack.mainContext, sectionNameKeyPath: nil, cacheName: nil)
         return frc
     }()
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let sections = fetchedResultsController.sections else { return 0 }
+        return sections[section].numberOfObjects
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let sections = fetchedResultsController.sections else { return nil }
+            switch sections[section].indexTitle {
+            case "0" :
+                return "Offline"
+            default:
+                return "Online"
+            }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -40,7 +52,6 @@ class ListProvider: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let result = fetchedResultsController.fetchedObjects?.count
         guard let sections = self.fetchedResultsController.sections else {
             fatalError("No sections in fetchedResultsController")
         }

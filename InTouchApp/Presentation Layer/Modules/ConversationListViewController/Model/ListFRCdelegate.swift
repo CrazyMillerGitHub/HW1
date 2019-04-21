@@ -13,13 +13,14 @@ class FRCDelegate: NSObject, NSFetchedResultsControllerDelegate {
     init(tableView: UITableView) {
         self.tableView = tableView
     }
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<User>) {
+    private func controllerWillChangeContent(_ controller: NSFetchedResultsController<User>) {
          self.tableView.beginUpdates()
     }
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<User>) {
+    private func controllerDidChangeContent(_ controller: NSFetchedResultsController<User>) {
         self.tableView.endUpdates()
     }
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        print("Lol kek cheburek")
         switch type {
         //swiftlint:disable force_unwrapping
         case .insert:

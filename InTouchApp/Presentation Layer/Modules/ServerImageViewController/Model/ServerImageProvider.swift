@@ -11,11 +11,12 @@ import UIKit
 class ServerImageProvider: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     var view: UIView? // передаем view экрана
-    weak var delegate: SaveDelegate?
+    var loadMoreStatus = false
     var data: [CellDisplayModel] = []
-    
+    var completionHandler: ((Int) -> String)?
+    var saveToProfileHandler: ((String) -> String)?
     let serverViewController = RootAmbessy()
-    
+    var count = 1
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch data.count {
         case 1...:
@@ -44,11 +45,23 @@ class ServerImageProvider: NSObject, UICollectionViewDelegate, UICollectionViewD
     
     /// Возвращаемся обратно в профиль
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.delegate?.save(sender: self)
+        print(saveToProfileHandler?(data[indexPath.row].imageUrl) ?? "")
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == data.count - 1 {
 
+        }
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currectOfset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        let dOffset = maximumOffset - currectOfset
+        if dOffset <= 40 {
+            if !loadMoreStatus {
+                loadMoreStatus = true
+                self.count += 1
+                print(completionHandler?(self.count) ?? "")
+            }
         }
     }
 }
