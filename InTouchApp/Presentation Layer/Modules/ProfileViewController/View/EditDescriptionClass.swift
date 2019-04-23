@@ -21,7 +21,7 @@ class EditDescriptionClass: UITextView {
         viewForDoneButtonOnKeyboard.items = [btnDoneOnKeyboard]
         self.inputAccessoryView = viewForDoneButtonOnKeyboard
         self.text = descriptionText
-        self.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        self.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         self.textColor = .gray
     }
     required init?(coder aDecoder: NSCoder) {

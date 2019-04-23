@@ -109,23 +109,7 @@ extension ConversationsListViewController: UITableViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
-    
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            let managedObject = listProvider.fetchedResultsController.object(at: indexPath)
-//            StorageManager.Instance.coreDataStack.mainContext.delete(managedObject)
-//            do {  StorageManager.Instance.coreDataStack.performSave()
-//                let request2: NSFetchRequest<User> = User.fetchRequest()
-//                do {
-//                    let result2 = try StorageManager.Instance.coreDataStack.mainContext.fetch(request2)
-//                    print(result2.count)
-//                } catch {
-//                    print(error.localizedDescription)
-//                }
-//            }
-//        }
-//    }
-    
+ 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         guard let messageViewController = storyBoard.instantiateViewController(withIdentifier: "messageStb") as? ConversationViewController else {

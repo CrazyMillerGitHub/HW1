@@ -52,11 +52,24 @@ class ProfileViewController: UIViewController, SaveDelegate, UIImagePickerContro
         } else {return}
     }
     
+    @IBOutlet var bgView: UIView!
     let panGestureRecognizer = UIPanGestureRecognizer()
     var panGestureAnchorPoint: CGPoint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        /////
+        // shadow
+        bgView.layer.shadowColor = UIColor.black.cgColor
+        operationButton.layer.shadowColor = UIColor(red: 1.00, green: 0.18, blue: 0.33, alpha: 1.00).cgColor
+        gcdButton.layer.shadowColor = UIColor(red: 0.18, green: 0.49, blue: 0.96, alpha: 1.00).cgColor
+        
+        editButton.layer.shadowColor = UIColor.black.cgColor
+        editButton.layer.shadowOffset = CGSize(width: 0, height: 16)
+        editButton.layer.shadowRadius = 26
+        editButton.layer.shadowOpacity = 0.26
+        
+        /////
         myActivityIndicator = MyActivityIndicator(view: view)
         view.addSubview(myActivityIndicator)
         addTargets()
@@ -67,15 +80,9 @@ class ProfileViewController: UIViewController, SaveDelegate, UIImagePickerContro
         view.addSubview(editLabel)
         editLabel.delegate = self
         editDescriptionTextView.delegate = self
-        view.addSubview(editDescriptionTextView)
+        bgView.addSubview(editDescriptionTextView)
         statusButtons(bool: false)
         panGestureRecognizer.addTarget(self, action: #selector(showMoreActions(touch: )))
-//        provider.saveToProfileHandler = { string in
-//                print("Hello")
-//                self.imageView.image = string.toImage()
-//                self.dismiss(animated: true, completion: nil)
-//                return "Success"
-//        }
         view.addGestureRecognizer(panGestureRecognizer)
         editLabel.isHidden = true
         editDescriptionTextView.isHidden = true
@@ -144,7 +151,9 @@ class ProfileViewController: UIViewController, SaveDelegate, UIImagePickerContro
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         editLabel.frame = self.titleLabel.frame
-        editDescriptionTextView.frame = self.descriptionView.frame
+        //        swiftlint:disable line_length
+        editDescriptionTextView.frame = CGRect(x: self.descriptionView.frame.minX, y: self.descriptionView.frame.minY, width: self.descriptionView.frame.width, height: self.descriptionView.frame.height + 10)
+        //        swiftlint:enable line_length
     }
 
     @objc func addImageButtonAction() {
@@ -214,9 +223,18 @@ class ProfileViewController: UIViewController, SaveDelegate, UIImagePickerContro
     }
 
     @objc func editButtonAction() {
-        DispatchQueue.main.async {
-            self.hideUnhideFunction()
-        }
+        UIView.animate(withDuration: 0.2, animations: {
+            self.editButton.transform = CGAffineTransform(scaleX: 1.10, y: 1.10)
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.2, animations: {
+                 self.editButton.transform = CGAffineTransform.identity
+                self.editButton.alpha = self.editButton.alpha == 0 ? 1 : 0
+            }, completion: { _ in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self.hideUnhideFunction()
+                }
+            })
+        })
     }
 
     private func check() -> [String: Any] {
@@ -312,7 +330,7 @@ extension ProfileViewController: UITextViewDelegate, UITextFieldDelegate {
 extension ProfileViewController: ProfileViewControllerDelegate {
     func changeProileData(success: Bool) {
         DispatchQueue.main.async {
-            self.hideUnhideFunction()
+            self.editButtonAction()
             self.myActivityIndicator.stopAnimating()
             self.statusButtons(bool: false)
             let coreData = StorageManager.Instance.coreDataStack

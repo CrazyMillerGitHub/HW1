@@ -51,6 +51,23 @@ class ListProvider: NSObject, UITableViewDataSource {
         return cell
     }
     
+    
+        func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete {
+                let managedObject = fetchedResultsController.object(at: indexPath)
+                StorageManager.Instance.coreDataStack.mainContext.delete(managedObject)
+                do {  StorageManager.Instance.coreDataStack.performSave()
+                    let request2: NSFetchRequest<User> = User.fetchRequest()
+                    do {
+                        let result2 = try StorageManager.Instance.coreDataStack.mainContext.fetch(request2)
+                        print(result2.count)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+        }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sections = self.fetchedResultsController.sections else {
             fatalError("No sections in fetchedResultsController")

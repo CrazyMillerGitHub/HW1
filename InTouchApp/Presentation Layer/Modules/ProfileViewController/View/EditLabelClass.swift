@@ -17,7 +17,7 @@ class EditLabelClass: UITextField {
         self.paddingView = paddingView
         super.init(frame: .zero)
         self.text = textLabel
-        self.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        self.font = UIFont.systemFont(ofSize: 21, weight: .semibold)
         self.textColor = .black
         self.backgroundColor = .white
         self.layer.borderWidth = 1.0

@@ -17,7 +17,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
     func sendButtonStyle(user: Bool) {
         if user {
             UIView.animate(withDuration: 0.5, animations: {
-                self.sendButton.backgroundColor = .green
+                self.sendButton.backgroundColor = UIColor(red: 0.18, green: 0.49, blue: 0.96, alpha: 1.00)
                 self.sendButton.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
             }, completion: { _ in
                 UIView.animate(withDuration: 0.3, delay: 0.5, options: [], animations: {
@@ -101,7 +101,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
     func onlineUser() {
         UIView.animate(withDuration: 1.0) {
             self.titleLabel.transform = CGAffineTransform(scaleX: 1.10, y: 1.10)
-            self.titleLabel.textColor = .green
+            self.titleLabel.textColor = UIColor(red: 0.18, green: 0.49, blue: 0.96, alpha: 1.00)
             self.sendButtonStyle(user: true)
         }
     }
@@ -113,7 +113,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
             self.sendButtonStyle(user: false)
         }
     }
-    ///////////////////////////////////////////////////////////////////////////////////////////
+  
     private func insertMessage(_ messageString: String) -> Message? {
         let message = Message.insertMessage(in: StorageManager.Instance.coreDataStack.saveContext)
         message?.message = messageString
