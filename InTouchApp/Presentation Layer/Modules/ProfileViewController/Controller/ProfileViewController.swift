@@ -201,25 +201,11 @@ class ProfileViewController: UIViewController, SaveDelegate, UIImagePickerContro
     }
 
     func hideUnhideFunction() {
-        switch count {
-        case 0:
-            self.editLabel.isHidden = true
-            self.editDescriptionTextView.isHidden = true
-            self.editButton.isHidden = false
-            self.operationButton.isHidden = true
-            self.gcdButton.isHidden = true
-            self.addImageButton.isHidden = true
-            count += 1
-            
-        default:
-            self.editLabel.isHidden = false
-            self.editDescriptionTextView.isHidden = false
-            self.editButton.isHidden = true
-            self.operationButton.isHidden = false
-            self.gcdButton.isHidden = false
-            self.addImageButton.isHidden = false
-            count-=1
-        }
+        self.operationButton.isHidden = self.operationButton.isHidden ? false : true
+        self.gcdButton.isHidden = self.gcdButton.isHidden ? false : true
+        self.addImageButton.isHidden = self.addImageButton.isHidden ? false : true
+        self.editLabel.isHidden = self.editLabel.isHidden ? false : true
+        self.editDescriptionTextView.isHidden = self.editDescriptionTextView.isHidden ? false : true
     }
 
     @objc func editButtonAction() {
