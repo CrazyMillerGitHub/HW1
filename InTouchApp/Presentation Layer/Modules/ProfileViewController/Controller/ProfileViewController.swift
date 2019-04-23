@@ -196,7 +196,7 @@ class ProfileViewController: UIViewController, SaveDelegate, UIImagePickerContro
         })
     }
 
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    func imagePickerControпеllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
 

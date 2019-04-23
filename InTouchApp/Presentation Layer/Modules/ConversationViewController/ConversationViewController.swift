@@ -26,7 +26,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
             })
         } else {
             UIView.animate(withDuration: 0.5, animations: {
-                self.sendButton.backgroundColor = .white
+                self.sendButton.backgroundColor = UIColor(red: 1.00, green: 0.18, blue: 0.33, alpha: 1.00)
                 self.sendButton.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
             }, completion: { _ in
                 UIView.animate(withDuration: 0.3, delay: 0.5, options: [], animations: {
