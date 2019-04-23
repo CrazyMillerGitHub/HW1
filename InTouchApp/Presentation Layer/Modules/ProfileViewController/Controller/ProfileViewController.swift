@@ -14,7 +14,7 @@ class ProfileViewController: UIViewController, SaveDelegate, UIImagePickerContro
         self.dismiss(animated: true, completion: {
             self.statusButtons(bool: true)
             self.count = 1
-            self.hideUnhideFunction()
+
         })
         
     }
@@ -192,11 +192,10 @@ class ProfileViewController: UIViewController, SaveDelegate, UIImagePickerContro
         picker.dismiss(animated: true, completion: {
             self.statusButtons(bool: true)
             self.count = 1
-            self.hideUnhideFunction()
-        })
+      })
     }
 
-    func imagePickerControпеllerDidCancel(_ picker: UIImagePickerController) {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
 

@@ -10,12 +10,15 @@ import UIKit
 protocol SaveDelegate: class {
     func save(imageString: String)
 }
-class ServerImageViewController: UIViewController, IDemoModelDelegate {
+class ServerImageViewController: UIViewController, IDemoModelDelegate, UIGestureRecognizerDelegate {
     weak var delegate: SaveDelegate?
     func save(imageString: String) {
         delegate?.save(imageString: imageString)
     }
+    let panGestureRecognizer = UIPanGestureRecognizer()
+    let flakeEmitterCell = CAEmitterCell()
     
+    var snowEmitterLayer: CAEmitterLayer?
     private let model: IDemoModel
     
     // DisplayModel
@@ -67,8 +70,56 @@ class ServerImageViewController: UIViewController, IDemoModelDelegate {
             return "Success"
             
         }
+        panGestureRecognizer.addTarget(self, action: #selector(showMoreActions(touch: )))
+        view.addGestureRecognizer(panGestureRecognizer)
     }
+    
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
 }
-} 
+    @objc func showMoreActions(touch: UITapGestureRecognizer) {
+        let touchPoint = touch.location(in: self.view)
+        switch touch.state {
+        case .possible:
+            print("ke")
+        case .began:
+            
+            snowEmitterLayer = CAEmitterLayer()
+            flakeEmitterCell.contents = #imageLiteral(resourceName: "tinkoff_logo.png").cgImage
+            flakeEmitterCell.scale = 0.06
+            flakeEmitterCell.scaleRange = 0.3
+            flakeEmitterCell.emissionRange = .pi
+            flakeEmitterCell.lifetime = 7.0
+            flakeEmitterCell.birthRate = 10
+            flakeEmitterCell.velocity = -30
+            flakeEmitterCell.velocityRange = -20
+            flakeEmitterCell.yAcceleration = 30
+            flakeEmitterCell.xAcceleration = 5
+            flakeEmitterCell.spin = -0.5
+            flakeEmitterCell.spinRange = 1.0
+            
+            snowEmitterLayer?.emitterPosition = CGPoint(x: touchPoint.x, y: touchPoint.y)
+            snowEmitterLayer?.emitterSize = CGSize(width: 10, height: 10)
+            snowEmitterLayer?.emitterShape = CAEmitterLayerEmitterShape.line
+            snowEmitterLayer?.beginTime = CACurrentMediaTime()
+            snowEmitterLayer?.timeOffset = 2
+            snowEmitterLayer?.emitterCells = [flakeEmitterCell]
+            //swiftlint:disable force_unwrapping
+            view.layer.addSublayer(snowEmitterLayer!)
+        case .changed:
+            DispatchQueue.main.async {
+                self.snowEmitterLayer?.emitterPosition = CGPoint(x: touchPoint.x, y: touchPoint.y)
+            }
+        case .ended:
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                self.snowEmitterLayer!.birthRate = 0
+            }
+            
+        case .cancelled:
+            print("ke")
+        case .failed:
+            print("ke")
+        }
+        
+    }
+}

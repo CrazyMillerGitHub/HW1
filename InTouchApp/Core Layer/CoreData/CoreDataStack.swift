@@ -84,7 +84,6 @@ class CoreDataStack: NSObject, ICoreDara {
         }
     }
 }
-
 // MARK: - insertAppUser and findOrInsertAppUser
 extension AppUser {
     static func insertAppUser(in context: NSManagedObjectContext) -> AppUser? {
@@ -173,6 +172,12 @@ extension User {
         return result
     }
     
+    static func insertLastMessageInUser(in context: NSManagedObjectContext, userID: String, message: String) {
+        if let user = User.fetchCurrectUser(userID: userID, in: context) {
+            user.lastMessage = message
+        }
+    }
+    
     static func fetchCurrectUser(userID: String, in context: NSManagedObjectContext) -> User? {
         guard let users = fetchRequest(in: context) else { return nil }
         for user in users where user.userID == userID { return user }
@@ -248,10 +253,22 @@ extension Conversation {
         guard let results = result.last?.messages?.allObjects as? [Message] else { return nil }
         return results
     }
-    static func requestLastMessageWithCurrectId(in context: NSManagedObjectContext, conversationID: String) -> Message? {
-        let results = requestMessagesWithCurrectId(in: context, conversationID: conversationID)
-        guard let lastMessage = results else {return nil}
-        return lastMessage.last
+    /// RequestLastMessageInConversation
+    static func requestLastMessageInConversation(in context: NSManagedObjectContext, conversationID: String) -> Message? {
+        guard let conversation = Conversation.requestConversation(in: context, conversationID: conversationID) else {
+            return nil
+        }
+        return conversation.lastMessage
+    }
+    
+    /// Вставляю и сохраняю последнее сообщение
+    static func insertLastMassegeToCurrectConversation(in context: NSManagedObjectContext, conversationID: String, message: Message?) {
+        if let conversation = Conversation.requestConversation(in: context, conversationID: conversationID) {
+            if let message = message {
+                conversation.lastMessage = message
+            }
+        }
+    
     }
     /// получения беседы с определенным conversationId
     ///

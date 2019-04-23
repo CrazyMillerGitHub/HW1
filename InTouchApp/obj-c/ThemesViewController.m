@@ -19,6 +19,9 @@
 - (Themes *)model{
   return _model;
 }
+- (IBAction)gesture:(id)sender {
+      
+}
 - (void)setModel:(Themes *)model{
   [_model release];
   _model = [model retain];

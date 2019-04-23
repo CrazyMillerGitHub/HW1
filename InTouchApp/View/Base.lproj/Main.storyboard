@@ -359,6 +359,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Yq9-t5-uOp" firstAttribute="centerX" secondItem="RSP-MM-yv4" secondAttribute="centerX" id="4fQ-f2-Rdh"/>
                             <constraint firstItem="IuS-XJ-XI4" firstAttribute="centerX" secondItem="RSP-MM-yv4" secondAttribute="centerX" id="Ou7-eY-dTV"/>
@@ -368,6 +369,9 @@
                             <constraint firstItem="8Fv-kH-vMm" firstAttribute="top" secondItem="Yq9-t5-uOp" secondAttribute="bottom" constant="20" id="oST-19-HeY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PCj-bN-3RN"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="IBM-ub-9Ch" appends="YES" id="hcx-Rj-k9r"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Theme" id="dYd-XJ-Fkg">
                         <barButtonItem key="rightBarButtonItem" title="Закрыть" id="REB-zI-CtG">
@@ -378,6 +382,11 @@
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9w0-4C-kYE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="IBM-ub-9Ch">
+                    <connections>
+                        <action selector="gesture:" destination="fix-wF-XUv" id="kjh-8q-h8Z"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3663.75" y="825"/>
         </scene>

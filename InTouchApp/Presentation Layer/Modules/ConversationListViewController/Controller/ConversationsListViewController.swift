@@ -19,7 +19,10 @@ class ConversationsListViewController: UIViewController {
         let rootProfileView = sendActionWithIdentifier(withIdentifier: "rootProfileSTR")
         self.present(rootProfileView, animated: true, completion: nil)
     }
+    let panGestureRecognizer = UIPanGestureRecognizer()
+    let flakeEmitterCell = CAEmitterCell()
     
+    var snowEmitterLayer: CAEmitterLayer?
     /// Выбор темы в настройках
     ///
     @IBOutlet var listProvider: ListProvider!
@@ -52,6 +55,8 @@ class ConversationsListViewController: UIViewController {
         do {
             try listProvider.fetchedResultsController.performFetch()
         } catch {}
+        panGestureRecognizer.addTarget(self, action: #selector(showMoreActions(touch: )))
+        view.addGestureRecognizer(panGestureRecognizer)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -93,6 +98,54 @@ extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
     }
 }
 
+extension ConversationsListViewController: UIGestureRecognizerDelegate {
+    @objc func showMoreActions(touch: UITapGestureRecognizer) {
+        let touchPoint = touch.location(in: self.view)
+        switch touch.state {
+        case .possible:
+            print("ke")
+        case .began:
+            
+            snowEmitterLayer = CAEmitterLayer()
+            flakeEmitterCell.contents = #imageLiteral(resourceName: "tinkoff_logo.png").cgImage
+            flakeEmitterCell.scale = 0.06
+            flakeEmitterCell.scaleRange = 0.3
+            flakeEmitterCell.emissionRange = .pi
+            flakeEmitterCell.lifetime = 7.0
+            flakeEmitterCell.birthRate = 10
+            flakeEmitterCell.velocity = -30
+            flakeEmitterCell.velocityRange = -20
+            flakeEmitterCell.yAcceleration = 30
+            flakeEmitterCell.xAcceleration = 5
+            flakeEmitterCell.spin = -0.5
+            flakeEmitterCell.spinRange = 1.0
+            
+            snowEmitterLayer?.emitterPosition = CGPoint(x: touchPoint.x, y: touchPoint.y)
+            snowEmitterLayer?.emitterSize = CGSize(width: 10, height: 10)
+            snowEmitterLayer?.emitterShape = CAEmitterLayerEmitterShape.line
+            snowEmitterLayer?.beginTime = CACurrentMediaTime()
+            snowEmitterLayer?.timeOffset = 2
+            snowEmitterLayer?.emitterCells = [flakeEmitterCell]
+            //swiftlint:disable force_unwrapping
+            view.layer.addSublayer(snowEmitterLayer!)
+        case .changed:
+            DispatchQueue.main.async {
+                self.snowEmitterLayer?.emitterPosition = CGPoint(x: touchPoint.x, y: touchPoint.y)
+            }
+        case .ended:
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                self.snowEmitterLayer!.birthRate = 0
+            }
+            
+        case .cancelled:
+            print("ke")
+        case .failed:
+            print("ke")
+        }
+        
+    }
+}
+
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension ConversationsListViewController: UITableViewDelegate {
    
@@ -116,8 +169,9 @@ extension ConversationsListViewController: UITableViewDelegate {
             fatalError()
         }
         guard let row = tableView.indexPathForSelectedRow?.row else { return }
+        guard let userID = self.listProvider.fetchedResultsController.fetchedObjects?[row].userID else { fatalError() }
         messageViewController.currectUser = self.listProvider.fetchedResultsController.fetchedObjects?[row]
-        messageViewController.userId = self.listProvider.fetchedResultsController.fetchedObjects?[row].userID
+        messageViewController.userId = userID
         messageViewController.titleLabel.text = self.listProvider.fetchedResultsController.fetchedObjects?[row].name
         self.navigationController?.pushViewController(messageViewController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)

@@ -41,16 +41,16 @@ class ListProvider: NSObject, UITableViewDataSource {
             cell.profileImage.image = UIImage(data: image)
             cell.profileImage.layer.cornerRadius = 22.5
         }
-        let message = user.lastMessage ?? ""
+          guard let userID = user.userID else { fatalError("No found UserID. Are you Okay?") }
+        let lastMessage = Conversation.requestLastMessageInConversation(in: StorageManager.Instance.coreDataStack.mainContext, conversationID: userID)
+        let message = lastMessage?.message ?? ""
         let online = user.isOnline
-        guard let userID = user.userID else { fatalError("No found UserID. Are you Okay?") }
-        let date = Conversation.requestLastMessageWithCurrectId(in: StorageManager.Instance.coreDataStack.mainContext, conversationID: userID)?.date
+        let date = lastMessage?.date ?? Date()
         let name = user.name ?? ""
         cell.configureCell(name: name, message: message, date: date, online: online, hasUnreadmessage: true)
         // swiftlint:enable force_cast
         return cell
     }
-    
     
         func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
             if editingStyle == .delete {

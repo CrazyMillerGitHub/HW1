@@ -107,32 +107,21 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate, MCSessionDelega
                 }
             } else {
                 StorageManager.Instance.coreDataStack.saveContext.performAndWait {
-                    
                     let message = Message.insertMessage(in: StorageManager.Instance.coreDataStack.saveContext)
                     message?.inOut = 1
                     message?.date = Date()
-                    if let textMessage = dict["text"] as? String {
-                        message?.message = textMessage
-                    }
+                    guard let textMessage = dict["text"] as? String else { fatalError() }
+                    message?.message = textMessage
                     message?.messageID = generateMessageId()
                     message?.conversationID = peerID.displayName
                     let conversation = Conversation.requestConversation(in: StorageManager.Instance.coreDataStack.saveContext, conversationID: peerID.displayName)
-                    if let message = message {
-                        conversation?.addToMessages(message)
-                        
-                    }
-                    StorageManager.Instance.coreDataStack.saveContext.performAndWait {
-                        if let user = AppUser.fetchCurrectUserWithID(in: StorageManager.Instance.coreDataStack.saveContext, userId: peerID.displayName) {
-                            if let textMessage = dict["text"] as? String {
-                                user.lastMessage = textMessage
-                            }
-                        }
-                        StorageManager.Instance.coreDataStack.performSave()
+                    if let message = message { conversation?.addToMessages(message)
+                        Conversation.insertLastMassegeToCurrectConversation(in: StorageManager.Instance.coreDataStack.saveContext, conversationID: peerID.displayName, message: message)
+                        User.insertLastMessageInUser(in: StorageManager.Instance.coreDataStack.saveContext, userID: peerID.displayName, message: message.message!)
                     }
                 }
-                
+                StorageManager.Instance.coreDataStack.performSave()
             }
-//             delegate?.didRecieveMessage(text: dict["text"] as! String, fromUser: peerID.displayName, toUser: session.myPeerID.displayName)
         }
         // swiftlint:enable force_cast
     }

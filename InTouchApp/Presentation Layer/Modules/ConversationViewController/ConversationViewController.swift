@@ -5,14 +5,13 @@
 //  Created by Михаил Борисов on 22/02/2019.
 //  Copyright © 2019 Mikhail Borisov. All rights reserved.
 //
-
 import UIKit
 import CoreData
 protocol MessageCellConfiguration: class {
     var txt: String? {get set}
 }
 
-class ConversationViewController: UIViewController, UITextFieldDelegate {
+class ConversationViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
     
     func sendButtonStyle(user: Bool) {
         if user {
@@ -44,12 +43,20 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var bottomConstraint: NSLayoutConstraint!
     @IBOutlet var sendButton: UIButton!
     var manager: MultipeerCommunicator!
+    
+    let flakeEmitterCell = CAEmitterCell()
+    
+    var snowEmitterLayer: CAEmitterLayer?
+    
+     let panGestureRecognizer = UIPanGestureRecognizer()
+    
     weak var communicator: Communicator?
     var userController: UserFetchResultController = UserFetchResultController()
     
     var titleLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 120, height: 24))
         label.font = UIFont.systemFont(ofSize: 17.0, weight: .semibold)
+        label.textColor = UINavigationBar.appearance().tintColor
         label.textAlignment = .center
         return label
     }()
@@ -59,9 +66,6 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.titleView = titleLabel
         extendedLayoutIncludesOpaqueBars = true
-        guard let userID = userId else { fatalError() }
-        insertMessageForCurrectUser(userID: userID, message: "Just Pray for me!")
-        textField.delegate = self
         dtProvider.userId = userId
         dtProvider.currectUser = currectUser
         tableView.backgroundColor = .white
@@ -90,7 +94,56 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
         } catch {
             
         }
+        panGestureRecognizer.addTarget(self, action: #selector(showMoreActions(touch: )))
+        view.addGestureRecognizer(panGestureRecognizer)
     }
+    
+    @objc func showMoreActions(touch: UITapGestureRecognizer) {
+        let touchPoint = touch.location(in: self.view)
+        switch touch.state {
+        case .possible:
+            print("ke")
+        case .began:
+            
+            snowEmitterLayer = CAEmitterLayer()
+            flakeEmitterCell.contents = #imageLiteral(resourceName: "tinkoff_logo.png").cgImage
+            flakeEmitterCell.scale = 0.06
+            flakeEmitterCell.scaleRange = 0.3
+            flakeEmitterCell.emissionRange = .pi
+            flakeEmitterCell.lifetime = 7.0
+            flakeEmitterCell.birthRate = 10
+            flakeEmitterCell.velocity = -30
+            flakeEmitterCell.velocityRange = -20
+            flakeEmitterCell.yAcceleration = 30
+            flakeEmitterCell.xAcceleration = 5
+            flakeEmitterCell.spin = -0.5
+            flakeEmitterCell.spinRange = 1.0
+            
+            snowEmitterLayer?.emitterPosition = CGPoint(x: touchPoint.x, y: touchPoint.y)
+            snowEmitterLayer?.emitterSize = CGSize(width: 10, height: 10)
+            snowEmitterLayer?.emitterShape = CAEmitterLayerEmitterShape.line
+            snowEmitterLayer?.beginTime = CACurrentMediaTime()
+            snowEmitterLayer?.timeOffset = 2
+            snowEmitterLayer?.emitterCells = [flakeEmitterCell]
+            //swiftlint:disable force_unwrapping
+            view.layer.addSublayer(snowEmitterLayer!)
+        case .changed:
+            DispatchQueue.main.async {
+                self.snowEmitterLayer?.emitterPosition = CGPoint(x: touchPoint.x, y: touchPoint.y)
+            }
+        case .ended:
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                self.snowEmitterLayer!.birthRate = 0
+            }
+            
+        case .cancelled:
+            print("ke")
+        case .failed:
+            print("ke")
+        }
+        
+    }
+    
     @objc func didChanged() {
         if textField.text?.count == 1 {
             sendButtonStyle(user: true)
@@ -101,7 +154,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
     func onlineUser() {
         UIView.animate(withDuration: 1.0) {
             self.titleLabel.transform = CGAffineTransform(scaleX: 1.10, y: 1.10)
-            self.titleLabel.textColor = UIColor(red: 0.18, green: 0.49, blue: 0.96, alpha: 1.00)
+            self.titleLabel.textColor = UIColor(red: 0.12, green: 0.80, blue: 0.35, alpha: 1.00)
             self.sendButtonStyle(user: true)
         }
     }
@@ -109,7 +162,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
     func offlineUser() {
         UIView.animate(withDuration: 1.0) {
             self.titleLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
-            self.titleLabel.textColor = .black
+            self.titleLabel.textColor = UINavigationBar.appearance().tintColor
             self.sendButtonStyle(user: false)
         }
     }
@@ -119,14 +172,14 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
         message?.message = messageString
         return message
     }
-    private func insertMessageForCurrectUser(userID: String, message: String) {
-        if let currectUser = User.fetchCurrectUser(userID: userID, in: StorageManager.Instance.coreDataStack.saveContext) {
-            if let message = insertMessage(message) {
-                currectUser.addToMessages(message)
-                StorageManager.Instance.coreDataStack.performSave()
-            }
-        }
-    }
+//    private func insertMessageForCurrectUser(userID: String, message: String) {
+//        if let currectUser = User.fetchCurrectUser(userID: userID, in: StorageManager.Instance.coreDataStack.saveContext) {
+//            if let message = insertMessage(message) {
+//                currectUser.addToMessages(message)
+//                StorageManager.Instance.coreDataStack.performSave()
+//            }
+//        }
+//    }
 
     @IBAction func sendAction(_ sender: Any) {
         communicator?.sendMessage(string: "d", to: "", completionHandler: nil)
@@ -142,12 +195,14 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
             message?.conversationID = userId
             let conversation = Conversation.requestConversation(in: StorageManager.Instance.coreDataStack.saveContext, conversationID: userId)
             if let message = message { conversation?.addToMessages(message)
+                 Conversation.insertLastMassegeToCurrectConversation(in: StorageManager.Instance.coreDataStack.saveContext, conversationID: userId, message: message)
+                User.insertLastMessageInUser(in: StorageManager.Instance.coreDataStack.saveContext, userID: userId, message: message.message!)
             }
-            StorageManager.Instance.coreDataStack.performSave()
         }
         if let arr = try? JSONSerialization.data(withJSONObject: array, options: .prettyPrinted) {
             if let peer = CommunicatorManager.instance.communicator.mcPeerIDFunc(name: ((AppUser.requestAppUser(in: StorageManager.Instance.coreDataStack.mainContext))?.currentUser!.userID)!) {
                 try? CommunicatorManager.instance.communicator.session.send(arr, toPeers: [peer], with: .reliable)
+                 StorageManager.Instance.coreDataStack.performSave()
                 textField.text = ""
             } else {
                 self.messageNotSent()

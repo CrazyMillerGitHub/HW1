@@ -9,6 +9,7 @@
     <entity name="Conversation" representedClassName="Conversation" syncable="YES" codeGenerationType="class">
         <attribute name="conversationID" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="appUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppUser" inverseName="conversations" inverseEntity="AppUser" syncable="YES"/>
+        <relationship name="lastMessage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Message" inverseName="lastMessageInConversation" inverseEntity="Message" syncable="YES"/>
         <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="conversation" inverseEntity="Message" syncable="YES"/>
     </entity>
     <entity name="Message" representedClassName="Message" syncable="YES" codeGenerationType="class">
@@ -19,7 +20,7 @@
         <attribute name="messageID" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="conversation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Conversation" inverseName="messages" inverseEntity="Conversation" syncable="YES"/>
         <relationship name="lastMessageAppUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppUser" inverseName="lastMessage" inverseEntity="AppUser" syncable="YES"/>
-        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="messages" inverseEntity="User" syncable="YES"/>
+        <relationship name="lastMessageInConversation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Conversation" inverseName="lastMessage" inverseEntity="Conversation" syncable="YES"/>
     </entity>
     <entity name="OnlineImage" representedClassName="OnlineImage" syncable="YES" codeGenerationType="class">
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
@@ -33,16 +34,15 @@
         <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="appUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppUser" inverseName="users" inverseEntity="AppUser" syncable="YES"/>
         <relationship name="currentAppUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppUser" inverseName="currentUser" inverseEntity="AppUser" syncable="YES"/>
-        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="user" inverseEntity="Message" syncable="YES"/>
     </entity>
     <fetchRequest name="AppUser" entity="AppUser"/>
     <fetchRequest name="ConversationWithID" entity="Conversation" predicateString="TRUEPREDICATE"/>
     <fetchRequest name="UserRequest" entity="User"/>
     <elements>
         <element name="AppUser" positionX="-63" positionY="-18" width="128" height="105"/>
-        <element name="Conversation" positionX="324.8828125" positionY="-166.26953125" width="128" height="90"/>
+        <element name="Conversation" positionX="324.8828125" positionY="-166.26953125" width="128" height="105"/>
         <element name="Message" positionX="498.71484375" positionY="56.79296875" width="128" height="165"/>
-        <element name="User" positionX="593.7109375" positionY="-212.52734375" width="128" height="180"/>
         <element name="OnlineImage" positionX="144" positionY="-63" width="128" height="60"/>
+        <element name="User" positionX="593.7109375" positionY="-212.52734375" width="128" height="165"/>
     </elements>
 </model>

@@ -57,6 +57,7 @@
 		74A79CE622168CC700F23890 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74A79CB6221684A700F23890 /* Main.storyboard */; };
 		74B33C902230773B00F3BB59 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B33C8F2230773B00F3BB59 /* ProfileViewController.swift */; };
 		74CDAE692226B5F1001FEF3B /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CDAE682226B5F1001FEF3B /* TableViewCell.swift */; };
+		74D10E29226F9E2B00EC0DC1 /* tinkoffGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D10E28226F9E2B00EC0DC1 /* tinkoffGesture.swift */; };
 		74D746A5222C3A5200383066 /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D746A4222C3A5200383066 /* Themes.m */; };
 		74DF00C52257226800DF175A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DF00C42257226800DF175A /* Extensions.swift */; };
 		74E254782247F546009E089F /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E254772247F546009E089F /* StorageManager.swift */; };
@@ -120,6 +121,7 @@
 		74A79CB9221684A700F23890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74B33C8F2230773B00F3BB59 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		74CDAE682226B5F1001FEF3B /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		74D10E28226F9E2B00EC0DC1 /* tinkoffGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tinkoffGesture.swift; sourceTree = "<group>"; };
 		74D74677222AB3C000383066 /* ThemesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemesViewControllerDelegate.h; sourceTree = "<group>"; };
 		74D746A3222C3A5200383066 /* Themes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
 		74D746A4222C3A5200383066 /* Themes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Themes.m; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 		743A69422265A46D00FC2995 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				74D10E28226F9E2B00EC0DC1 /* tinkoffGesture.swift */,
 				743A69432265A49D00FC2995 /* ServerImageViewController.swift */,
 			);
 			path = Controller;
@@ -651,6 +654,7 @@
 				741ADE07225E25E800C033A0 /* PresentationAssembly.swift in Sources */,
 				743A6969226742E200FC2995 /* RootAmbessy.swift in Sources */,
 				74130152222F1AA00093181F /* Theme.swift in Sources */,
+				74D10E29226F9E2B00EC0DC1 /* tinkoffGesture.swift in Sources */,
 				742EE9002263D8990039ED12 /* ListFRCdelegate.swift in Sources */,
 				74DF00C52257226800DF175A /* Extensions.swift in Sources */,
 				743A695722666CD400FC2995 /* IRequestSender.swift in Sources */,
